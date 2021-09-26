@@ -17,7 +17,27 @@ export default function SingleTrip(props) {
   return (
     <>
       <LinkDiv to={`/trip/${id}`}>
-        {width > 930 ? (
+        {(width > 930 && window.location.pathname === "/trip") ||
+        width < 930 ? (
+          <SingleTripDiv>
+            <Country>
+              <ImgFlag src={France} alt="" />
+              <h3>{country}</h3>
+            </Country>
+            <Content>
+              <Header>Company</Header>
+              <h3>{company_name}</h3>
+              <p>
+                {street} {street_num}, {props.address.street.zip} {city}
+              </p>
+              <Header>Date</Header>
+              <p>
+                {" "}
+                {start_date} - {end_date}
+              </p>
+            </Content>
+          </SingleTripDiv>
+        ) : (
           <SingleTripDiv flex>
             <Left>
               <ImgFlag src={France} alt="" />
@@ -37,25 +57,6 @@ export default function SingleTrip(props) {
                 </p>
               </Align>
             </Right>
-          </SingleTripDiv>
-        ) : (
-          <SingleTripDiv>
-            <Country>
-              <ImgFlag src={France} alt="" />
-              <h3>{country}</h3>
-            </Country>
-            <Content>
-              <Header>Company</Header>
-              <h3>{company_name}</h3>
-              <p>
-                {street} {street_num}, {props.address.street.zip} {city}
-              </p>
-              <Header>Date</Header>
-              <p>
-                {" "}
-                {start_date} - {end_date}
-              </p>
-            </Content>
           </SingleTripDiv>
         )}
       </LinkDiv>

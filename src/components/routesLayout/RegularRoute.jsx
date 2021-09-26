@@ -12,7 +12,7 @@ export const RegularRoute = ({
     render={(props) => (
       <Container>
         <LeftSideBar />
-        <RightSideBar />
+        <RightSideBar {...props} />
         <Component {...props} />
       </Container>
     )}

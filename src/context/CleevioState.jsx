@@ -27,6 +27,7 @@ const BazosState = (props) => {
       value={{
         setLoading,
         trips,
+        error,
       }}
     >
       {props.children}

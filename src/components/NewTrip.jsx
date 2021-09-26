@@ -18,93 +18,68 @@ export default function NewTrip() {
             <br />
             <input
               type="date"
-              id="start"
               name="trip-start"
               defaultValue="2020-07-22"
               min="2020-01-01"
-              max="2018-12-31"
+              max="2022-12-31"
             />{" "}
             <br />
-            <label htmlFor="trip-start">End date</label>
+            <label htmlFor="trip-end">End date</label>
             <br />
             <input
               type="date"
-              id="start"
-              name="trip-start"
+              name="trip-end"
               defaultValue="2020-07-22"
               min="2020-01-01"
-              max="2018-12-31"
+              max="2022-12-31"
             />{" "}
           </Section>
           <Section>
             <br />
 
-            <label htmlFor="trip-start">Company name</label>
+            <label htmlFor="company" placeholder="Type here...">
+              Company name
+            </label>
             <br />
-            <input
-              type="text"
-              name="trip-start"
-              min="2020-01-01"
-              max="2018-12-31"
-            />
+            <input type="text" placeholder="Type here..." name="company" />
             <br />
-            <label htmlFor="trip-start">City</label>
+            <label htmlFor="city">City</label>
             <br />
-            <input
-              type="text"
-              name="trip-start"
-              min="2020-01-01"
-              max="2018-12-31"
-            />
+            <input type="text" placeholder="Type here..." name="city" />
             <br />
 
-            <label htmlFor="trip-start">Street</label>
+            <label htmlFor="street">Street</label>
             <br />
-            <input
-              type="text"
-              name="Street"
-              min="2020-01-01"
-              max="2018-12-31"
-            />
+            <input type="text" placeholder="Type here..." name="street" />
             <br />
 
-            <label htmlFor="trip-start">Street number</label>
+            <label htmlFor="streetNum">Street number</label>
             <br />
-            <input
-              type="number"
-              name="Street"
-              min="2020-01-01"
-              max="2018-12-31"
-            />
+            <input type="number" placeholder="Type here..." name="streetNum" />
             <br />
 
-            <label htmlFor="trip-start">Zip code</label>
+            <label htmlFor="zipCode">Zip code</label>
             <br />
-            <input
-              type="text"
-              name="trip-start"
-              min="2020-01-01"
-              max="2018-12-31"
-            />
+            <input type="text" placeholder="Type here..." name="zipCode" />
           </Section>
           <Section>
             <br />
-            <label htmlFor="trip-start">
+            <label htmlFor="question-one">
               Have you been recently tested for COVID-19?
             </label>
             <br />
             <input type="radio" name="question-one" defaultValue="yes" /> YES
-            <input type="radio" name="question-one" defaultValue="no" /> NO
+            <input type="radio" name="question-two" defaultValue="no" /> NO
             <br />
-            <label htmlFor="trip-start">Start date</label>
+            <label htmlFor="covidDate">Date of receiving test results</label>
             <br />
             <input
               type="date"
               id="start"
-              name="trip-start"
+              name="covidDate"
               defaultValue="2020-07-22"
               min="2020-01-01"
-              max="2018-12-31"
+              max="2022-12-31"
             />{" "}
             <br />
           </Section>
@@ -121,11 +96,18 @@ const NewTripDiv = styled.div`
 const Section = styled.div`
   border-radius: 10px;
   font-size: 14px;
-
+  width: 50%;
+  margin: 0 auto;
   padding: 1rem 2rem;
   margin-top: 1rem;
   background-color: #f9f9fa;
   color: black;
   label {
+  }
+  @media (max-width: 900px) {
+    width: 80%;
+  }
+  @media (max-width: 500px) {
+    width: 85%;
   }
 `;

@@ -6,10 +6,8 @@ import React, { useState } from "react";
 import logo from "../imgs/logo.png";
 import styled from "styled-components";
 
-function LeftSideBar() {
+function LeftSideBar(props) {
   const [isMobile, setIsMobile] = useState(false);
-  const [icon, setIcon] = useState("");
-
   const handleClick = () => {
     setIsMobile(!isMobile);
   };

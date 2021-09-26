@@ -8,7 +8,6 @@ const Home = () => {
   return (
     <HomeDiv>
       <PageName>Your trips</PageName>
-
       {trips ? (
         trips.map((trip) => <SingleTrip key={trip.id} {...trip} />)
       ) : (
@@ -29,7 +28,7 @@ const HomeDiv = styled.div`
   grid-area: main;
   padding: 1rem 2rem;
 `;
-const LoadingDiv = styled.img`
+export const LoadingDiv = styled.img`
   display: block;
   margin-left: auto;
   margin-right: auto;

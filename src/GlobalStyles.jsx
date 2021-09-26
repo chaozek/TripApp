@@ -22,12 +22,23 @@ color: #63666A;
     color: black;
   }
 
-input,select{
+input[type="text"],input[type="number"],input[type="date"], select{
   border: 1px solid #F1F1F2;
   border-radius: 10px;
+  margin: 1rem 0rem;
   width: 100%;
   height: 48px;
 }
+
+::placeholder,
+  ::-webkit-input-placeholder {
+    color: #D0D0CE
+
+  }
+  :-ms-input-placeholder {
+     color: #D0D0CE
+
+  }
 label{
   font-size: 14px;
 }
