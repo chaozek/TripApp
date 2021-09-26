@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 export const GlobalStyles = createGlobalStyle`
-  body, html {
+  body {
     margin: 0;
     padding: 0;
     box-sizing: border-box; 
@@ -11,6 +11,7 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 16px;
 color: #63666A;
   }
+
   ul{
   list-style: none; 
   display: flex;

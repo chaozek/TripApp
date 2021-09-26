@@ -62,6 +62,7 @@ const RightSideBarDiv = styled.div`
   grid-area: rightSidebar;
   padding: 1rem 2rem;
 
+  overflow-x: hidden; /* Disable horizontal scroll */
   @media (max-width: 850px) {
     border-left: none;
   }

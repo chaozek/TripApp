@@ -4,7 +4,11 @@ import React, { useContext, useEffect } from "react";
 import SingleTrip from "./SingleTrip";
 import styled from "styled-components";
 const Home = () => {
-  const { trips } = useContext(CleevioContext);
+  const { trips, getTrips } = useContext(CleevioContext);
+
+  useEffect(() => {
+    getTrips();
+  }, []);
   return (
     <HomeDiv>
       <PageName>Your trips</PageName>
@@ -20,8 +24,11 @@ const Home = () => {
 export default Home;
 
 export const PageName = styled.h2`
+  padding: ${(props) => (props.padding ? "1rem 2rem" : "none")};
   padding-bottom: 2.3rem;
   border-bottom: 1px solid #f1f1f2;
+  text-align: left !important;
+  align-items: flex-start;
 `;
 
 const HomeDiv = styled.div`

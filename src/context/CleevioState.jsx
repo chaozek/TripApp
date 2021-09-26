@@ -7,10 +7,71 @@ const BazosState = (props) => {
     loading: false,
   };
   const [trips, setTrips] = useState();
+  const [newTrip, setNewTrip] = useState({
+    start_date: "2021-09-26",
+    end_date: "2021-09-26",
+    company_name: "X",
+    address: {
+      street: "X",
+      street_num: 5,
+      city: "",
+      country: "X",
+      zip: "X",
+    },
+    covid: true,
+    covid_test_date: "2021-09-26",
+  });
   const [error, setError] = useState();
+  const [country, setCountry] = useState();
   const [loading, setLoading] = useState(true);
   const config = {
     headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` },
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post(
+        "https://task-devel.cleevio-vercel.vercel.app/api/trip",
+        newTrip,
+        config
+      )
+      .then(function (response) {
+ /* eslint-disable */         console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "covid") {
+      if (value === "true") return true;
+      if (value === "false") return false;
+    }
+
+    if (
+      name === "city" ||
+      name === "street" ||
+      name === "country" ||
+      name === "zip" ||
+      name === "street_num"
+    ) {
+      setNewTrip((p) => ({
+        ...p,
+        address:
+          name === "street_num"
+            ? { ...p.address, [name]: parseInt(value) }
+            : { ...p.address, [name]: value },
+      }));
+    } else {
+      setNewTrip((p) => {
+        return {
+          ...p,
+          [name]: value,
+        };
+      });
+    }
   };
 
   const getTrips = async () => {
@@ -19,15 +80,29 @@ const BazosState = (props) => {
       .then((data) => setTrips(data.data))
       .catch((err) => setError(err));
   };
+  const getCountries = async () => {
+    await axios
+      .get("https://task-devel.cleevio-vercel.vercel.app/api/country", config)
+      .then((data) => setCountry(data.data))
+      .catch((err) => setError(err));
+  };
   useEffect(() => {
     getTrips();
+    getCountries();
   }, []);
+
   return (
     <CleevioContext.Provider
       value={{
         setLoading,
         trips,
         error,
+        handleChange,
+        country,
+        setCountry,
+        handleSubmit,
+        newTrip,
+        getTrips,
       }}
     >
       {props.children}
