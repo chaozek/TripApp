@@ -99,6 +99,7 @@ const Section = styled.div`
   width: 50%;
   margin: 0 auto;
   padding: 1rem 2rem;
+  margin: 0;
   margin-top: 1rem;
   background-color: #f9f9fa;
   color: black;
