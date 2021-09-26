@@ -1,10 +1,14 @@
+import { GiHamburgerMenu } from "react-icons/gi";
+import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 import { YellowButton } from "../GlobalStyles";
 import React, { useState } from "react";
 import logo from "../imgs/logo.png";
 import styled from "styled-components";
+
 function LeftSideBar() {
   const [isMobile, setIsMobile] = useState(false);
+  const [icon, setIcon] = useState("");
 
   const handleClick = () => {
     setIsMobile(!isMobile);
@@ -14,15 +18,23 @@ function LeftSideBar() {
       <Link to="/">
         <LogoDiv src={logo} alt="" />
       </Link>
+      <MobileMenu onClick={handleClick}>
+        <IconContext.Provider value={{ style: { verticalAlign: "middle" } }}>
+          <GiHamburgerMenu />
+        </IconContext.Provider>
+      </MobileMenu>
       {isMobile ? (
         <PhoneMenuLinks>
-          <Cancel onClick={handleClick}>X</Cancel>
-          <li>
-            <a href="">NEW TRIP</a>
-          </li>
-          <li>
-            <a href="">Your Trips</a>
-          </li>
+          <MobileDiv>
+            <Link to="/">
+              <LogoDiv src={logo} alt="" />
+            </Link>
+          </MobileDiv>
+          <MobileMenu onClick={handleClick}>X</MobileMenu>
+          <YellowButton size="5rem" to="/trip">
+            <p>New Trip</p>
+            <p>+</p>
+          </YellowButton>
         </PhoneMenuLinks>
       ) : (
         <MenuLinks>
@@ -32,7 +44,6 @@ function LeftSideBar() {
           </YellowButton>
         </MenuLinks>
       )}
-      <MobileMenu onClick={handleClick}>Klikni</MobileMenu>
     </LeftSideBarDiv>
   );
 }
@@ -42,17 +53,29 @@ const LeftSideBarDiv = styled.div`
   background-color: #f9f9fa;
   grid-area: leftSidebar;
   padding: 1rem 2rem;
+
   @media (max-width: 550px) {
     display: flex;
     height: 30px;
+    background-color: white;
   }
 `;
 const MobileMenu = styled.button`
-  background-color: green;
+  vertical-align: bottom;
+  background-color: #f1f1f2;
+  font-weight: 200;
+  font-size: 1.33rem;
+  color: #76787b;
   display: none;
   @media (max-width: 550px) {
+    border-radius: 10px;
+    border: none;
     display: block;
-    height: 30px;
+    position: absolute;
+    left: 25px;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
   }
 `;
 const LogoDiv = styled.img`
@@ -61,6 +84,13 @@ const LogoDiv = styled.img`
   margin-right: auto;
   margin-bottom: 3rem;
   text-align: center;
+  @media (max-width: 550px) {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 const MenuLinks = styled.div`
   flex-direction: column;
@@ -68,6 +98,11 @@ const MenuLinks = styled.div`
     display: none;
     height: 30px;
   }
+`;
+const MobileDiv = styled.div`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 `;
 const Cancel = styled.button`
   display: none;
@@ -84,13 +119,17 @@ const PhoneMenuLinks = styled.div`
   @media (max-width: 550px) {
     display: relative;
     position: absolute;
-    display: block;
+    padding-left: inherit;
+    padding-right: inherit;
+    position: absolute;
+    padding-top: 1rem;
+    left: 0;
+    right: 0;
     list-style: none;
-    background-color: yellow;
+    background-color: white;
     left: 0;
     top: 0;
     transition: all 0.5 ease-out;
     height: 100vh;
-    width: 100%;
   }
 `;

@@ -20,7 +20,7 @@ const Home = () => {
 
 export default Home;
 
-const PageName = styled.h2`
+export const PageName = styled.h2`
   padding-bottom: 2.3rem;
   border-bottom: 1px solid #f1f1f2;
 `;

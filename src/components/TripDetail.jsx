@@ -1,10 +1,11 @@
+import { PageName } from "./Home";
 import React from "react";
 import styled from "styled-components";
 
 export default function TripDetail() {
   return (
     <TripDiv>
-      <h1>Detail</h1>
+      <PageName>Detail</PageName>
     </TripDiv>
   );
 }

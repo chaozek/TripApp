@@ -22,13 +22,22 @@ color: #63666A;
     color: black;
   }
 
-
+input,select{
+  border: 1px solid #F1F1F2;
+  border-radius: 10px;
+  width: 100%;
+  height: 48px;
+}
+label{
+  font-size: 14px;
+}
 `;
 const theme = {
   fg: "palevioletred",
   bg: "#F9F9FA",
 };
 export const YellowButton = styled(Link)`
+  margin-top: ${(props) => props.size};
   background-color: #f8d964;
   display: flex;
   cursor: pointer;

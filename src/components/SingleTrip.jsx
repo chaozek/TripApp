@@ -12,11 +12,11 @@ export default function SingleTrip(props) {
     window.addEventListener("resize", updateWidth);
     return () => window.removeEventListener("resize", updateWidth);
   }, [width]);
-  const { id } = props;
-
+  const { id, end_date, start_date, company_name } = props;
+  const { street, city, street_num, country } = props.address;
   return (
     <>
-      <LinkDiv to={`/trip/${props.id}`}>
+      <LinkDiv to={`/trip/${id}`}>
         {width > 930 ? (
           <SingleTripDiv flex>
             <Left>
@@ -24,17 +24,16 @@ export default function SingleTrip(props) {
             </Left>
             <Right>
               <Align>
-                <h3>{props.address.country}</h3>
+                <h3>{country}</h3>
                 <Spacer>|</Spacer>
                 <p>
-                  {props.start_date} - {props.end_date}
+                  {start_date} - {end_date}
                 </p>
               </Align>
               <Align>
-                <h3>{props.company_name}</h3> <Spacer>|</Spacer>
+                <h3>{company_name}</h3> <Spacer>|</Spacer>
                 <p style={{ fontSize: "14px" }}>
-                  {props.address.street} {props.address.street_num},{" "}
-                  {props.address.street.zip} {props.address.city}
+                  {street} {street_num}, {props.address.street.zip} {city}
                 </p>
               </Align>
             </Right>
@@ -43,14 +42,19 @@ export default function SingleTrip(props) {
           <SingleTripDiv>
             <Country>
               <ImgFlag src={France} alt="" />
-              <h3>France</h3>
+              <h3>{country}</h3>
             </Country>
             <Content>
               <Header>Company</Header>
-              <h3>Daimler AG</h3>
-              <p>Mercedes-Benz Plant Berlin Daimlerstraße 143, 12277 Berlin</p>
-              <Header>Company</Header>
-              <p>Jul 14 - Sep 20, 2019</p>
+              <h3>{company_name}</h3>
+              <p>
+                {street} {street_num}, {props.address.street.zip} {city}
+              </p>
+              <Header>Date</Header>
+              <p>
+                {" "}
+                {start_date} - {end_date}
+              </p>
             </Content>
           </SingleTripDiv>
         )}
