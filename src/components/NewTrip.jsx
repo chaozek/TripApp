@@ -194,7 +194,18 @@ export default function NewTrip() {
     </>
   );
 }
-const Form = styled.form``;
+const Form = styled.form`
+  width: 50%;
+  @media (max-width: 1200px) {
+    width: 90%;
+  }
+  @media (max-width: 900px) {
+    width: 90%;
+  }
+  @media (max-width: 500px) {
+    width: 85%;
+  }
+`;
 const NewTripDiv = styled.div`
   padding: 1rem 2rem;
   display: flex;
@@ -203,17 +214,17 @@ const NewTripDiv = styled.div`
 `;
 
 const Section = styled.div`
+  width: 100%;
   border-radius: 10px;
   font-size: 14px;
   padding: 1rem 1.5rem;
   margin-top: 1rem;
-  width: 600px;
   background-color: #f9f9fa;
   color: black;
   label {
   }
   @media (max-width: 900px) {
-    width: 80%;
+    width: 90%;
   }
   @media (max-width: 500px) {
     width: 85%;

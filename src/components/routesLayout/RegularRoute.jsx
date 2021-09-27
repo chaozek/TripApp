@@ -23,6 +23,11 @@ export const HomeLayout = styled.div`
   height: calc(100vh);
   grid-template-columns: 1fr 4fr 1.5fr;
   grid-template-areas: "leftSidebar main rightSidebar";
+  @media (max-width: 1200px) {
+    grid-template-areas:
+      "leftSidebar main main"
+      "leftSidebar rightSidebar rightSidebar ";
+  }
   @media (max-width: 850px) {
     grid-template-columns: 2fr;
     grid-template-areas:
