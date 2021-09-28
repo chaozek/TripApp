@@ -1,9 +1,12 @@
+import { CleevioContext } from "../context/CleevioState";
 import { Link } from "react-router-dom";
 import { link } from "fs";
 import France from "../imgs/France.png";
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 export default function SingleTrip(props) {
+  const { isEditing, setIsEditing } = useContext(CleevioContext);
+
   const [width, setWidth] = React.useState(window.innerWidth);
   const updateWidth = () => {
     setWidth(window.innerWidth);
@@ -14,6 +17,7 @@ export default function SingleTrip(props) {
   }, [width]);
   const { id, end_date, start_date, company_name } = props;
   const { street, city, street_num, country } = props.address;
+
   return (
     <>
       <LinkDiv to={`/trip/${id}`}>

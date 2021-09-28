@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from "react";
 import SingleTrip from "./SingleTrip";
 import styled from "styled-components";
 const Home = () => {
-  const { trips, getTrips } = useContext(CleevioContext);
+  const { trips, getTrips, loading, error } = useContext(CleevioContext);
 
   useEffect(() => {
     getTrips();
@@ -12,10 +12,12 @@ const Home = () => {
   return (
     <HomeDiv>
       <PageName>Your trips</PageName>
-      {trips ? (
-        trips.map((trip) => <SingleTrip key={trip.id} {...trip} />)
-      ) : (
+      {error ? (
+        <h1>fetching error</h1>
+      ) : loading ? (
         <LoadingDiv src={Loading} alt="" />
+      ) : (
+        trips.map((trip) => <SingleTrip key={trip.id} {...trip} />)
       )}
     </HomeDiv>
   );

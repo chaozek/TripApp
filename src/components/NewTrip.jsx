@@ -1,12 +1,15 @@
 import { CleevioContext } from "../context/CleevioState";
 import { PageName } from "./Home";
+import { config } from "../context/config";
 import France from "../imgs/France.png";
 import Loading from "../imgs/Loading.gif";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import ReactFlagsSelect from "react-flags-select";
 import Select from "react-select";
+import axios from "axios";
 import styled from "styled-components";
-
 export default function NewTrip() {
+  const [coutries, setCountries] = useState();
   const { handleChange, country, setCountry, newTrip, trips, handleSubmit } =
     useContext(CleevioContext);
 
@@ -19,14 +22,13 @@ export default function NewTrip() {
             <Section>
               <label htmlFor="country">Where do you want to go</label>
               <br />
-
               <select
-                onChange={(e) => {
-                  handleChange(e);
-                }}
                 type="text"
                 name="country"
                 value={newTrip.address.country}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
               >
                 {country ? (
                   country.map((data, i) => (
@@ -45,7 +47,6 @@ export default function NewTrip() {
               <input
                 type="date"
                 name="start_date"
-                defaultValue="2020-07-22"
                 min="2020-01-01"
                 max="2022-12-31"
                 value={newTrip.start_date}
@@ -60,7 +61,6 @@ export default function NewTrip() {
                 type="date"
                 name="end_date"
                 value={newTrip.end_date}
-                defaultValue="2020-07-22"
                 min="2020-01-01"
                 max="2022-12-31"
                 onChange={(e) => {
@@ -156,7 +156,6 @@ export default function NewTrip() {
                   handleChange(e);
                 }}
                 name="covid"
-                defaultValue="false"
                 value="false"
               />{" "}
               YES
@@ -166,7 +165,6 @@ export default function NewTrip() {
                   handleChange(e);
                 }}
                 name="covid"
-                defaultValue="true"
                 value="true"
               />{" "}
               NO
@@ -180,7 +178,6 @@ export default function NewTrip() {
                 }}
                 id="start"
                 name="covid_test_date"
-                defaultValue="2020-07-22"
                 value={newTrip.covid_test_date}
                 min="2020-01-01"
                 max="2022-12-31"

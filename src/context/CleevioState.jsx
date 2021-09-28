@@ -1,3 +1,5 @@
+import { config } from "./config";
+import { useHistory } from "react-router-dom";
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
@@ -7,6 +9,8 @@ const BazosState = (props) => {
     loading: false,
   };
   const [trips, setTrips] = useState();
+  const [isEditing, setIsEditing] = useState(false);
+
   const [newTrip, setNewTrip] = useState({
     start_date: "2021-09-26",
     end_date: "2021-09-26",
@@ -21,12 +25,10 @@ const BazosState = (props) => {
     covid: true,
     covid_test_date: "2021-09-26",
   });
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
   const [country, setCountry] = useState();
   const [loading, setLoading] = useState(true);
-  const config = {
-    headers: { Authorization: `Bearer ${process.env.REACT_APP_API_KEY}` },
-  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -36,11 +38,31 @@ const BazosState = (props) => {
         config
       )
       .then(function (response) {
- /* eslint-disable */         console.log(response);
+        /* eslint-disable */
+        console.log(response);
       })
       .catch(function (error) {
+        setError(error.message)
+        setLoading(false)
         console.log(error);
       });
+  };
+
+
+  const handleDelete = async (getId, props) => {
+    try {
+      const response = await axios.delete(
+        `https://task-devel.cleevio-vercel.vercel.app/api/trip/${getId}`,
+        config
+        );
+        console.log("DELETED", response)
+        window.location = "/"
+        setLoading(false)
+      
+    } catch (error) {
+      console.log(error)
+    }
+
   };
 
   const handleChange = (e) => {
@@ -49,7 +71,7 @@ const BazosState = (props) => {
       if (value === "true") return true;
       if (value === "false") return false;
     }
-
+console.log(value)
     if (
       name === "city" ||
       name === "street" ||
@@ -74,11 +96,14 @@ const BazosState = (props) => {
     }
   };
 
+
   const getTrips = async () => {
     await axios
-      .get("https://task-devel.cleevio-vercel.vercel.app/api/trip", config)
-      .then((data) => setTrips(data.data))
-      .catch((err) => setError(err));
+    
+    .get("https://task-devel.cleevio-vercel.vercel.app/api/trip", config)
+    .then((data) => setTrips(data.data))
+    .catch((err) => setError(err));
+    setLoading(false)
   };
   const getCountries = async () => {
     await axios
@@ -91,6 +116,8 @@ const BazosState = (props) => {
     getCountries();
   }, []);
 
+
+  
   return (
     <CleevioContext.Provider
       value={{
@@ -103,6 +130,7 @@ const BazosState = (props) => {
         handleSubmit,
         newTrip,
         getTrips,
+        isEditing, setIsEditing,handleDelete, loading
       }}
     >
       {props.children}

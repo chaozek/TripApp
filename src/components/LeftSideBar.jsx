@@ -51,7 +51,6 @@ const LeftSideBarDiv = styled.div`
   background-color: #f9f9fa;
   grid-area: leftSidebar;
   padding: 1rem 2rem;
-
   @media (max-width: 550px) {
     display: flex;
     height: 30px;
@@ -119,9 +118,8 @@ const PhoneMenuLinks = styled.div`
     position: absolute;
     padding-left: inherit;
     padding-right: inherit;
-    position: absolute;
+    position: fixed;
     padding-top: 1rem;
-    left: 0;
     right: 0;
     list-style: none;
     background-color: white;
