@@ -1,16 +1,28 @@
+import { CleevioContext } from "../context/CleevioState";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 import { YellowButton } from "../GlobalStyles";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import clock_black from "../imgs/clock_black.png";
+import clock_gray from "../imgs/clock_gray.png";
 import logo from "../imgs/logo.png";
 import styled from "styled-components";
-
 function LeftSideBar(props) {
+  const {
+    isEditing,
+    setIsEditing,
+    trips,
+    loading,
+    setLoading,
+    handleDelete,
+    getTrips,
+  } = useContext(CleevioContext);
   const [isMobile, setIsMobile] = useState(false);
   const handleClick = () => {
     setIsMobile(!isMobile);
   };
+  const getLocation = window.location.pathname;
   return (
     <LeftSideBarDiv>
       <Link to="/">
@@ -40,6 +52,17 @@ function LeftSideBar(props) {
             <p>New Trip</p>
             <p>+</p>
           </YellowButton>
+          <Link to="/">
+            {" "}
+            <ClockButton disabled={getLocation === "/trip" ? true : false}>
+              {getLocation === "/trip" ? (
+                <Clock src={clock_gray} alt="clock" />
+              ) : (
+                <Clock src={clock_black} alt="clock" />
+              )}
+              Your Trips
+            </ClockButton>
+          </Link>
         </MenuLinks>
       )}
     </LeftSideBarDiv>
@@ -100,6 +123,17 @@ const MobileDiv = styled.div`
   display: block;
   margin-left: auto;
   margin-right: auto;
+`;
+const Clock = styled.img`
+  margin-right: 0.5rem;
+`;
+const ClockButton = styled.button`
+  margin-top: 2rem;
+  border: none;
+  background-color: #f9f9fa;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
 `;
 const Cancel = styled.button`
   display: none;

@@ -12,15 +12,15 @@ const BazosState = (props) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [newTrip, setNewTrip] = useState({
-    start_date: "2021-09-26",
-    end_date: "2021-09-26",
-    company_name: "X",
+    start_date: "",
+    end_date: "",
+    company_name: "",
     address: {
-      street: "X",
-      street_num: 5,
+      street: "",
+      street_num: undefined,
       city: "",
-      country: "X",
-      zip: "X",
+      country: "",
+      zip: "",
     },
     covid: true,
     covid_test_date: "2021-09-26",
@@ -40,6 +40,8 @@ const BazosState = (props) => {
       .then(function (response) {
         /* eslint-disable */
         console.log(response);
+        getTrips();
+
       })
       .catch(function (error) {
         setError(error.message)
@@ -51,6 +53,8 @@ const BazosState = (props) => {
 
   const handleDelete = async (getId, props) => {
     try {
+      setLoading(true)
+
       const response = await axios.delete(
         `https://task-devel.cleevio-vercel.vercel.app/api/trip/${getId}`,
         config

@@ -22,6 +22,7 @@ export default function NewTrip() {
             <Section>
               <label htmlFor="country">Where do you want to go</label>
               <br />
+
               <select
                 type="text"
                 name="country"
@@ -30,6 +31,7 @@ export default function NewTrip() {
                   handleChange(e);
                 }}
               >
+                <option required>Choose city</option>
                 {country ? (
                   country.map((data, i) => (
                     <option key={i} value={data.url} required>
@@ -49,6 +51,7 @@ export default function NewTrip() {
                 name="start_date"
                 min="2020-01-01"
                 max="2022-12-31"
+                required
                 value={newTrip.start_date}
                 onChange={(e) => {
                   handleChange(e);
@@ -62,6 +65,7 @@ export default function NewTrip() {
                 name="end_date"
                 value={newTrip.end_date}
                 min="2020-01-01"
+                required
                 max="2022-12-31"
                 onChange={(e) => {
                   handleChange(e);
@@ -74,6 +78,7 @@ export default function NewTrip() {
               <label
                 htmlFor="company_name"
                 value={newTrip.end_date}
+                required
                 onChange={(e) => {
                   handleChange(e);
                 }}
@@ -89,6 +94,7 @@ export default function NewTrip() {
                 }}
                 placeholder="Type here..."
                 name="company_name"
+                required
                 value={newTrip.company_name}
               />
               <br />
@@ -96,6 +102,7 @@ export default function NewTrip() {
               <br />
               <input
                 type="text"
+                required
                 onChange={(e) => {
                   handleChange(e);
                 }}
@@ -108,6 +115,7 @@ export default function NewTrip() {
               <br />
               <input
                 type="number"
+                required
                 onChange={(e) => {
                   handleChange(e);
                 }}
@@ -121,6 +129,7 @@ export default function NewTrip() {
               <br />
               <input
                 type="text"
+                required
                 onChange={(e) => {
                   handleChange(e);
                 }}
@@ -136,6 +145,7 @@ export default function NewTrip() {
               <br />
               <input
                 type="text"
+                required
                 onChange={(e) => {
                   handleChange(e);
                 }}
@@ -152,6 +162,7 @@ export default function NewTrip() {
               <br />
               <input
                 type="radio"
+                required
                 onChange={(e) => {
                   handleChange(e);
                 }}
@@ -161,6 +172,7 @@ export default function NewTrip() {
               YES
               <input
                 type="radio"
+                required
                 onChange={(e) => {
                   handleChange(e);
                 }}
@@ -173,6 +185,7 @@ export default function NewTrip() {
               <br />
               <input
                 type="date"
+                required
                 onChange={(e) => {
                   handleChange(e);
                 }}

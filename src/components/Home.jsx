@@ -5,7 +5,6 @@ import SingleTrip from "./SingleTrip";
 import styled from "styled-components";
 const Home = () => {
   const { trips, getTrips, loading, error } = useContext(CleevioContext);
-
   useEffect(() => {
     getTrips();
   }, []);
@@ -19,6 +18,8 @@ const Home = () => {
       ) : (
         trips.map((trip) => <SingleTrip key={trip.id} {...trip} />)
       )}
+
+      <h1>{trips && trips.length === 0 ? "No data, add something" : null}</h1>
     </HomeDiv>
   );
 };

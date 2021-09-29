@@ -2,19 +2,18 @@ import { CleevioContext } from "../context/CleevioState";
 import { Link } from "react-router-dom";
 import { PageName } from "./Home";
 import { config } from "../context/config";
+import Loading from "../imgs/Loading.gif";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
 export default function TripDetail(props) {
   const [localData, setLocalData] = useState();
-  const { isEditing, setIsEditing, trips, loading, setLoading, handleDelete } =
-    useContext(CleevioContext);
+  const { loading, setLoading, handleDelete } = useContext(CleevioContext);
   const getId = props.match.params.id;
   useEffect(() => {
     fetchData();
   }, []);
-  // console.log(fetchTrip[0]);
 
   const fetchData = async () => {
     const response = await axios.get(
@@ -28,18 +27,35 @@ export default function TripDetail(props) {
   return (
     <TripDiv>
       <PageName>Trip Detail</PageName>
-      <button onClick={() => handleDelete(getId, props)}>DELETE</button>
+      <button
+        onClick={() => handleDelete(getId, props)}
+        disabled={loading ? true : false}
+        style={{
+          width: "100px",
+          display: "flex",
+          flexDirection: "column",
+          position: "relative",
+        }}
+      >
+        {loading ? (
+          <div>
+            <p> DELETE </p>
+            <img
+              src={Loading}
+              style={{
+                width: "20px",
+                position: "absolute",
+                right: "0",
+                top: "25%",
+              }}
+              alt=""
+            />
+          </div>
+        ) : (
+          "DELETE"
+        )}
+      </button>
       {!localData ? "Loading..." : <p>{localData.end_date}</p>}
-      <Link to="/">
-        {" "}
-        <button
-          onClick={() => handleDelete(getId, props)}
-          disabled={loading ? true : false}
-        >
-          DELETE
-        </button>
-      </Link>
-      some stuff
     </TripDiv>
   );
 }
