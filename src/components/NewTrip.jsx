@@ -1,16 +1,11 @@
 import { CleevioContext } from "../context/CleevioState";
 import { PageName } from "./Home";
-import { config } from "../context/config";
-import France from "../imgs/France.png";
 import Loading from "../imgs/Loading.gif";
-import React, { useContext, useEffect, useState } from "react";
-import ReactFlagsSelect from "react-flags-select";
-import Select from "react-select";
-import axios from "axios";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 export default function NewTrip() {
   const [coutries, setCountries] = useState();
-  const { handleChange, country, setCountry, newTrip, trips, handleSubmit } =
+  const { handleChange, countries, newTrip, handleSubmit, loading } =
     useContext(CleevioContext);
 
   return (
@@ -26,15 +21,16 @@ export default function NewTrip() {
               <select
                 type="text"
                 name="country"
-                value={newTrip.address.country}
+                required
+                value={newTrip.address.country || ""}
                 onChange={(e) => {
-                  handleChange(e);
+                  handleChange(e) || null;
                 }}
               >
-                <option required>Choose city</option>
-                {country ? (
-                  country.map((data, i) => (
-                    <option key={i} value={data.url} required>
+                <option value=""></option>
+                {countries ? (
+                  countries.map((data, i) => (
+                    <option key={i} value={data.url}>
                       {data.label}
                     </option>
                   ))
@@ -64,7 +60,7 @@ export default function NewTrip() {
                 type="date"
                 name="end_date"
                 value={newTrip.end_date}
-                min="2020-01-01"
+                min={newTrip.start_date}
                 required
                 max="2022-12-31"
                 onChange={(e) => {
@@ -197,7 +193,34 @@ export default function NewTrip() {
               />{" "}
               <br />
             </Section>
-            <input type="submit" value="POST" />
+            <button
+              type="submit"
+              disabled={loading ? true : false}
+              style={{
+                width: "100px",
+                display: "flex",
+                flexDirection: "column",
+                position: "relative",
+              }}
+            >
+              {loading ? (
+                <div>
+                  <p> Save </p>
+                  <img
+                    src={Loading}
+                    style={{
+                      width: "20px",
+                      position: "absolute",
+                      right: "0",
+                      top: "25%",
+                    }}
+                    alt=""
+                  />
+                </div>
+              ) : (
+                "Save"
+              )}
+            </button>
           </Form>
         </NewTripDiv>
       </div>

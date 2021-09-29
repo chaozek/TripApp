@@ -10,7 +10,6 @@ const BazosState = (props) => {
   };
   const [trips, setTrips] = useState();
   const [isEditing, setIsEditing] = useState(false);
-
   const [newTrip, setNewTrip] = useState({
     start_date: "",
     end_date: "",
@@ -26,10 +25,10 @@ const BazosState = (props) => {
     covid_test_date: "2021-09-26",
   });
   const [error, setError] = useState("");
-  const [country, setCountry] = useState();
+  const [countries, setCountry] = useState();
   const [loading, setLoading] = useState(true);
-
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     axios
       .post(
@@ -40,6 +39,8 @@ const BazosState = (props) => {
       .then(function (response) {
         /* eslint-disable */
         console.log(response);
+        setLoading(false)
+        window.location = "/"
         getTrips();
 
       })
@@ -49,6 +50,21 @@ const BazosState = (props) => {
         console.log(error);
       });
   };
+
+
+
+  const [width, setWidth] = React.useState(window.innerWidth);
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, [width]);
+
+
+
+
 
 
   const handleDelete = async (getId, props) => {
@@ -75,7 +91,6 @@ const BazosState = (props) => {
       if (value === "true") return true;
       if (value === "false") return false;
     }
-console.log(value)
     if (
       name === "city" ||
       name === "street" ||
@@ -129,12 +144,13 @@ console.log(value)
         trips,
         error,
         handleChange,
-        country,
+        countries,
         setCountry,
         handleSubmit,
         newTrip,
         getTrips,
-        isEditing, setIsEditing,handleDelete, loading
+        getCountries,
+        isEditing, setIsEditing,handleDelete, loading, width, setWidth
       }}
     >
       {props.children}

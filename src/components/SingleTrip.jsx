@@ -1,23 +1,38 @@
 import { CleevioContext } from "../context/CleevioState";
 import { Link } from "react-router-dom";
 import { link } from "fs";
+import China from "../imgs/Flags/China.png";
 import France from "../imgs/France.png";
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 export default function SingleTrip(props) {
-  const { isEditing, setIsEditing } = useContext(CleevioContext);
+  const {
+    isEditing,
+    setIsEditing,
+    width,
+    setWidth,
+    stateCountry,
+    newTrip,
+    countries,
+    getCountries,
+  } = useContext(CleevioContext);
 
-  const [width, setWidth] = React.useState(window.innerWidth);
-  const updateWidth = () => {
-    setWidth(window.innerWidth);
-  };
-  useEffect(() => {
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, [width]);
   const { id, end_date, start_date, company_name } = props;
   const { street, city, street_num, country } = props.address;
-
+  useEffect(() => {
+    getCountries();
+  }, []);
+  let renderCountry = "";
+  const getCountry = (country) => {
+    let foundCountry = countries.filter((c) => c.label === country);
+    let specificCountry = foundCountry[0];
+    if (specificCountry.value === "uk") {
+      specificCountry.value = "gb";
+    } else {
+      renderCountry = specificCountry.value;
+    }
+  };
+  getCountry(country);
   return (
     <>
       <LinkDiv to={`/trip/${id}`}>
@@ -25,7 +40,10 @@ export default function SingleTrip(props) {
         width < 930 ? (
           <SingleTripDiv>
             <Country>
-              <ImgFlag src={France} alt="" />
+              <ImgFlag
+                src={`https://www.countryflags.io/${renderCountry}/flat/64.png`}
+                alt=""
+              />
               <h3>{country}</h3>
             </Country>
             <Content>
@@ -44,7 +62,10 @@ export default function SingleTrip(props) {
         ) : (
           <SingleTripDiv flex>
             <Left>
-              <ImgFlag src={France} alt="" />
+              <ImgFlag
+                src={`https://www.countryflags.io/${renderCountry}/flat/64.png`}
+                alt=""
+              />
             </Left>
             <Right>
               <Align>

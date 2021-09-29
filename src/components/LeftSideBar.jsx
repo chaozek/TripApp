@@ -9,19 +9,12 @@ import clock_gray from "../imgs/clock_gray.png";
 import logo from "../imgs/logo.png";
 import styled from "styled-components";
 function LeftSideBar(props) {
-  const {
-    isEditing,
-    setIsEditing,
-    trips,
-    loading,
-    setLoading,
-    handleDelete,
-    getTrips,
-  } = useContext(CleevioContext);
+  const { width } = useContext(CleevioContext);
   const [isMobile, setIsMobile] = useState(false);
   const handleClick = () => {
     setIsMobile(!isMobile);
   };
+
   const getLocation = window.location.pathname;
   return (
     <LeftSideBarDiv>
@@ -33,7 +26,7 @@ function LeftSideBar(props) {
           <GiHamburgerMenu />
         </IconContext.Provider>
       </MobileMenu>
-      {isMobile ? (
+      {isMobile && width < 550 ? (
         <PhoneMenuLinks>
           <MobileDiv>
             <Link to="/">
@@ -45,6 +38,14 @@ function LeftSideBar(props) {
             <p>New Trip</p>
             <p>+</p>
           </YellowButton>
+          <ClockButton white disabled={getLocation === "/trip" ? true : false}>
+            {getLocation === "/trip" ? (
+              <Clock src={clock_gray} alt="clock" />
+            ) : (
+              <Clock src={clock_black} alt="clock" />
+            )}
+            Your Trips
+          </ClockButton>
         </PhoneMenuLinks>
       ) : (
         <MenuLinks>
@@ -130,22 +131,12 @@ const Clock = styled.img`
 const ClockButton = styled.button`
   margin-top: 2rem;
   border: none;
-  background-color: #f9f9fa;
+  background-color: ${(props) => (props.white ? "white" : "#f9f9fa")};
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
 `;
-const Cancel = styled.button`
-  display: none;
-  @media (max-width: 550px) {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-    background-color: aliceblue;
-  }
-`;
+
 const PhoneMenuLinks = styled.div`
   @media (max-width: 550px) {
     display: relative;
