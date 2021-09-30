@@ -45,7 +45,7 @@ export default function SingleTrip(props) {
         width < 930 ? (
           <SingleTripDiv>
             <Country>
-              {specificCountry ? (
+              {renderCountry.length > 0 ? (
                 <ImgFlag
                   src={`https://www.countryflags.io/${renderCountry}/flat/64.png`}
                   alt=""
@@ -75,6 +75,14 @@ export default function SingleTrip(props) {
         ) : (
           <SingleTripDiv flex>
             <Left>
+              {renderCountry.length > 0 ? (
+                <ImgFlag
+                  src={`https://www.countryflags.io/${renderCountry}/flat/64.png`}
+                  alt=""
+                />
+              ) : (
+                "NIC"
+              )}
               <ImgFlag
                 src={`https://www.countryflags.io/${renderCountry}/flat/64.png`}
                 alt=""
