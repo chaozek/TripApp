@@ -29,7 +29,7 @@ export default function SingleTrip(props) {
       let specificCountry = foundCountry[0];
       if (specificCountry.value === "uk") {
         specificCountry.value = "gb";
-      } else {
+      } else if (specificCountry) {
         renderCountry = specificCountry.value;
       }
     } catch (error) {
