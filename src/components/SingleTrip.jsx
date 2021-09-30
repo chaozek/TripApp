@@ -24,12 +24,17 @@ export default function SingleTrip(props) {
   }, []);
   let renderCountry = "";
   const getCountry = (country) => {
-    let foundCountry = countries.filter((c) => c.label === country);
-    let specificCountry = foundCountry[0];
-    if (specificCountry.value === "uk") {
-      specificCountry.value = "gb";
-    } else {
-      renderCountry = specificCountry.value;
+    try {
+      let foundCountry = countries.filter((c) => c.label === country);
+      let specificCountry = foundCountry[0];
+      if (specificCountry.value === "uk") {
+        specificCountry.value = "gb";
+      } else {
+        renderCountry = specificCountry.value;
+      }
+    } catch (error) {
+      //eslint-disable-next-line
+      console.log(error);
     }
   };
   getCountry(country);

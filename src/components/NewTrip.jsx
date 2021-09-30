@@ -40,11 +40,7 @@ export default function NewTrip() {
                 <option value=""></option>
                 {countries ? (
                   countries.map((data, i) => (
-                    <Option
-                      key={i}
-                      value={data.url}
-                      data-img-src="../imgs/France.png"
-                    >
+                    <Option key={i} value={data.url}>
                       {data.label}
                     </Option>
                   ))
