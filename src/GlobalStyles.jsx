@@ -15,6 +15,7 @@ color: #63666A;
   ul{
   list-style: none; 
   display: flex;
+  flex-direction: column;
   text-decoration: none;
   color: black;
 

@@ -87,6 +87,7 @@ const BazosState = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(value)
     if (name === "covid") {
       if (value === "true") return true;
       if (value === "false") return false;
@@ -129,8 +130,7 @@ const BazosState = (props) => {
       .then((data) => setCountry(data.data))
       .catch((err) => setError(err));
   };
-  useEffect(() => {
-  }, []);
+ 
 
 
   
@@ -146,6 +146,7 @@ const BazosState = (props) => {
         handleSubmit,
         newTrip,
         getTrips,
+        setNewTrip,
         getCountries,
         isEditing, setIsEditing,handleDelete, loading, width, setWidth
       }}

@@ -1,18 +1,28 @@
+import "./style.css";
 import { CleevioContext } from "../context/CleevioState";
 import { PageName } from "./Home";
 import France from "../imgs/France.png";
 import Loading from "../imgs/Loading.gif";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import styled from "styled-components";
 export default function NewTrip() {
+  const {
+    handleChange,
+    countries,
+    newTrip,
+    handleSubmit,
+    loading,
+    getCountries,
+  } = useContext(CleevioContext);
   const [selected, setSelected] = useState("");
   const countriesPlug = ("Countries", ["US", "GB", "DE", "FR", "NG", "ES"]);
   const blacklistCountries = ("Blacklist Countries", false);
-  const onSelect = (code) => setSelected(code);
+  const onSelect = (code) => {
+    setSelected(code);
+    findCountry(countries, code);
+  };
 
-  const { handleChange, countries, newTrip, handleSubmit, loading } =
-    useContext(CleevioContext);
   return (
     <>
       <div>
@@ -23,10 +33,11 @@ export default function NewTrip() {
               <label htmlFor="country">Where do you want to go</label>
               <br />
               <ReactFlagsSelect
+                className="selectFlag"
+                selectButtonClassName="menu-flags-button"
                 style={{ display: "flex", flexDirection: "column" }}
                 selected={selected}
                 onSelect={onSelect}
-                countries={countriesPlug}
               />
               <select
                 type="text"
@@ -246,7 +257,7 @@ const Form = styled.form`
     width: 90%;
   }
   @media (max-width: 500px) {
-    width: 85%;
+    width: 100%;
   }
 `;
 const NewTripDiv = styled.div`

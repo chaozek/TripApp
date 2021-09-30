@@ -1,11 +1,15 @@
 import { CleevioContext } from "../context/CleevioState";
 import Loading from "../imgs/Loading.gif";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import SingleTrip from "./SingleTrip";
 import styled from "styled-components";
 const RightSideBar = (props) => {
-  const { trips } = useContext(CleevioContext);
+  const { trips, getTrips } = useContext(CleevioContext);
+
+  useEffect(() => {
+    getTrips();
+  }, []);
   return (
     <RightSideBarDiv>
       {props.location.pathname === "/trip" ? <h2>Your Trips</h2> : null}
@@ -65,6 +69,7 @@ const RightSideBarDiv = styled.div`
   overflow-x: hidden; /* Disable horizontal scroll */
   @media (max-width: 850px) {
     border-left: none;
+    display: none;
   }
 `;
 const LoadingDiv = styled.img`

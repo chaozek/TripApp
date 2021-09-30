@@ -55,7 +55,24 @@ export default function TripDetail(props) {
           "DELETE"
         )}
       </button>
-      {!localData ? "Loading..." : <p>{localData.end_date}</p>}
+      {!localData ? (
+        "Loading..."
+      ) : (
+        <div>
+          <p>CITY: {localData.address.city}</p>
+          <p>COUNTRY: {localData.address.country}</p>
+          <p>STREET: {localData.address.street}</p>
+          <p>STREET NUM: {localData.address.street_num}</p>
+          <p>ZIP: {localData.address.zip}</p>
+          <br />
+
+          <p>END DATE: {localData.end_date}</p>
+          <p> START DATE: {localData.start_date}</p>
+          <br />
+          <p>COVID: {localData.covid}</p>
+          <p>{localData.covid_test_date}</p>
+        </div>
+      )}
     </TripDiv>
   );
 }
