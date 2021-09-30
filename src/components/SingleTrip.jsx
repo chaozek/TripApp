@@ -52,7 +52,7 @@ export default function SingleTrip(props) {
               <p>
                 {street} {street_num}, {props.address.street.zip} {city}
               </p>
-              <Header>Date</Header>
+              <Header>Date </Header>
               <p>
                 {" "}
                 {start_date} - {end_date}
@@ -108,8 +108,8 @@ const SingleTripDiv = styled.div`
 `;
 const ImgFlag = styled.img`
   width: 48px;
-  height: 48px;
   padding: 1rem;
+  height: 48px;
 `;
 const Right = styled.div`
   display: flex;

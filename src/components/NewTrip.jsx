@@ -1,13 +1,18 @@
 import { CleevioContext } from "../context/CleevioState";
 import { PageName } from "./Home";
+import France from "../imgs/France.png";
 import Loading from "../imgs/Loading.gif";
 import React, { useContext, useState } from "react";
+import ReactFlagsSelect from "react-flags-select";
 import styled from "styled-components";
 export default function NewTrip() {
-  const [coutries, setCountries] = useState();
+  const [selected, setSelected] = useState("");
+  const countriesPlug = ("Countries", ["US", "GB", "DE", "FR", "NG", "ES"]);
+  const blacklistCountries = ("Blacklist Countries", false);
+  const onSelect = (code) => setSelected(code);
+
   const { handleChange, countries, newTrip, handleSubmit, loading } =
     useContext(CleevioContext);
-
   return (
     <>
       <div>
@@ -17,7 +22,12 @@ export default function NewTrip() {
             <Section>
               <label htmlFor="country">Where do you want to go</label>
               <br />
-
+              <ReactFlagsSelect
+                style={{ display: "flex", flexDirection: "column" }}
+                selected={selected}
+                onSelect={onSelect}
+                countries={countriesPlug}
+              />
               <select
                 type="text"
                 name="country"
@@ -30,9 +40,13 @@ export default function NewTrip() {
                 <option value=""></option>
                 {countries ? (
                   countries.map((data, i) => (
-                    <option key={i} value={data.url}>
+                    <Option
+                      key={i}
+                      value={data.url}
+                      data-img-src="../imgs/France.png"
+                    >
                       {data.label}
-                    </option>
+                    </Option>
                   ))
                 ) : (
                   <option required>loading...</option>
@@ -245,7 +259,14 @@ const NewTripDiv = styled.div`
   align-items: center;
   flex-direction: column;
 `;
-
+const Option = styled.option`
+  background-color: Transparent;
+  background: url("../imgs/France.png") no-repeat 0 0;
+  padding: 4px;
+  line-height: 21px;
+  -webkit-appearance: none;
+  height: 2rem;
+`;
 const Section = styled.div`
   width: 100%;
   border-radius: 10px;
