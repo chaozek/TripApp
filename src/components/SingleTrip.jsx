@@ -31,10 +31,10 @@ export default function SingleTrip(props) {
       if (countries !== undefined) {
         let foundCountry = countries.filter((c) => c.label === country);
         let specificCountry = foundCountry[0];
-        specificCountry.length !== 0 && specificCountry.value === "uk";
-        specificCountry.value = "gb";
-        getTrips();
-      } else {
+        if (specificCountry.length !== 0 && specificCountry.value === "uk") {
+          specificCountry.value = "gb";
+          getTrips();
+        }
         renderCountry = specificCountry.value;
       }
     } catch (error) {
