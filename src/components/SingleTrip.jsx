@@ -2,6 +2,8 @@ import { CleevioContext } from "../context/CleevioState";
 import { Link } from "react-router-dom";
 import { link } from "fs";
 import China from "../imgs/Flags/China.png";
+import Empty from "../imgs/Flags/empty.png";
+
 import France from "../imgs/France.png";
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
@@ -28,9 +30,9 @@ export default function SingleTrip(props) {
       let foundCountry = countries.filter((c) => c.label === country);
       let specificCountry = foundCountry[0];
       if (specificCountry && specificCountry.value === "uk") {
-        specificCountry.value = "gb";
+        return (specificCountry.value = "gb");
       } else {
-        renderCountry = specificCountry.value;
+        return (renderCountry = specificCountry.value);
       }
     } catch (error) {
       //eslint-disable-next-line
@@ -51,7 +53,7 @@ export default function SingleTrip(props) {
                   alt=""
                 />
               ) : (
-                "NIC"
+                <ImgFlag src={Empty} alt="" />
               )}
 
               <h3>{country}</h3>
@@ -64,7 +66,6 @@ export default function SingleTrip(props) {
               </p>
               <Header>Date </Header>
               <p>
-                {" "}
                 {start_date} - {end_date}
               </p>
             </Content>
@@ -78,7 +79,7 @@ export default function SingleTrip(props) {
                   alt=""
                 />
               ) : (
-                "NIC"
+                <ImgFlag src={Empty} alt="" />
               )}
             </Left>
             <Right>

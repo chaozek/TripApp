@@ -130,8 +130,6 @@ const BazosState = (props) => {
       .catch((err) => setError(err));
   };
   useEffect(() => {
-    getTrips();
-    getCountries();
   }, []);
 
 
