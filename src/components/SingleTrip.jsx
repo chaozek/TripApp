@@ -18,6 +18,7 @@ export default function SingleTrip(props) {
     newTrip,
     countries,
     getCountries,
+    getTrips,
   } = useContext(CleevioContext);
 
   const { id, end_date, start_date, company_name } = props;
@@ -30,9 +31,13 @@ export default function SingleTrip(props) {
       let foundCountry = countries.filter((c) => c.label === country);
       let specificCountry = foundCountry[0];
       if (specificCountry && specificCountry.value === "uk") {
-        return (specificCountry.value = "gb");
+        specificCountry.value = "gb";
+        getCountries();
+        getTrips();
       } else {
-        return (renderCountry = specificCountry.value);
+        renderCountry = specificCountry.value;
+        getCountries();
+        getTrips();
       }
     } catch (error) {
       //eslint-disable-next-line
