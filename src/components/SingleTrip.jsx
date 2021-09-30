@@ -30,14 +30,11 @@ export default function SingleTrip(props) {
     try {
       let foundCountry = countries.filter((c) => c.label === country);
       let specificCountry = foundCountry[0];
-      if (specificCountry && specificCountry.value === "uk") {
+      if (specificCountry.length !== 0 && specificCountry.value === "uk") {
         specificCountry.value = "gb";
-        getCountries();
         getTrips();
       } else {
         renderCountry = specificCountry.value;
-        getCountries();
-        getTrips();
       }
     } catch (error) {
       //eslint-disable-next-line
