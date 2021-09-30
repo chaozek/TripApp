@@ -28,8 +28,10 @@ export default function SingleTrip(props) {
   }, [renderCountry]);
   const getCountry = (country) => {
     try {
-      let foundCountry = countries.filter((c) => c.label === country);
-      let specificCountry = foundCountry[0];
+      if (countries.length !== 0 && countries !== undefined) {
+        let foundCountry = countries.filter((c) => c.label === country);
+        let specificCountry = foundCountry[0];
+      }
       if (specificCountry.length !== 0 && specificCountry.value === "uk") {
         specificCountry.value = "gb";
         getTrips();
