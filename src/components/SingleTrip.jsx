@@ -27,9 +27,9 @@ export default function SingleTrip(props) {
     try {
       let foundCountry = countries.filter((c) => c.label === country);
       let specificCountry = foundCountry[0];
-      if (specificCountry.value === "uk") {
+      if (specificCountry && specificCountry.value === "uk") {
         specificCountry.value = "gb";
-      } else if (specificCountry) {
+      } else {
         renderCountry = specificCountry.value;
       }
     } catch (error) {
