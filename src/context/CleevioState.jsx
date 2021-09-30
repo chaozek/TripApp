@@ -118,7 +118,6 @@ const BazosState = (props) => {
 
   const getTrips = async () => {
     await axios
-    
     .get("https://task-devel.cleevio-vercel.vercel.app/api/trip", config)
     .then((data) => setTrips(data.data))
     .catch((err) => setError(err));

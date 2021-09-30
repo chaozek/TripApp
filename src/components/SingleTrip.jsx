@@ -23,13 +23,14 @@ export default function SingleTrip(props) {
     getCountries();
   }, []);
   let renderCountry = "";
-  const getCountry = (country) => {
+  const getCountry = async (country) => {
     try {
-      let foundCountry = countries.filter((c) => c.label === country);
+      let foundCountry = await Promise.all(
+        countries.filter((c) => c.label === country)
+      );
       let specificCountry = foundCountry[0];
       if (specificCountry && specificCountry.value === "uk") {
         specificCountry.value = "gb";
-        getCountries();
       } else {
         renderCountry = specificCountry.value;
       }
@@ -54,10 +55,7 @@ export default function SingleTrip(props) {
               ) : (
                 "NIC"
               )}
-              <ImgFlag
-                src={`https://www.countryflags.io/${renderCountry}/flat/64.png`}
-                alt=""
-              />
+
               <h3>{country}</h3>
             </Country>
             <Content>
@@ -84,10 +82,6 @@ export default function SingleTrip(props) {
               ) : (
                 "NIC"
               )}
-              <ImgFlag
-                src={`https://www.countryflags.io/${renderCountry}/flat/64.png`}
-                alt=""
-              />
             </Left>
             <Right>
               <Align>
