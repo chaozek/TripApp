@@ -6,6 +6,7 @@ import France from "../imgs/France.png";
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 export default function SingleTrip(props) {
+  let renderCountry = "";
   const {
     isEditing,
     setIsEditing,
@@ -21,13 +22,10 @@ export default function SingleTrip(props) {
   const { street, city, street_num, country } = props.address;
   useEffect(() => {
     getCountries();
-  }, []);
-  let renderCountry = "";
-  const getCountry = async (country) => {
+  }, [renderCountry]);
+  const getCountry = (country) => {
     try {
-      let foundCountry = await Promise.all(
-        countries.filter((c) => c.label === country)
-      );
+      let foundCountry = countries.filter((c) => c.label === country);
       let specificCountry = foundCountry[0];
       if (specificCountry && specificCountry.value === "uk") {
         specificCountry.value = "gb";
