@@ -40,11 +40,7 @@ input::-ms-clear {
 textarea {
     resize: none ;
 }
-.checkbox input[type=checkbox] {
-  -webkit-appearance: none;
-  -moz-appearance:    none;
-  appearance:         none;
-}
+
 button{
   -webkit-appearance: none;
 -moz-appearance: none;
@@ -62,6 +58,11 @@ input[type="date"]::-webkit-datetime-edit-month-field,
 input[type="date"]::-webkit-datetime-edit-day-field,
 input[type="date"]::-webkit-datetime-edit-year-field {
   color: #D0D0CE;
+}
+input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;
 }
 ::placeholder,
   ::-webkit-input-placeholder {
