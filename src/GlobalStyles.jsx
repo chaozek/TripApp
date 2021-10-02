@@ -25,7 +25,7 @@ color: #63666A;
   }
 input{
   box-sizing: border-box; 
-
+  -webkit-appearance: none;
   padding: 0rem 1rem;
 }
 button{
