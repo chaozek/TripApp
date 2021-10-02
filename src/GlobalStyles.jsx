@@ -10,6 +10,8 @@ export const GlobalStyles = createGlobalStyle`
     font-size: .75rem;
     line-height: 16px;
 color: #63666A;
+-webkit-appearance: none;
+
   }
 
   ul{
@@ -27,6 +29,16 @@ input{
   box-sizing: border-box; 
   -webkit-appearance: none;
   padding: 0rem 1rem;
+  
+}
+input:focus,textarea:focus {
+    outline : none ;
+}
+input::-ms-clear {
+    display : none ;
+}
+textarea {
+    resize: none ;
 }
 button{
   -webkit-appearance: none;
