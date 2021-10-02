@@ -93,7 +93,7 @@ const LeftSideBarDiv = styled.div`
 const MobileMenu = styled.button`
   vertical-align: bottom;
   background-color: #f1f1f2;
-  font-weight: 200;
+  font-weight: bold;
   font-size: 1.33rem;
   color: #76787b;
   display: none;
@@ -137,7 +137,6 @@ const MobileDiv = styled.div`
 const Clock = styled.img`
   margin-right: 0.5rem;
 `;
-
 const ClockButton = styled.button`
   margin-top: 2rem;
   border: none;
