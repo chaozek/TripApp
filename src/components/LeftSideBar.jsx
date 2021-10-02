@@ -101,12 +101,11 @@ const MobileMenu = styled.button`
   @media (max-width: 550px) {
     border-radius: 10px;
     border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: inline;
     height: 40px;
     width: 40px;
     cursor: pointer;
+    padding: 0;
   }
 `;
 const LogoDiv = styled.img`
