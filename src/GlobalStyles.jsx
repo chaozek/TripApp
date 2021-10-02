@@ -40,6 +40,11 @@ input::-ms-clear {
 textarea {
     resize: none ;
 }
+.checkbox input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;
+}
 button{
   -webkit-appearance: none;
 -moz-appearance: none;
