@@ -97,11 +97,13 @@ const MobileMenu = styled.button`
   font-size: 1.33rem;
   color: #76787b;
   display: none;
-  display: inline-flex;
+
   @media (max-width: 550px) {
     border-radius: 10px;
     border: none;
-    display: block;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     left: 25px;
     height: 40px;
