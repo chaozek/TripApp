@@ -104,21 +104,18 @@ const MobileMenu = styled.button`
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    left: 25px;
     height: 40px;
     width: 40px;
     cursor: pointer;
   }
 `;
 const LogoDiv = styled.img`
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 3rem;
   text-align: center;
   @media (max-width: 550px) {
-    position: absolute;
     left: 0;
     right: 0;
     margin-left: auto;
