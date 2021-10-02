@@ -25,15 +25,16 @@ export const HomeLayout = styled.div`
   grid-template-areas: "leftSidebar main rightSidebar";
 
   @media (max-width: 1200px) {
-    grid-template-areas:
-      "leftSidebar main main"
-      "leftSidebar rightSidebar rightSidebar ";
-  }
-  @media (max-width: 850px) {
-    grid-template-columns: 2fr;
+    grid-template-columns: 1fr 2fr 0fr;
+
     grid-template-areas:
       "leftSidebar main"
-      "leftSidebar rightSidebar ";
+      "leftSidebar main";
+  }
+  @media (max-width: 850px) {
+    grid-template-areas:
+      "leftSidebar  main main"
+      "leftSidebar rightSidebar rightSidebar";
   }
   @media (max-width: 550px) {
     grid-template-columns: 1fr;

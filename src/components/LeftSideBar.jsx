@@ -1,13 +1,15 @@
+import { AiOutlinePlus } from "react-icons/ai";
+import { ButtonIcon, YellowButtonLink } from "../GlobalStyles";
 import { CleevioContext } from "../context/CleevioState";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
-import { YellowButton } from "../GlobalStyles";
 import React, { useContext, useState } from "react";
 import clock_black from "../imgs/clock_black.png";
 import clock_gray from "../imgs/clock_gray.png";
 import logo from "../imgs/logo.png";
 import styled from "styled-components";
+
 function LeftSideBar() {
   const { width } = useContext(CleevioContext);
   const [isMobile, setIsMobile] = useState(false);
@@ -34,36 +36,38 @@ function LeftSideBar() {
             </Link>
           </MobileDiv>
           <MobileMenu onClick={handleClick}>X</MobileMenu>
-          <YellowButton size="5rem" to="/trip" onClick={handleClick}>
+          <YellowButtonLink size="5rem" to="/trip" onClick={handleClick}>
             <p>New Trip</p>
             <p>+</p>
-          </YellowButton>
+          </YellowButtonLink>
           <ClockButton
             white
-            disabled={getLocation === "/trip" ? true : false}
+            disabled={getLocation === "/trip" ? false : true}
             onClick={handleClick}
           >
             {getLocation === "/trip" ? (
-              <Clock src={clock_gray} alt="clock" />
-            ) : (
               <Clock src={clock_black} alt="clock" />
+            ) : (
+              <Clock src={clock_gray} alt="clock" />
             )}
             Your Trips
           </ClockButton>
         </PhoneMenuLinks>
       ) : (
         <MenuLinks>
-          <YellowButton to="/trip" onClick={handleClick}>
+          <YellowButtonLink to="/trip" onClick={handleClick}>
             <p>New Trip</p>
-            <p>+</p>
-          </YellowButton>
+            <ButtonIcon>
+              <AiOutlinePlus />
+            </ButtonIcon>
+          </YellowButtonLink>
           <Link to="/">
             {" "}
-            <ClockButton disabled={getLocation === "/trip" ? true : false}>
+            <ClockButton disabled={getLocation === "/trip" ? false : true}>
               {getLocation === "/trip" ? (
-                <Clock src={clock_gray} alt="clock" />
-              ) : (
                 <Clock src={clock_black} alt="clock" />
+              ) : (
+                <Clock src={clock_gray} alt="clock" />
               )}
               Your Trips
             </ClockButton>
@@ -79,6 +83,7 @@ const LeftSideBarDiv = styled.div`
   background-color: #f9f9fa;
   grid-area: leftSidebar;
   padding: 1rem 2rem;
+  z-index: 2;
   @media (max-width: 550px) {
     display: flex;
     height: 30px;
@@ -132,6 +137,7 @@ const MobileDiv = styled.div`
 const Clock = styled.img`
   margin-right: 0.5rem;
 `;
+
 const ClockButton = styled.button`
   margin-top: 2rem;
   border: none;

@@ -18,7 +18,7 @@ const BazosState = (props) => {
       zip: "",
     },
     covid: true,
-    covid_test_date: "2021-09-26",
+    covid_test_date: "",
   });
   const [error, setError] = useState("");
   const [countries, setCountry] = useState();
@@ -34,7 +34,6 @@ const BazosState = (props) => {
       )
       .then(function (response) {
         /* eslint-disable */
-        console.log(response);
         setLoading(false)
         window.location = "/"
         getTrips();
@@ -43,7 +42,6 @@ const BazosState = (props) => {
       .catch(function (error) {
         setError(error.message)
         setLoading(false)
-        console.log(error);
       });
   };
 
@@ -75,14 +73,13 @@ const BazosState = (props) => {
         setLoading(false)
       
     } catch (error) {
-      console.log(error)
+      setError(error)
     }
 
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(value)
     if (name === "covid") {
       if (value === "true") return true;
       if (value === "false") return false;
@@ -100,7 +97,7 @@ const BazosState = (props) => {
           name === "street_num"
             ? { ...p.address, [name]: parseInt(value) }
             : { ...p.address, [name]: value },
-      }), console.log(newTrip));
+      }));
     } else {
       setNewTrip((p) => {
         return {

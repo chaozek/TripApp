@@ -23,7 +23,11 @@ color: #63666A;
   h1,h2,h3,h4{
     color: black;
   }
+input{
+  box-sizing: border-box; 
 
+  padding: 0rem 1rem;
+}
 input[type="text"],input[type="number"],input[type="date"], select{
   border: 1px solid #F1F1F2;
   border-radius: 10px;
@@ -31,7 +35,12 @@ input[type="text"],input[type="number"],input[type="date"], select{
   width: 100%;
   height: 48px;
 }
-
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #D0D0CE;
+}
 ::placeholder,
   ::-webkit-input-placeholder {
     color: #D0D0CE
@@ -49,7 +58,7 @@ const theme = {
   fg: "palevioletred",
   bg: "#F9F9FA",
 };
-export const YellowButton = styled(Link)`
+export const YellowButtonLink = styled(Link)`
   margin-top: ${(props) => props.size};
   background-color: #f8d964;
   display: flex;
@@ -58,12 +67,36 @@ export const YellowButton = styled(Link)`
   justify-content: space-between;
   border-radius: 10px;
   padding: 0rem 0.1rem;
-  width: 100%;
   text-decoration: none;
   color: black;
   text-align: left;
-  p {
-    padding: 0rem 1rem;
-    font-weight: 600;
+  padding: 0rem 1rem;
+  font-weight: 600;
+
+  width: ${(props) => (props.width ? props.width : "auto")};
+`;
+export const YellowButton = styled.button`
+  margin-top: ${(props) => props.size};
+  margin-top: 1rem;
+  background-color: #f8d964;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  justify-content: space-between;
+  border-radius: 10px;
+  padding: 0rem 0.1rem;
+  text-decoration: none;
+  color: black;
+  text-align: left;
+  font-weight: 600;
+  padding: 0rem 1rem;
+  width: ${(props) => (props.width ? props.width : "auto")};
+  :disabled {
+    opacity: 50%;
   }
+`;
+export const ButtonIcon = styled.div`
+  display: flex;
+  align-items: center;
 `;

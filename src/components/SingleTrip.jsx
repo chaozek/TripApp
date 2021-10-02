@@ -118,7 +118,6 @@ const ImgFlag = styled.img`
   width: 48px;
   padding: 1rem;
   height: 48px;
-  border-radius: 100px;
 `;
 const Right = styled.div`
   display: flex;

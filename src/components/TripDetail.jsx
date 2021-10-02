@@ -39,9 +39,12 @@ export default function TripDetail(props) {
             disabled={loading ? true : false}
             style={{
               width: "100px",
-              display: "flex",
               flexDirection: "column",
               position: "relative",
+              display: "flex",
+              textAlign: "center",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             {loading ? (
@@ -56,7 +59,7 @@ export default function TripDetail(props) {
                 alt="loading"
               />
             ) : (
-              "DELETE"
+              <p style={{}}>Delete</p>
             )}
           </button>
           {!localData ? (

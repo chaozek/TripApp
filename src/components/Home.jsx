@@ -9,7 +9,7 @@ const Home = () => {
     getTrips();
   }, []);
   return (
-    <HomeDiv>
+    <WrapperDiv>
       <PageName>Your trips</PageName>
       {error ? (
         <h1>fetching error</h1>
@@ -20,7 +20,7 @@ const Home = () => {
       )}
 
       <h1>{trips && trips.length === 0 ? "No data, add something" : null}</h1>
-    </HomeDiv>
+    </WrapperDiv>
   );
 };
 
@@ -34,7 +34,7 @@ export const PageName = styled.h2`
   align-items: flex-start;
 `;
 
-const HomeDiv = styled.div`
+export const WrapperDiv = styled.div`
   grid-area: main;
   padding: 1rem 2rem;
 `;

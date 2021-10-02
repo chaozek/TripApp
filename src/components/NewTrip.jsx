@@ -1,9 +1,13 @@
 import "./style.css";
+import { AiOutlineCheck } from "react-icons/ai";
+import { ButtonIcon } from "../GlobalStyles";
 import { CleevioContext } from "../context/CleevioState";
-import { PageName } from "./Home";
+import { PageName, WrapperDiv } from "./Home";
+import { YellowButton } from "../GlobalStyles";
 import Loading from "../imgs/Loading.gif";
 import React, { useContext, useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
+import buttonLoading from "../imgs/buttonLoading.gif";
 import styled from "styled-components";
 export default function NewTrip() {
   const {
@@ -47,9 +51,9 @@ export default function NewTrip() {
   };
 
   return (
-    <>
+    <WrapperDiv>
       <div>
-        <PageName padding>New Trip</PageName>
+        <PageName>New Trip</PageName>
         <NewTripDiv>
           <Form onSubmit={handleSubmit}>
             <Section>
@@ -181,27 +185,32 @@ export default function NewTrip() {
                 Have you been recently tested for COVID-19?
               </label>
               <br />
-              <input
-                type="radio"
-                required
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-                name="covid"
-                value="false"
-              />{" "}
-              YES
-              <input
-                type="radio"
-                required
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-                name="covid"
-                value="true"
-              />{" "}
-              NO
-              <br />
+              <Item>
+                <RadioInput
+                  type="radio"
+                  required
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                  name="covid"
+                  value="false"
+                />
+                Yes
+                <br />
+              </Item>
+              <Item>
+                <RadioInput
+                  type="radio"
+                  required
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                  name="covid"
+                  value="true"
+                />
+                No
+              </Item>
+              <Hr />
               <label htmlFor="covidDate">Date of receiving test results</label>
               <br />
               <input
@@ -218,48 +227,39 @@ export default function NewTrip() {
               />{" "}
               <br />
             </Section>
-            <button
-              type="submit"
-              disabled={loading ? true : false}
-              style={{
-                width: "100px",
-                display: "flex",
-                flexDirection: "column",
-                position: "relative",
-              }}
-            >
-              {loading ? (
-                <div>
-                  <p> Save </p>
-                  <img
-                    src={Loading}
-                    style={{
-                      width: "20px",
-                      position: "absolute",
-                      right: "0",
-                      top: "25%",
-                    }}
-                    alt=""
-                  />
-                </div>
-              ) : (
-                "Save"
-              )}
-            </button>
+            <div>
+              <Hr />
+              <AlignButton>
+                <YellowButton
+                  disabled={loading ? true : false}
+                  type="submit"
+                  width="300px"
+                >
+                  <p>Save</p>
+                  <ButtonIcon>
+                    {loading ? (
+                      <ButtonLoading src={buttonLoading} alt="loading" />
+                    ) : (
+                      <AiOutlineCheck />
+                    )}
+                  </ButtonIcon>
+                </YellowButton>
+              </AlignButton>
+            </div>
           </Form>
         </NewTripDiv>
       </div>
-    </>
+    </WrapperDiv>
   );
 }
 const Form = styled.form`
-  width: 50%;
+  @media (min-width: 1200px) {
+    width: 50%;
+  }
   @media (max-width: 1200px) {
-    width: 90%;
+    width: 80%;
   }
-  @media (max-width: 900px) {
-    width: 90%;
-  }
+
   @media (max-width: 500px) {
     width: 100%;
   }
@@ -269,17 +269,12 @@ const NewTripDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  @media (max-width: 500px) {
+    padding: 0rem 0rem;
+  }
 `;
-const Option = styled.option`
-  background-color: Transparent;
-  background: url("../imgs/France.png") no-repeat 0 0;
-  padding: 4px;
-  line-height: 21px;
-  -webkit-appearance: none;
-  height: 2rem;
-`;
+
 const Section = styled.div`
-  width: 100%;
   border-radius: 10px;
   font-size: 14px;
   padding: 1rem 1.5rem;
@@ -292,6 +287,34 @@ const Section = styled.div`
     width: 90%;
   }
   @media (max-width: 500px) {
-    width: 85%;
+    width: 86%;
   }
+`;
+const RadioInput = styled.input`
+  color: #76787b;
+  font-weight: 600;
+  font-size: 3rem;
+`;
+const AlignButton = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const ButtonLoading = styled.img`
+  width: 20px;
+`;
+const Item = styled.div`
+  background-color: #f1f1f2;
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  margin: 1.5rem 0.5rem 0rem 0rem;
+  border-radius: 10px;
+`;
+const Hr = styled.hr`
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #e5e5e5;
+  padding: 0;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 `;
