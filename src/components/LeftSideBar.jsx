@@ -101,7 +101,7 @@ const MobileMenu = styled.button`
   @media (max-width: 550px) {
     border-radius: 10px;
     border: none;
-    display: inline;
+    display: flex;
     justify-content: center;
     align-items: center;
     height: 40px;
