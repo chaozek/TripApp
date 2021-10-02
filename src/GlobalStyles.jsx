@@ -28,6 +28,11 @@ input{
 
   padding: 0rem 1rem;
 }
+button{
+  -webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
 input[type="text"],input[type="number"],input[type="date"], select{
   border: 1px solid #F1F1F2;
   border-radius: 10px;
