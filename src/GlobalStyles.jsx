@@ -10,7 +10,6 @@ export const GlobalStyles = createGlobalStyle`
     font-size: .75rem;
     line-height: 16px;
 color: #63666A;
--webkit-appearance: none;
 
   }
 

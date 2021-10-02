@@ -116,6 +116,7 @@ const LogoDiv = styled.img`
   margin-bottom: 3rem;
   text-align: center;
   @media (max-width: 550px) {
+    position: absolute;
     left: 0;
     right: 0;
     margin-left: auto;
