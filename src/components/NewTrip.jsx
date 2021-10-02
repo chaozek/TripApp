@@ -294,6 +294,9 @@ const RadioInput = styled.input`
   color: #76787b;
   font-weight: 600;
   font-size: 3rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 `;
 const AlignButton = styled.div`
   display: flex;
