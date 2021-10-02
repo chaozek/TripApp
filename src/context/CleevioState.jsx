@@ -1,13 +1,9 @@
 import { config } from "./config";
-import { useHistory } from "react-router-dom";
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
 export const CleevioContext = createContext();
 const BazosState = (props) => {
-  const initialState = {
-    loading: false,
-  };
   const [trips, setTrips] = useState();
   const [isEditing, setIsEditing] = useState(false);
   const [newTrip, setNewTrip] = useState({
@@ -16,7 +12,7 @@ const BazosState = (props) => {
     company_name: "",
     address: {
       street: "",
-      street_num: undefined,
+      street_num: undefined || "",
       city: "",
       country: "",
       zip: "",
@@ -66,7 +62,6 @@ const BazosState = (props) => {
 
 
 
-
   const handleDelete = async (getId, props) => {
     try {
       setLoading(true)
@@ -105,7 +100,7 @@ const BazosState = (props) => {
           name === "street_num"
             ? { ...p.address, [name]: parseInt(value) }
             : { ...p.address, [name]: value },
-      }));
+      }), console.log(newTrip));
     } else {
       setNewTrip((p) => {
         return {
@@ -128,7 +123,9 @@ const BazosState = (props) => {
     await axios
       .get("https://task-devel.cleevio-vercel.vercel.app/api/country", config)
       .then((data) => setCountry(data.data))
-      .catch((err) => setError(err));
+      .catch((err) => setError(err))
+      
+
   };
  
 
@@ -146,6 +143,7 @@ const BazosState = (props) => {
         handleSubmit,
         newTrip,
         getTrips,
+        setError,
         setNewTrip,
         getCountries,
         isEditing, setIsEditing,handleDelete, loading, width, setWidth

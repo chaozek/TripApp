@@ -3,12 +3,12 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
 import { YellowButton } from "../GlobalStyles";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import clock_black from "../imgs/clock_black.png";
 import clock_gray from "../imgs/clock_gray.png";
 import logo from "../imgs/logo.png";
 import styled from "styled-components";
-function LeftSideBar(props) {
+function LeftSideBar() {
   const { width } = useContext(CleevioContext);
   const [isMobile, setIsMobile] = useState(false);
   const handleClick = () => {
@@ -29,16 +29,20 @@ function LeftSideBar(props) {
       {isMobile && width < 550 ? (
         <PhoneMenuLinks>
           <MobileDiv>
-            <Link to="/">
+            <Link to="/" onClick={handleClick}>
               <LogoDiv src={logo} alt="" />
             </Link>
           </MobileDiv>
           <MobileMenu onClick={handleClick}>X</MobileMenu>
-          <YellowButton size="5rem" to="/trip">
+          <YellowButton size="5rem" to="/trip" onClick={handleClick}>
             <p>New Trip</p>
             <p>+</p>
           </YellowButton>
-          <ClockButton white disabled={getLocation === "/trip" ? true : false}>
+          <ClockButton
+            white
+            disabled={getLocation === "/trip" ? true : false}
+            onClick={handleClick}
+          >
             {getLocation === "/trip" ? (
               <Clock src={clock_gray} alt="clock" />
             ) : (
@@ -49,7 +53,7 @@ function LeftSideBar(props) {
         </PhoneMenuLinks>
       ) : (
         <MenuLinks>
-          <YellowButton to="/trip">
+          <YellowButton to="/trip" onClick={handleClick}>
             <p>New Trip</p>
             <p>+</p>
           </YellowButton>

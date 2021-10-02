@@ -1,25 +1,12 @@
 import { CleevioContext } from "../context/CleevioState";
 import { Link } from "react-router-dom";
-import { link } from "fs";
-import China from "../imgs/Flags/China.png";
 import Empty from "../imgs/Flags/empty.png";
-
-import France from "../imgs/France.png";
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 export default function SingleTrip(props) {
   let renderCountry = "";
-  const {
-    isEditing,
-    setIsEditing,
-    width,
-    setWidth,
-    stateCountry,
-    newTrip,
-    countries,
-    getCountries,
-    getTrips,
-  } = useContext(CleevioContext);
+  const { width, countries, getCountries, getTrips } =
+    useContext(CleevioContext);
 
   const { id, end_date, start_date, company_name } = props;
   const { street, city, street_num, country } = props.address;
@@ -31,11 +18,14 @@ export default function SingleTrip(props) {
       if (countries !== undefined) {
         let foundCountry = countries.filter((c) => c.label === country);
         let specificCountry = foundCountry[0];
-        if (specificCountry.length !== 0 && specificCountry.value === "uk") {
+        if (
+          specificCountry &&
+          specificCountry.length !== 0 &&
+          specificCountry.value === "uk"
+        ) {
           specificCountry.value = "gb";
           getTrips();
-        }
-        renderCountry = specificCountry.value;
+        } else if (specificCountry) renderCountry = specificCountry.value;
       }
     } catch (error) {
       //eslint-disable-next-line
@@ -69,7 +59,7 @@ export default function SingleTrip(props) {
               </p>
               <Header>Date </Header>
               <p>
-                {start_date} - {end_date}
+                {start_date} –⁠ {end_date}
               </p>
             </Content>
           </SingleTripDiv>
@@ -90,7 +80,7 @@ export default function SingleTrip(props) {
                 <h3>{country}</h3>
                 <Spacer>|</Spacer>
                 <p>
-                  {start_date} - {end_date}
+                  {start_date} –⁠ {end_date}
                 </p>
               </Align>
               <Align>
@@ -128,6 +118,7 @@ const ImgFlag = styled.img`
   width: 48px;
   padding: 1rem;
   height: 48px;
+  border-radius: 100px;
 `;
 const Right = styled.div`
   display: flex;

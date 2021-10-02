@@ -1,11 +1,14 @@
 import "./App.css";
 import { GlobalStyles } from "./GlobalStyles";
-import { HomeLayout } from "./components/routesLayout/RegularRoute.jsx";
-import { Link, Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import { RegularRoute } from "./components/routesLayout/RegularRoute.jsx";
+import {
+  HomeLayout,
+  RegularRoute,
+} from "./components/routesLayout/RegularRoute.jsx";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import CleevioContext from "./context/CleevioState.jsx";
 import Home from "./components/Home.jsx";
 import NewTrip from "./components/NewTrip";
+import NotFound from "./components/NotFound.jsx";
 import TripDetail from "./components/TripDetail";
 export default function App() {
   return (
@@ -16,8 +19,6 @@ export default function App() {
         <Router>
           <Switch>
             <RegularRoute exact layout={HomeLayout} path="/" component={Home} />
-          </Switch>
-          <Switch>
             <RegularRoute
               exact
               layout={HomeLayout}
@@ -29,6 +30,12 @@ export default function App() {
               layout={HomeLayout}
               path="/trip/"
               component={NewTrip}
+            />
+            <RegularRoute
+              exact
+              layout={HomeLayout}
+              path="*"
+              component={NotFound}
             />
           </Switch>
         </Router>

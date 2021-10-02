@@ -1,9 +1,8 @@
 import "./style.css";
 import { CleevioContext } from "../context/CleevioState";
 import { PageName } from "./Home";
-import France from "../imgs/France.png";
 import Loading from "../imgs/Loading.gif";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import styled from "styled-components";
 export default function NewTrip() {
@@ -14,13 +13,37 @@ export default function NewTrip() {
     handleSubmit,
     loading,
     getCountries,
+    setNewTrip,
   } = useContext(CleevioContext);
   const [selected, setSelected] = useState("");
-  const countriesPlug = ("Countries", ["US", "GB", "DE", "FR", "NG", "ES"]);
-  const blacklistCountries = ("Blacklist Countries", false);
+  const countriesPlug =
+    ("Countries",
+    ["AW", "GR", "FR", "PT", "ES", "IT", "SK", "SE", "CN", "AT", "GB"]);
+
   const onSelect = (code) => {
     setSelected(code);
     findCountry(countries, code);
+  };
+  if (countries === undefined) {
+    getCountries();
+  }
+  const findCountry = (countries, code) => {
+    if (countries && countries !== undefined) {
+      let foundCountry = countries.filter(
+        (c) => c.value.toLowerCase() === code.toLowerCase()
+      );
+      if (foundCountry[0] === undefined && code === "GB") {
+        setNewTrip((p) => ({
+          ...p,
+          address: { ...p.address, country: "United Kingdom" },
+        }));
+      } else {
+        setNewTrip((p) => ({
+          ...p,
+          address: { ...p.address, country: foundCountry[0].label },
+        }));
+      }
+    }
   };
 
   return (
@@ -38,27 +61,8 @@ export default function NewTrip() {
                 style={{ display: "flex", flexDirection: "column" }}
                 selected={selected}
                 onSelect={onSelect}
+                countries={countriesPlug}
               />
-              <select
-                type="text"
-                name="country"
-                required
-                value={newTrip.address.country || ""}
-                onChange={(e) => {
-                  handleChange(e) || null;
-                }}
-              >
-                <option value=""></option>
-                {countries ? (
-                  countries.map((data, i) => (
-                    <Option key={i} value={data.url}>
-                      {data.label}
-                    </Option>
-                  ))
-                ) : (
-                  <option required>loading...</option>
-                )}
-              </select>
             </Section>
             <Section>
               <label htmlFor="start_date">Start date</label>

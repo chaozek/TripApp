@@ -1,5 +1,4 @@
 import { CleevioContext } from "../context/CleevioState";
-import { Link } from "react-router-dom";
 import { PageName } from "./Home";
 import { config } from "../context/config";
 import Loading from "../imgs/Loading.gif";
@@ -9,68 +8,75 @@ import styled from "styled-components";
 
 export default function TripDetail(props) {
   const [localData, setLocalData] = useState();
-  const { loading, setLoading, handleDelete } = useContext(CleevioContext);
+  const { loading, setLoading, handleDelete, error, setError } =
+    useContext(CleevioContext);
   const getId = props.match.params.id;
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const response = await axios.get(
-      `https://task-devel.cleevio-vercel.vercel.app/api/trip/${getId}`,
-      config
-    );
-    setLocalData(response.data);
-    setLoading(false);
+    try {
+      const response = await axios.get(
+        `https://task-devel.cleevio-vercel.vercel.app/api/trip/${getId}`,
+        config
+      );
+      setLocalData(response.data);
+      setLoading(false);
+    } catch (error) {
+      setError(error.message);
+    }
   };
-
   return (
     <TripDiv>
       <PageName>Trip Detail</PageName>
-      <button
-        onClick={() => handleDelete(getId, props)}
-        disabled={loading ? true : false}
-        style={{
-          width: "100px",
-          display: "flex",
-          flexDirection: "column",
-          position: "relative",
-        }}
-      >
-        {loading ? (
-          <div>
-            <p> DELETE </p>
-            <img
-              src={Loading}
-              style={{
-                width: "20px",
-                position: "absolute",
-                right: "0",
-                top: "25%",
-              }}
-              alt=""
-            />
-          </div>
-        ) : (
-          "DELETE"
-        )}
-      </button>
-      {!localData ? (
-        "Loading..."
+      {error ? (
+        error
       ) : (
         <div>
-          <p>CITY: {localData.address.city}</p>
-          <p>COUNTRY: {localData.address.country}</p>
-          <p>STREET: {localData.address.street}</p>
-          <p>STREET NUM: {localData.address.street_num}</p>
-          <p>ZIP: {localData.address.zip}</p>
-          <br />
+          <button
+            onClick={() => handleDelete(getId, props)}
+            disabled={loading ? true : false}
+            style={{
+              width: "100px",
+              display: "flex",
+              flexDirection: "column",
+              position: "relative",
+            }}
+          >
+            {loading ? (
+              <img
+                src={Loading}
+                style={{
+                  width: "20px",
+                  display: "block",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
+                alt="loading"
+              />
+            ) : (
+              "DELETE"
+            )}
+          </button>
+          {!localData ? (
+            "Loading..."
+          ) : (
+            <div>
+              <p>CITY: {localData.address.city}</p>
+              <p>COUNTRY: {localData.address.country}</p>
+              <p>STREET: {localData.address.street}</p>
+              <p>STREET NUM: {localData.address.street_num}</p>
+              <p>ZIP: {localData.address.zip}</p>
+              <br />
 
-          <p>END DATE: {localData.end_date}</p>
-          <p> START DATE: {localData.start_date}</p>
-          <br />
-          <p>COVID: {localData.covid}</p>
-          <p>{localData.covid_test_date}</p>
+              <p>END DATE: {localData.end_date}</p>
+              <p> START DATE: {localData.start_date}</p>
+              <br />
+              <p>COVID: {localData.covid}</p>
+              <p>{localData.covid_test_date}</p>
+            </div>
+          )}
         </div>
       )}
     </TripDiv>
