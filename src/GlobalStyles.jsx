@@ -63,11 +63,7 @@ input[type=checkbox] {
   -moz-appearance:    none;
   appearance:         none;
 }
-input, textarea, button {
-    -webkit-appearance: none;
-    -webkit-font-smoothing: antialiased;
-    resize: none;
-}
+
 input[type="radio"]{
     -webkit-appearance: radio !important;
 }
