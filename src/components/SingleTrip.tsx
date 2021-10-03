@@ -6,7 +6,7 @@ import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 export default function SingleTrip(props) {
   let renderCountry = "";
-  const { width, countries, getCountries, getTrips } =
+  const { width, countries, getCountries, getTrips, setError } =
     useContext(CleevioContext);
 
   const { id, end_date, start_date, company_name } = props;
@@ -19,14 +19,17 @@ export default function SingleTrip(props) {
       if (countries !== undefined) {
         let foundCountry = countries.filter((c) => c.label === country);
         let specificCountry = foundCountry[0];
-        if (specificCountry && specificCountry.value === "uk") {
+        if (specificCountry.value === "uk") {
           specificCountry.value = "gb";
-          getTrips();
+          renderCountry = specificCountry.value;
         } else if (specificCountry) renderCountry = specificCountry.value;
       }
     } catch (error) {
-      //eslint-disable-next-line
-      console.log(error);
+      let errorMessage = "Failed to load";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      setError(errorMessage);
     }
   };
   getCountry(country);

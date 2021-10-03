@@ -38,6 +38,8 @@ export const HomeLayout = styled.div`
   }
   @media (max-width: 550px) {
     grid-template-columns: 1fr;
+    height: auto;
+
     grid-template-areas:
       "leftSidebar"
       "main"
