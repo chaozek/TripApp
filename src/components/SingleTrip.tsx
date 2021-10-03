@@ -1,5 +1,6 @@
-import { CleevioContext } from "../context/CleevioState";
+import { CleevioContext } from "../context/CleevioState_";
 import { Link } from "react-router-dom";
+
 import Empty from "../imgs/Flags/empty.png";
 import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
@@ -13,16 +14,12 @@ export default function SingleTrip(props) {
   useEffect(() => {
     getCountries();
   }, [renderCountry]);
-  const getCountry = (country) => {
+  const getCountry = (country: string) => {
     try {
       if (countries !== undefined) {
         let foundCountry = countries.filter((c) => c.label === country);
         let specificCountry = foundCountry[0];
-        if (
-          specificCountry &&
-          specificCountry.length !== 0 &&
-          specificCountry.value === "uk"
-        ) {
+        if (specificCountry && specificCountry.value === "uk") {
           specificCountry.value = "gb";
           getTrips();
         } else if (specificCountry) renderCountry = specificCountry.value;
@@ -64,7 +61,7 @@ export default function SingleTrip(props) {
             </Content>
           </SingleTripDiv>
         ) : (
-          <SingleTripDiv flex>
+          <SingleTripDiv flex="flex">
             <Left>
               {renderCountry.length > 0 ? (
                 <ImgFlag
@@ -96,9 +93,13 @@ export default function SingleTrip(props) {
     </>
   );
 }
-const SingleTripDiv = styled.div`
+type ContainerType = {
+  flex?: string;
+};
+const SingleTripDiv = styled.div<ContainerType>`
   background-color: #f9f9fa;
-  display: ${(props) => (props.flex ? "flex" : "block")};
+  display: ${(props: ContainerType) =>
+    props.flex === "flex" ? "flex" : "block"};
   align-items: center;
   flex-wrap: wrap;
   border-radius: 10px;

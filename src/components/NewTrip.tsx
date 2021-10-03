@@ -1,7 +1,7 @@
 import "./style.css";
 import { AiOutlineCheck } from "react-icons/ai";
 import { ButtonIcon } from "../GlobalStyles";
-import { CleevioContext } from "../context/CleevioState";
+import { CleevioContext } from "../context/CleevioState_";
 import { PageName, WrapperDiv } from "./Home";
 import { YellowButton } from "../GlobalStyles";
 import Loading from "../imgs/Loading.gif";
@@ -20,15 +20,25 @@ export default function NewTrip() {
     setNewTrip,
   } = useContext(CleevioContext);
   const [selected, setSelected] = useState("");
-  const countriesPlug =
-    ("Countries",
-    ["AW", "GR", "FR", "PT", "ES", "IT", "SK", "SE", "CN", "AT", "GB"]);
+  const countriesPlug = [
+    "AW",
+    "GR",
+    "FR",
+    "PT",
+    "ES",
+    "IT",
+    "SK",
+    "SE",
+    "CN",
+    "AT",
+    "GB",
+  ];
 
   const onSelect = (code) => {
     setSelected(code);
     findCountry(countries, code);
   };
-  if (countries === undefined) {
+  if (countries.length === 0) {
     getCountries();
   }
   const findCountry = (countries, code) => {
@@ -62,7 +72,6 @@ export default function NewTrip() {
               <ReactFlagsSelect
                 className="selectFlag"
                 selectButtonClassName="menu-flags-button"
-                style={{ display: "flex", flexDirection: "column" }}
                 selected={selected}
                 onSelect={onSelect}
                 countries={countriesPlug}
@@ -100,15 +109,7 @@ export default function NewTrip() {
             <Section>
               <br />
 
-              <label
-                htmlFor="company_name"
-                value={newTrip.end_date}
-                required
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-                placeholder="Type here..."
-              >
+              <label htmlFor="company_name" placeholder="Type here...">
                 Company name
               </label>
               <br />

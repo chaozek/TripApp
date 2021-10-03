@@ -5,7 +5,7 @@ const SideBar = () => {
   return (
     <div className="container">
       <div className="leftSidebar">
-        <img src={logo} alt="" />
+        <img src={logo} alt="logo" />
       </div>
       <main>
         Company was established back in the year 2007 by 3 friends who were

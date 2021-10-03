@@ -1,6 +1,6 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import { ButtonIcon, YellowButtonLink } from "../GlobalStyles";
-import { CleevioContext } from "../context/CleevioState";
+import { CleevioContext } from "../context/CleevioState_";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
@@ -41,7 +41,7 @@ function LeftSideBar() {
             <p>+</p>
           </YellowButtonLink>
           <ClockButton
-            white
+            white="white"
             disabled={getLocation === "/trip" ? false : true}
             onClick={handleClick}
           >
@@ -77,7 +77,9 @@ function LeftSideBar() {
     </LeftSideBarDiv>
   );
 }
-
+type ContainerType = {
+  white?: string;
+};
 export default LeftSideBar;
 const LeftSideBarDiv = styled.div`
   background-color: #f9f9fa;
@@ -109,11 +111,10 @@ const MobileMenu = styled.button`
   }
 `;
 const LogoDiv = styled.img`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 3rem;
-  text-align: center;
   @media (max-width: 550px) {
     position: absolute;
     left: 0;
@@ -137,10 +138,11 @@ const MobileDiv = styled.div`
 const Clock = styled.img`
   margin-right: 0.5rem;
 `;
-const ClockButton = styled.button`
+const ClockButton = styled.button<ContainerType>`
   margin-top: 2rem;
   border: none;
-  background-color: ${(props) => (props.white ? "white" : "#f9f9fa")};
+  background-color: ${(props: ContainerType) =>
+    props.white === "white" ? "white" : "#f9f9fa"};
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;

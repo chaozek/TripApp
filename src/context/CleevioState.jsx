@@ -1,4 +1,4 @@
-import { config } from "./config";
+import { config } from "./config.tsx";
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 

@@ -1,11 +1,11 @@
-import { CleevioContext } from "../context/CleevioState";
+import { CleevioContext } from "../context/CleevioState_";
 import Loading from "../imgs/Loading.gif";
 import React, { useContext, useEffect } from "react";
 
 import SingleTrip from "./SingleTrip";
 import styled from "styled-components";
 const RightSideBar = (props) => {
-  const { trips, getTrips } = useContext(CleevioContext);
+  const { getTrips, trips } = useContext(CleevioContext);
 
   useEffect(() => {
     getTrips();
@@ -19,7 +19,7 @@ const RightSideBar = (props) => {
             <SingleTrip layout="rightSideBar" key={trip.id} {...trip} />
           ))
         ) : (
-          <LoadingDiv src={Loading} alt="" />
+          <LoadingDiv src={Loading} alt="loading" />
         )
       ) : (
         <>

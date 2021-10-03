@@ -1,4 +1,4 @@
-import { CleevioContext } from "../context/CleevioState";
+import { CleevioContext } from "../context/CleevioState_";
 import Loading from "../imgs/Loading.gif";
 import React, { useContext, useEffect } from "react";
 import SingleTrip from "./SingleTrip";
@@ -11,22 +11,23 @@ const Home = () => {
   return (
     <WrapperDiv>
       <PageName>Your trips</PageName>
-      {error ? (
-        <h1>fetching error</h1>
-      ) : loading ? (
+
+      {loading ? (
         <LoadingDiv src={Loading} alt="" />
       ) : (
         trips.map((trip) => <SingleTrip key={trip.id} {...trip} />)
       )}
 
-      <h1>{trips && trips.length === 0 ? "No data, add something" : null}</h1>
+      {!loading && trips.length === 0 ? "No data, add something" : null}
     </WrapperDiv>
   );
 };
 
 export default Home;
-
-export const PageName = styled.h2`
+type ContainerType = {
+  padding?: string;
+};
+export const PageName = styled.h2<ContainerType>`
   padding: ${(props) => (props.padding ? "1rem 2rem" : "none")};
   padding-bottom: 2.3rem;
   border-bottom: 1px solid #f1f1f2;

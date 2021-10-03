@@ -1,13 +1,26 @@
-import { CleevioContext } from "../context/CleevioState";
+import { CleevioContext } from "../context/CleevioState_";
 import { PageName } from "./Home";
 import { config } from "../context/config";
 import Loading from "../imgs/Loading.gif";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-
+type Provider = {
+  connected: boolean;
+  address: {
+    city: string;
+    country: string;
+    street_num: undefined;
+    street: string;
+    zip: string;
+  };
+  end_date: string;
+  start_date: string;
+  covid: boolean;
+  covid_test_date: string;
+};
 export default function TripDetail(props) {
-  const [localData, setLocalData] = useState();
+  const [localData, setLocalData] = useState<Provider>();
   const { loading, setLoading, handleDelete, error, setError } =
     useContext(CleevioContext);
   const getId = props.match.params.id;
@@ -24,7 +37,11 @@ export default function TripDetail(props) {
       setLocalData(response.data);
       setLoading(false);
     } catch (error) {
-      setError(error.message);
+      let errorMessage = "Failed to fetch";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      setError(errorMessage);
     }
   };
   return (
