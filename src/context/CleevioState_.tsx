@@ -110,7 +110,7 @@ const contextDefaultValues: CleevioContextState = {
 
 export const CleevioContext =
   createContext<CleevioContextState>(contextDefaultValues);
-const BazosState = (props) => {
+const CleevioState = (props) => {
   const [trips, setTrips] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [newTrip, setNewTrip] = useState(contextDefaultValues.newTrip);
@@ -237,4 +237,4 @@ const BazosState = (props) => {
   );
 };
 
-export default BazosState;
+export default CleevioState;

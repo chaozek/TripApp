@@ -24,33 +24,59 @@ export default function TripDetail(props) {
   const { loading, setLoading, handleDelete, error, setError } =
     useContext(CleevioContext);
   const getId = props.match.params.id;
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const fetchData = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         `https://task-devel.cleevio-vercel.vercel.app/api/trip/${getId}`,
         config
       );
-      setLocalData(response.data);
+      await setLocalData(response.data);
       setLoading(false);
+      setError("");
     } catch (error) {
       let errorMessage = "Failed to fetch";
       if (error instanceof Error) {
         errorMessage = error.message;
       }
       setError(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <TripDiv>
       <PageName>Trip Detail</PageName>
-      {error ? (
-        error
+
+      {!localData ? (
+        <img
+          src={Loading}
+          style={{
+            width: "20px",
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+          alt="loading"
+        />
       ) : (
         <div>
+          <p>CITY: {localData.address.city}</p>
+          <p>COUNTRY: {localData.address.country}</p>
+          <p>STREET: {localData.address.street}</p>
+          <p>STREET NUM: {localData.address.street_num}</p>
+          <p>ZIP: {localData.address.zip}</p>
+          <br />
+
+          <p>END DATE: {localData.end_date}</p>
+          <p> START DATE: {localData.start_date}</p>
+          <br />
+          <p>COVID: {localData.covid}</p>
+          <p>{localData.covid_test_date}</p>
           <button
             onClick={() => handleDelete(getId, props)}
             disabled={loading ? true : false}
@@ -79,26 +105,9 @@ export default function TripDetail(props) {
               <p style={{}}>Delete</p>
             )}
           </button>
-          {!localData ? (
-            "Loading..."
-          ) : (
-            <div>
-              <p>CITY: {localData.address.city}</p>
-              <p>COUNTRY: {localData.address.country}</p>
-              <p>STREET: {localData.address.street}</p>
-              <p>STREET NUM: {localData.address.street_num}</p>
-              <p>ZIP: {localData.address.zip}</p>
-              <br />
-
-              <p>END DATE: {localData.end_date}</p>
-              <p> START DATE: {localData.start_date}</p>
-              <br />
-              <p>COVID: {localData.covid}</p>
-              <p>{localData.covid_test_date}</p>
-            </div>
-          )}
         </div>
       )}
+      {!loading && error.length > 0 ? error : null}
     </TripDiv>
   );
 }
