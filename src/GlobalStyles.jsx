@@ -30,6 +30,7 @@ input{
   padding: 0rem 1rem;
   
 }
+
 input:focus,textarea:focus {
     outline : none ;
 }
@@ -58,6 +59,12 @@ input[type="date"]::-webkit-datetime-edit-day-field,
 input[type="date"]::-webkit-datetime-edit-year-field {
   color: #D0D0CE;
 }
+input[type="date"].date-input--has-value::-webkit-datetime-edit-text,
+input[type="date"].date-input--has-value::-webkit-datetime-edit-month-field,
+input[type="date"].date-input--has-value::-webkit-datetime-edit-day-field,
+input[type="date"].date-input--has-value::-webkit-datetime-edit-year-field {
+  color: black;
+}
 input[type=checkbox] {
   -webkit-appearance: none;
   -moz-appearance:    none;
@@ -67,6 +74,7 @@ input[type=checkbox] {
 input[type="radio"]{
     -webkit-appearance: radio !important;
 }
+
 ::placeholder,
   ::-webkit-input-placeholder {
     color: #D0D0CE

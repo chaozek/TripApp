@@ -64,7 +64,7 @@ const contextDefaultValues: CleevioContextState = {
       country: "",
       zip: "",
     },
-    covid: true,
+    covid: false,
     covid_test_date: "",
   },
 
@@ -81,7 +81,7 @@ const contextDefaultValues: CleevioContextState = {
         country: "",
         zip: "",
       },
-      covid: true,
+      covid: false,
       covid_test_date: "",
     },
   ],
@@ -164,12 +164,11 @@ const CleevioState = (props) => {
       setError(errorMessage);
     }
   };
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
     if (name === "covid") {
-      if (value === "true") return true;
-      if (value === "false") return false;
+      if (value === "true") value = true;
+      if (value === "false") value = false;
     }
     if (
       name === "city" ||

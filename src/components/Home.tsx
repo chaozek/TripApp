@@ -1,8 +1,10 @@
 import { CleevioContext } from "../context/CleevioState_";
+import FadeIn from "react-fade-in";
 import Loading from "../imgs/Loading.gif";
 import React, { useContext, useEffect } from "react";
 import SingleTrip from "./SingleTrip";
 import styled from "styled-components";
+
 const Home = () => {
   const { trips, getTrips, loading, error } = useContext(CleevioContext);
   useEffect(() => {
@@ -15,7 +17,11 @@ const Home = () => {
       {loading ? (
         <LoadingDiv src={Loading} alt="" />
       ) : (
-        trips.map((trip) => <SingleTrip key={trip.id} {...trip} />)
+        trips.map((trip) => (
+          <FadeIn key={trip.id}>
+            <SingleTrip {...trip} />
+          </FadeIn>
+        ))
       )}
 
       {!loading && trips.length === 0 ? "No data, add something" : null}

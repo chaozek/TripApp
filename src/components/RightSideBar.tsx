@@ -2,8 +2,10 @@ import { CleevioContext } from "../context/CleevioState_";
 import Loading from "../imgs/Loading.gif";
 import React, { useContext, useEffect } from "react";
 
+import FadeIn from "react-fade-in";
 import SingleTrip from "./SingleTrip";
 import styled from "styled-components";
+
 const RightSideBar = (props) => {
   const { getTrips, trips } = useContext(CleevioContext);
 
@@ -16,7 +18,9 @@ const RightSideBar = (props) => {
       {props.location.pathname === "/trip" ? (
         trips ? (
           trips.map((trip) => (
-            <SingleTrip layout="rightSideBar" key={trip.id} {...trip} />
+            <FadeIn key={trip.id}>
+              <SingleTrip layout="rightSideBar" {...trip} />
+            </FadeIn>
           ))
         ) : (
           <LoadingDiv src={Loading} alt="loading" />

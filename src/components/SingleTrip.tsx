@@ -22,6 +22,9 @@ export default function SingleTrip(props) {
         if (specificCountry.value === "uk") {
           specificCountry.value = "gb";
           renderCountry = specificCountry.value;
+        } else if (specificCountry.value === "aw") {
+          specificCountry.value = "NL";
+          renderCountry = specificCountry.value;
         } else if (specificCountry) renderCountry = specificCountry.value;
       }
     } catch (error) {

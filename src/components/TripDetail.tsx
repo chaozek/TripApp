@@ -47,7 +47,6 @@ export default function TripDetail(props) {
   useEffect(() => {
     fetchData();
   }, []);
-
   return (
     <TripDiv>
       <PageName>Trip Detail</PageName>

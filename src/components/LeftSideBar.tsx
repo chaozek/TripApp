@@ -4,7 +4,7 @@ import { CleevioContext } from "../context/CleevioState_";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import clock_black from "../imgs/clock_black.png";
 import clock_gray from "../imgs/clock_gray.png";
 import logo from "../imgs/logo.png";

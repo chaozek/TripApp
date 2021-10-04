@@ -4,11 +4,12 @@ import { ButtonIcon } from "../GlobalStyles";
 import { CleevioContext } from "../context/CleevioState_";
 import { PageName, WrapperDiv } from "./Home";
 import { YellowButton } from "../GlobalStyles";
-import Loading from "../imgs/Loading.gif";
+import FadeIn from "react-fade-in";
 import React, { useContext, useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import buttonLoading from "../imgs/buttonLoading.gif";
 import styled from "styled-components";
+
 export default function NewTrip() {
   const {
     handleChange,
@@ -21,7 +22,7 @@ export default function NewTrip() {
   } = useContext(CleevioContext);
   const [selected, setSelected] = useState("");
   const countriesPlug = [
-    "AW",
+    "NL",
     "GR",
     "FR",
     "PT",
@@ -59,7 +60,6 @@ export default function NewTrip() {
       }
     }
   };
-
   return (
     <WrapperDiv>
       <div>
@@ -86,6 +86,7 @@ export default function NewTrip() {
                 min="2020-01-01"
                 max="2022-12-31"
                 required
+                className={newTrip.start_date ? "date-input--has-value" : ""}
                 value={newTrip.start_date}
                 onChange={(e) => {
                   handleChange(e);
@@ -99,6 +100,7 @@ export default function NewTrip() {
                 name="end_date"
                 value={newTrip.end_date}
                 min={newTrip.start_date}
+                className={newTrip.end_date ? "date-input--has-value" : ""}
                 required
                 max="2022-12-31"
                 onChange={(e) => {
@@ -194,7 +196,7 @@ export default function NewTrip() {
                     handleChange(e);
                   }}
                   name="covid"
-                  value="false"
+                  value="true"
                 />
                 Yes
                 <br />
@@ -207,25 +209,37 @@ export default function NewTrip() {
                     handleChange(e);
                   }}
                   name="covid"
-                  value="true"
+                  defaultChecked
+                  value="false"
                 />
                 No
               </Item>
-              <Hr />
-              <label htmlFor="covidDate">Date of receiving test results</label>
-              <br />
-              <input
-                type="date"
-                required
-                onChange={(e) => {
-                  handleChange(e);
-                }}
-                id="start"
-                name="covid_test_date"
-                value={newTrip.covid_test_date}
-                min="2020-01-01"
-                max="2022-12-31"
-              />{" "}
+              {newTrip.covid === true ? (
+                <FadeIn>
+                  <Hr />
+
+                  <label htmlFor="covidDate">
+                    Date of receiving test results
+                  </label>
+                  <br />
+                  <input
+                    type="date"
+                    required
+                    onChange={(e) => {
+                      handleChange(e);
+                    }}
+                    id="start"
+                    name="covid_test_date"
+                    value={newTrip.covid_test_date}
+                    className={
+                      newTrip.covid_test_date ? "date-input--has-value" : ""
+                    }
+                    min="2020-01-01"
+                    max="2022-12-31"
+                  />
+                </FadeIn>
+              ) : null}
+
               <br />
             </Section>
             <div>
