@@ -1,8 +1,8 @@
 import { CleevioContext } from "../context/CleevioState_";
 import { PageName } from "./Home";
 import { config } from "../context/config";
+import { useContext, useEffect, useState } from "react";
 import Loading from "../imgs/Loading.gif";
-import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 type Provider = {

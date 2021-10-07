@@ -1,8 +1,8 @@
 import { CleevioContext } from "../context/CleevioState_";
 import { Link } from "react-router-dom";
 
+import { useContext } from "react";
 import Empty from "../imgs/Flags/empty.png";
-import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 export default function SingleTrip(props) {
   let renderCountry = "";

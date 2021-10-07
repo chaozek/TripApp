@@ -1,7 +1,4 @@
-import * as yup from "yup";
 import { config } from "./config";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 import React, { createContext, useEffect, useState } from "react";
 

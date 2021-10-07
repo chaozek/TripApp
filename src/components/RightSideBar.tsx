@@ -1,6 +1,6 @@
 import { CleevioContext } from "../context/CleevioState_";
+import { useContext, useEffect } from "react";
 import Loading from "../imgs/Loading.gif";
-import React, { useContext, useEffect } from "react";
 
 import FadeIn from "react-fade-in";
 import SingleTrip from "./SingleTrip";
