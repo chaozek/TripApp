@@ -4,21 +4,25 @@ import { ButtonIcon } from "../GlobalStyles";
 import { CleevioContext } from "../context/CleevioState_";
 import { PageName, WrapperDiv } from "./Home";
 import { YellowButton } from "../GlobalStyles";
+import { useForm } from "react-hook-form";
 import FadeIn from "react-fade-in";
 import React, { useContext, useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import buttonLoading from "../imgs/buttonLoading.gif";
 import styled from "styled-components";
-
 export default function NewTrip() {
   const {
     handleChange,
     countries,
     newTrip,
-    handleSubmit,
+    formHandleSubmit,
     loading,
     getCountries,
     setNewTrip,
+    inputError,
+    flagStatus,
+    setFlagStatus,
+    setInputError,
   } = useContext(CleevioContext);
   const [selected, setSelected] = useState("");
   const countriesPlug = [
@@ -37,6 +41,9 @@ export default function NewTrip() {
 
   const onSelect = (code) => {
     setSelected(code);
+    setInputError({ name: "", error: "" });
+
+    setFlagStatus(code);
     findCountry(countries, code);
   };
   if (countries.length === 0) {
@@ -60,17 +67,27 @@ export default function NewTrip() {
       }
     }
   };
+
   return (
     <WrapperDiv>
       <div>
         <PageName>New Trip</PageName>
         <NewTripDiv>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={formHandleSubmit}>
             <Section>
               <label htmlFor="country">Where do you want to go</label>
-              <br />
+              {flagStatus.length <= 0 ? (
+                <div>
+                  <p style={{ color: "red", margin: "20px 0px 0px 0px" }}>
+                    {inputError.error}
+                  </p>
+                </div>
+              ) : undefined}
               <ReactFlagsSelect
-                className="selectFlag"
+                className={`selectFlag ${
+                  selected === "" ? "date-input--has-value" : ""
+                }
+                 ${inputError.name === "flag" ? "error" : ""}`}
                 selectButtonClassName="menu-flags-button"
                 selected={selected}
                 onSelect={onSelect}
@@ -80,14 +97,25 @@ export default function NewTrip() {
             <Section>
               <label htmlFor="start_date">Start date</label>
               <br />
+              {inputError.name === "start_date" ? (
+                <div>
+                  <p style={{ margin: "0", color: "red" }}>
+                    {inputError.error}
+                  </p>
+                </div>
+              ) : undefined}
               <input
                 type="date"
                 name="start_date"
                 min="2020-01-01"
                 max="2022-12-31"
-                required
                 className={newTrip.start_date ? "date-input--has-value" : ""}
                 value={newTrip.start_date}
+                style={
+                  inputError.name === "start_date"
+                    ? { border: "1px solid red" }
+                    : undefined
+                }
                 onChange={(e) => {
                   handleChange(e);
                 }}
@@ -95,26 +123,43 @@ export default function NewTrip() {
               <br />
               <label htmlFor="end_date">End date</label>
               <br />
+              {inputError.name === "end_date" ? (
+                <div>
+                  <p style={{ margin: "0", color: "red" }}>
+                    {inputError.error}
+                  </p>
+                </div>
+              ) : undefined}
               <input
                 type="date"
                 name="end_date"
                 value={newTrip.end_date}
                 min={newTrip.start_date}
                 className={newTrip.end_date ? "date-input--has-value" : ""}
-                required
                 max="2022-12-31"
+                style={
+                  inputError.name === "end_date"
+                    ? { border: "1px solid red" }
+                    : undefined
+                }
                 onChange={(e) => {
                   handleChange(e);
                 }}
               />{" "}
             </Section>
             <Section>
-              <br />
-
               <label htmlFor="company_name" placeholder="Type here...">
                 Company name
               </label>
               <br />
+              {inputError.name === "company_name" ? (
+                <div>
+                  <p style={{ margin: "0", color: "red" }}>
+                    {inputError.error}
+                  </p>
+                </div>
+              ) : undefined}
+
               <input
                 type="text"
                 onChange={(e) => {
@@ -122,15 +167,31 @@ export default function NewTrip() {
                 }}
                 placeholder="Type here..."
                 name="company_name"
-                required
+                style={
+                  inputError.name === "company_name"
+                    ? { border: "1px solid red" }
+                    : undefined
+                }
                 value={newTrip.company_name}
               />
               <br />
+
               <label htmlFor="city">City</label>
               <br />
+              {inputError.name === "city" ? (
+                <div>
+                  <p style={{ margin: "0", color: "red" }}>
+                    {inputError.error}
+                  </p>
+                </div>
+              ) : undefined}
               <input
                 type="text"
-                required
+                style={
+                  inputError.name === "city"
+                    ? { border: "1px solid red" }
+                    : undefined
+                }
                 onChange={(e) => {
                   handleChange(e);
                 }}
@@ -141,49 +202,78 @@ export default function NewTrip() {
               <br />
               <label htmlFor="street_num">Street Number</label>
               <br />
+              {inputError.name === "street_num" ? (
+                <div>
+                  <p style={{ margin: "0", color: "red" }}>
+                    {inputError.error}
+                  </p>
+                </div>
+              ) : undefined}
               <input
+                value={newTrip.address.street_num}
                 type="number"
-                required
                 onChange={(e) => {
                   handleChange(e);
                 }}
                 placeholder="Type here..."
                 name="street_num"
-                value={newTrip.address.street_num}
+                style={
+                  inputError.name === "street_num"
+                    ? { border: "1px solid red" }
+                    : undefined
+                }
               />
               <br />
-
               <label htmlFor="street">Street</label>
               <br />
+              {inputError.name === "street" ? (
+                <div>
+                  <p style={{ margin: "0", color: "red" }}>
+                    {inputError.error}
+                  </p>
+                </div>
+              ) : undefined}
               <input
+                value={newTrip.address.street}
                 type="text"
-                required
                 onChange={(e) => {
                   handleChange(e);
                 }}
                 placeholder="Type here..."
                 name="street"
-                value={newTrip.address.street}
+                style={
+                  inputError.name === "street"
+                    ? { border: "1px solid red" }
+                    : undefined
+                }
               />
-              <br />
-
               <br />
 
               <label htmlFor="zip">Zip code</label>
               <br />
+              {inputError.name === "zip" ? (
+                <div>
+                  <p style={{ margin: "0", color: "red" }}>
+                    {inputError.error}
+                  </p>
+                </div>
+              ) : undefined}
               <input
                 type="text"
-                required
                 onChange={(e) => {
                   handleChange(e);
                 }}
                 placeholder="Type here..."
                 name="zip"
+                style={
+                  inputError.name === "zip"
+                    ? { border: "1px solid red" }
+                    : undefined
+                }
                 value={newTrip.address.zip}
               />
             </Section>
             <Section>
-              <br />
               <label htmlFor="covid">
                 Have you been recently tested for COVID-19?
               </label>
@@ -191,7 +281,6 @@ export default function NewTrip() {
               <Item>
                 <RadioInput
                   type="radio"
-                  required
                   onChange={(e) => {
                     handleChange(e);
                   }}
@@ -204,7 +293,6 @@ export default function NewTrip() {
               <Item>
                 <RadioInput
                   type="radio"
-                  required
                   onChange={(e) => {
                     handleChange(e);
                   }}
@@ -224,7 +312,6 @@ export default function NewTrip() {
                   <br />
                   <input
                     type="date"
-                    required
                     onChange={(e) => {
                       handleChange(e);
                     }}
@@ -292,7 +379,7 @@ const NewTripDiv = styled.div`
 const Section = styled.div`
   border-radius: 10px;
   font-size: 14px;
-  padding: 1rem 1.5rem;
+  padding: 16px 1.5rem;
   margin-top: 1rem;
   background-color: #f9f9fa;
   color: black;
@@ -320,11 +407,15 @@ const AlignButton = styled.div`
 const ButtonLoading = styled.img`
   width: 20px;
 `;
+const ErrorTag = styled.p`
+  margin: "1rem 0rem 0rem 0rem";
+  color: "red";
+`;
 const Item = styled.div`
   background-color: #f1f1f2;
   display: inline-block;
   padding: 0.6rem 1rem;
-  margin: 1.5rem 0.5rem 0rem 0rem;
+  margin: 0rem 0.5rem 0rem 0rem;
   border-radius: 10px;
 `;
 const Hr = styled.hr`

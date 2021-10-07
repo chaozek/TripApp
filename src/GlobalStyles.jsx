@@ -28,6 +28,7 @@ input{
   box-sizing: border-box; 
   -webkit-appearance: none;
   padding: 0rem 1rem;
+
   
 }
 
@@ -49,7 +50,6 @@ appearance: none;
 input[type="text"],input[type="number"],input[type="date"], select{
   border: 1px solid #F1F1F2;
   border-radius: 10px;
-  margin: 1rem 0rem;
   width: 100%;
   height: 48px;
 }
@@ -73,6 +73,7 @@ input[type=checkbox] {
 
 input[type="radio"]{
     -webkit-appearance: radio !important;
+    padding: 0
 }
 
 ::placeholder,
@@ -85,7 +86,10 @@ input[type="radio"]{
 
   }
 label{
+  display: block;
   font-size: 14px;
+  padding: 1rem 0rem 0rem 0rem;
+
 }
 `;
 const theme = {

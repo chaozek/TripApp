@@ -11,9 +11,7 @@ export default function SingleTrip(props) {
 
   const { id, end_date, start_date, company_name } = props;
   const { street, city, street_num, country } = props.address;
-  useEffect(() => {
-    getCountries();
-  }, [renderCountry]);
+
   const getCountry = (country: string) => {
     try {
       if (countries !== undefined) {

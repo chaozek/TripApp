@@ -6,9 +6,10 @@ import SingleTrip from "./SingleTrip";
 import styled from "styled-components";
 
 const Home = () => {
-  const { trips, getTrips, loading, error } = useContext(CleevioContext);
+  const { trips, getTrips, getCountries, loading, error } =
+    useContext(CleevioContext);
   useEffect(() => {
-    getTrips();
+    getCountries();
   }, []);
   return (
     <WrapperDiv>
