@@ -5,8 +5,7 @@ import Empty from "../imgs/Flags/empty.png";
 import styled from "styled-components";
 export default function SingleTrip(props) {
   let renderCountry = "";
-  const { width, countries, getCountries, getTrips, setError } =
-    useContext(CleevioContext);
+  const { width, countries, setError } = useContext(CleevioContext);
 
   const { id, end_date, start_date, company_name } = props;
   const { street, city, street_num, country } = props.address;
