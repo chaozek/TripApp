@@ -1,6 +1,5 @@
 import { CleevioContext } from "../context/CleevioState_";
 import { Link } from "react-router-dom";
-
 import { useContext } from "react";
 import Empty from "../imgs/Flags/empty.png";
 import styled from "styled-components";
