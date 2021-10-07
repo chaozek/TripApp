@@ -49,7 +49,6 @@ export default function NewTrip() {
     getCountries();
   }
   const findCountry = (countries, code) => {
-    console.log(countries, code);
     if (code === "NL") {
       code = "AW";
     }
@@ -57,7 +56,6 @@ export default function NewTrip() {
       let foundCountry = countries.filter(
         (c) => c.value.toLowerCase() === code.toLowerCase()
       );
-      console.log(foundCountry[0]);
       if (foundCountry[0] === undefined && code === "GB") {
         setNewTrip((p) => ({
           ...p,
@@ -221,6 +219,7 @@ export default function NewTrip() {
                 }}
                 placeholder="Type here..."
                 name="street_num"
+                min="0"
                 style={
                   inputError.name === "street_num"
                     ? { border: "1px solid red" }
