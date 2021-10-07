@@ -49,10 +49,15 @@ export default function NewTrip() {
     getCountries();
   }
   const findCountry = (countries, code) => {
+    console.log(countries, code);
+    if (code === "NL") {
+      code = "AW";
+    }
     if (countries && countries !== undefined) {
       let foundCountry = countries.filter(
         (c) => c.value.toLowerCase() === code.toLowerCase()
       );
+      console.log(foundCountry[0]);
       if (foundCountry[0] === undefined && code === "GB") {
         setNewTrip((p) => ({
           ...p,

@@ -1,7 +1,5 @@
 import { config } from "./config";
-
 import React, { createContext, useEffect, useState } from "react";
-
 import axios from "axios";
 type CleevioContextState = {
   newTrip: {
