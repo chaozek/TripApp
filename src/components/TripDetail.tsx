@@ -2,9 +2,11 @@ import { CleevioContext } from "../context/CleevioState_";
 import { PageName } from "./Home";
 import { config } from "../context/config";
 import { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Loading from "../imgs/Loading.gif";
 import axios from "axios";
 import styled from "styled-components";
+
 type Provider = {
   connected: boolean;
   address: {
@@ -21,9 +23,21 @@ type Provider = {
 };
 export default function TripDetail(props) {
   const [localData, setLocalData] = useState<Provider>();
-  const { loading, setLoading, handleDelete, error, setError } =
-    useContext(CleevioContext);
+  const {
+    loading,
+    setLoading,
+    handleDelete,
+    error,
+    setError,
+    redirect,
+    getTrips,
+  } = useContext(CleevioContext);
   const getId = props.match.params.id;
+  let history = useHistory();
+  if (redirect === "redirect") {
+    history.push(`/`);
+    getTrips();
+  }
   const fetchData = async () => {
     try {
       setLoading(true);

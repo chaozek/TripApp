@@ -41,6 +41,7 @@ type CleevioContextState = {
   width: number;
   inputError: { name: string; error: string };
   flagStatus: string;
+  redirect: string;
   formHandleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setLoading: (e) => void;
@@ -53,6 +54,7 @@ type CleevioContextState = {
   handleDelete: (getId: string, props: string) => void;
   setWidth: (e) => void;
   setInputError: (e) => void;
+  setRedirect: (e) => void;
   setFlagStatus: (e) => void;
 };
 const contextDefaultValues: CleevioContextState = {
@@ -103,6 +105,7 @@ const contextDefaultValues: CleevioContextState = {
   },
   flagStatus: "",
   width: window.innerWidth,
+  redirect: "",
   formHandleSubmit: (e: React.FormEvent<HTMLFormElement>) => {},
   handleChange: (e: React.FormEvent<HTMLInputElement>) => {},
   setLoading: () => {},
@@ -116,6 +119,7 @@ const contextDefaultValues: CleevioContextState = {
   setWidth: () => {},
   setInputError: () => {},
   setFlagStatus: () => {},
+  setRedirect: () => {},
 };
 
 export const CleevioContext =
@@ -125,6 +129,7 @@ const CleevioState = (props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newTrip, setNewTrip] = useState(contextDefaultValues.newTrip);
   const [error, setError] = useState("");
+  const [redirect, setRedirect] = useState("");
   const [countries, setCountry] = useState([]);
   const [loading, setLoading] = useState(true);
   const [flagStatus, setFlagStatus] = useState("");
@@ -166,8 +171,8 @@ const CleevioState = (props) => {
         )
         .then(function () {
           setLoading(false);
-          window.location.href = "/";
-          getTrips();
+          setRedirect("redirect");
+          setRedirect("");
         })
         .catch(function (error) {
           setError(error.message);
@@ -192,7 +197,8 @@ const CleevioState = (props) => {
         `https://task-devel.cleevio-vercel.vercel.app/api/trip/${getId}`,
         config
       );
-      window.location.href = "/";
+      setRedirect("redirect");
+      setRedirect("");
       setLoading(false);
     } catch (error) {
       let errorMessage = "Failed to load";
@@ -273,6 +279,8 @@ const CleevioState = (props) => {
         setInputError,
         flagStatus,
         setFlagStatus,
+        redirect,
+        setRedirect,
       }}
     >
       {props.children}

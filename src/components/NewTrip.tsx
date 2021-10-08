@@ -4,11 +4,13 @@ import { ButtonIcon } from "../GlobalStyles";
 import { CleevioContext } from "../context/CleevioState_";
 import { PageName, WrapperDiv } from "./Home";
 import { YellowButton } from "../GlobalStyles";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import FadeIn from "react-fade-in";
 import ReactFlagsSelect from "react-flags-select";
 import buttonLoading from "../imgs/buttonLoading.gif";
 import styled from "styled-components";
+
 export default function NewTrip() {
   const {
     handleChange,
@@ -22,6 +24,8 @@ export default function NewTrip() {
     flagStatus,
     setFlagStatus,
     setInputError,
+    redirect,
+    getTrips,
   } = useContext(CleevioContext);
   const [selected, setSelected] = useState("");
   const countriesPlug = [
@@ -37,7 +41,12 @@ export default function NewTrip() {
     "AT",
     "GB",
   ];
+  let history = useHistory();
 
+  if (redirect === "redirect") {
+    history.push(`/`);
+    getTrips();
+  }
   const onSelect = (code) => {
     setSelected(code);
     setInputError({ name: "", error: "" });
