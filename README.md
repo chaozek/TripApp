@@ -13,7 +13,7 @@ Responsibility is done via Css Grid using Styled Components including responsive
 Some JS functions had to be make to fix wrong data coming from backend such as:
 
 - United kingdom coutry code "UK" (should be "GB")
-- Wrong backend model - `$street_num` is not `$string` even `$number`
+- Wrong backend model - `street_num` is not `string` even `number`
   Tested in windows env:
 
 - Microsoft Edge
