@@ -18,22 +18,17 @@ Tested in windows env:
 
 **This app wasn't tested on ios devices**
 
-### Home
-
-"/"
+### Home "/"
 
 List of all upcoming & past trips.
 
-### Home
-
-"/trip"
+### New Trip "/trip"
 
 POST request via axios package, ADD new trip.
 
 Very simple data validator was programmed.
 
-### Trip Detail
+### Trip Detail "/trip/:id"
 
-"/trip/:id"
 Fetching data for individual trip including DELETE request.
 This page wasn't styled.
