@@ -76,7 +76,7 @@ export const TripDetail = (props) => {
           <p>END DATE: {localData.end_date}</p>
           <p> START DATE: {localData.start_date}</p>
           <br />
-          <p>COVID: {localData.covid}</p>
+          <p>COVID: {String(localData.covid)}</p>
           <p>{localData.covid_test_date}</p>
           <button
             onClick={() => context.handleDelete(getId, props)}
