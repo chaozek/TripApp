@@ -2,7 +2,7 @@
 
 ### Description
 
-This fully responsive app is connected with backend via Bearer token generated here: https://task-devel.cleevio-vercel.vercel.app/. If you want to use your database, generate new token & include it in .env file as described in .env.sample file.
+This fully responsive app is connected with backend via Bearer token generated [here]https://task-devel.cleevio-vercel.vercel.app/. If you want to use your database, generate new token & include it in .env file as described in .env.sample file.
 
 App is using must have NPM packages, the main focus was to use as least as possible packages.
 
@@ -10,7 +10,11 @@ Also the main focus was to be close as much possible to given Figma design.
 
 Responsibility is done via Css Grid using Styled Components including responsive mobile header/nav, no single line of reactstrap/bootstrap...
 
-Tested in windows env:
+Some JS functions had to be make to fix wrong data coming from backend such as:
+
+- United kingdom coutry code "UK" (should be "GB")
+- Wrong backend model - `$street_num` is not `$string` even `$number`
+  Tested in windows env:
 
 - Microsoft Edge
 - Firefox
