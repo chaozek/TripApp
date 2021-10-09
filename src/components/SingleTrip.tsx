@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import Empty from "../imgs/Flags/empty.png";
 import styled from "styled-components";
-export default function SingleTrip(props) {
+export const SingleTrip = (props) => {
   let renderCountry = "";
-  const { width, countries, setError } = useContext(CleevioContext);
+  const context = useContext(CleevioContext);
 
   const { id, end_date, start_date, company_name } = props;
   const { street, city, street_num, country } = props.address;
 
   const getCountry = (country: string) => {
     try {
-      if (countries !== undefined) {
-        let foundCountry = countries.filter((c) => c.label === country);
+      if (context.countries !== undefined) {
+        let foundCountry = context.countries.filter((c) => c.label === country);
         let specificCountry = foundCountry[0];
         if (specificCountry.value === "uk") {
           specificCountry.value = "gb";
@@ -24,19 +24,15 @@ export default function SingleTrip(props) {
         } else if (specificCountry) renderCountry = specificCountry.value;
       }
     } catch (error) {
-      let errorMessage = "Failed to load";
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-      setError(errorMessage);
+      context.setError(error.message);
     }
   };
   getCountry(country);
   return (
     <>
       <LinkDiv to={`/trip/${id}`}>
-        {(width > 930 && window.location.pathname === "/trip") ||
-        width < 930 ? (
+        {(context.width > 930 && window.location.pathname === "/trip") ||
+        context.width < 930 ? (
           <SingleTripDiv>
             <Country>
               {renderCountry.length > 0 ? (
@@ -94,7 +90,7 @@ export default function SingleTrip(props) {
       </LinkDiv>
     </>
   );
-}
+};
 type ContainerType = {
   flex?: string;
 };

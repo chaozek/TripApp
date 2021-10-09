@@ -1,6 +1,6 @@
+import { LeftSideBar } from "../LeftSideBar";
+import { RightSideBar } from "../RightSideBar";
 import { Route } from "react-router-dom";
-import LeftSideBar from "../LeftSideBar";
-import RightSideBar from "../RightSideBar";
 import styled from "styled-components";
 export const RegularRoute = ({
   component: Component,

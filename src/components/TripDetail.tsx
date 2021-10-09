@@ -21,41 +21,29 @@ type Provider = {
   covid: boolean;
   covid_test_date: string;
 };
-export default function TripDetail(props) {
+export const TripDetail = (props) => {
   const [localData, setLocalData] = useState<Provider>();
-  const {
-    loading,
-    setLoading,
-    handleDelete,
-    error,
-    setError,
-    redirect,
-    getTrips,
-  } = useContext(CleevioContext);
+  const context = useContext(CleevioContext);
   const getId = props.match.params.id;
   let history = useHistory();
-  if (redirect === "redirect") {
+  if (context.redirect === "redirect") {
     history.push(`/`);
-    getTrips();
+    context.getTrips();
   }
   const fetchData = async () => {
     try {
-      setLoading(true);
+      context.setLoading(true);
       const response = await axios.get(
         `https://task-devel.cleevio-vercel.vercel.app/api/trip/${getId}`,
         config
       );
       await setLocalData(response.data);
-      setLoading(false);
-      setError("");
+      context.setLoading(false);
+      context.setError("");
     } catch (error) {
-      let errorMessage = "Failed to fetch";
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-      setError(errorMessage);
+      context.setError(error.message);
     } finally {
-      setLoading(false);
+      context.setLoading(false);
     }
   };
   useEffect(() => {
@@ -91,8 +79,8 @@ export default function TripDetail(props) {
           <p>COVID: {localData.covid}</p>
           <p>{localData.covid_test_date}</p>
           <button
-            onClick={() => handleDelete(getId, props)}
-            disabled={loading ? true : false}
+            onClick={() => context.handleDelete(getId, props)}
+            disabled={context.loading ? true : false}
             style={{
               width: "100px",
               flexDirection: "column",
@@ -103,7 +91,7 @@ export default function TripDetail(props) {
               justifyContent: "center",
             }}
           >
-            {loading ? (
+            {context.loading ? (
               <img
                 src={Loading}
                 style={{
@@ -120,10 +108,10 @@ export default function TripDetail(props) {
           </button>
         </div>
       )}
-      {!loading && error.length > 0 ? error : null}
+      {!context.loading && context.error.length > 0 ? context.error : null}
     </TripDiv>
   );
-}
+};
 
 const TripDiv = styled.div`
   padding: 1rem 2rem;

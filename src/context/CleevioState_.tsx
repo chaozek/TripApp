@@ -64,7 +64,7 @@ const contextDefaultValues: CleevioContextState = {
     company_name: "",
     address: {
       street: "",
-      street_num: undefined,
+      street_num: "",
       city: "",
       country: "",
       zip: "",
@@ -81,7 +81,7 @@ const contextDefaultValues: CleevioContextState = {
       company_name: "",
       address: {
         street: "",
-        street_num: undefined,
+        street_num: "",
         city: "",
         country: "",
         zip: "",
@@ -135,7 +135,7 @@ const CleevioState = (props) => {
   const [flagStatus, setFlagStatus] = useState("");
   const [inputError, setInputError] = useState(contextDefaultValues.inputError);
   const [width, setWidth] = React.useState(window.innerWidth);
-  const formHandleSubmit = (e) => {
+  const formHandleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     if (newTrip.address.country.length === 0 && flagStatus.length === 0) {
@@ -162,22 +162,23 @@ const CleevioState = (props) => {
     } else if (newTrip.address.zip.length === 0) {
       setInputError({ name: "zip", error: "must be filled" });
       setLoading(false);
+    } else if (newTrip.covid === true && newTrip.covid_test_date.length === 0) {
+      setInputError({ name: "covidDate", error: "must be filled" });
+      setLoading(false);
     } else {
-      axios
-        .post(
+      try {
+        await axios.post(
           "https://task-devel.cleevio-vercel.vercel.app/api/trip",
           newTrip,
           config
-        )
-        .then(function () {
-          setLoading(false);
-          setRedirect("redirect");
-          setRedirect("");
-        })
-        .catch(function (error) {
-          setError(error.message);
-          setLoading(false);
-        });
+        );
+        setRedirect("redirect");
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setRedirect("");
+        setLoading(false);
+      }
     }
   };
 
@@ -187,25 +188,21 @@ const CleevioState = (props) => {
   useEffect(() => {
     window.addEventListener("resize", updateWidth);
     return () => window.removeEventListener("resize", updateWidth);
-  }, [width]);
+  }, []);
 
   const handleDelete = async (getId, props) => {
     try {
       setLoading(true);
-
-      const response = await axios.delete(
+      await axios.delete(
         `https://task-devel.cleevio-vercel.vercel.app/api/trip/${getId}`,
         config
       );
       setRedirect("redirect");
+    } catch (error) {
+      setError(error.message);
+    } finally {
       setRedirect("");
       setLoading(false);
-    } catch (error) {
-      let errorMessage = "Failed to load";
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-      setError(errorMessage);
     }
   };
 
@@ -213,8 +210,7 @@ const CleevioState = (props) => {
     let { name, value } = e.target;
     setInputError({ name: "", error: "" });
     if (name === "covid") {
-      if (value === "true") value = true;
-      if (value === "false") value = false;
+      value = JSON.parse(value);
     }
     if (
       name === "city" ||
@@ -241,17 +237,29 @@ const CleevioState = (props) => {
   };
 
   const getTrips = async () => {
-    await axios
-      .get("https://task-devel.cleevio-vercel.vercel.app/api/trip", config)
-      .then((data) => setTrips(data.data))
-      .catch((err) => setError(err));
-    setLoading(false);
+    try {
+      const response = await axios.get(
+        "https://task-devel.cleevio-vercel.vercel.app/api/trip",
+        config
+      );
+      setTrips(response.data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
+
   const getCountries = async () => {
-    await axios
-      .get("https://task-devel.cleevio-vercel.vercel.app/api/country", config)
-      .then((data) => setCountry(data.data))
-      .catch((err) => setError(err));
+    try {
+      const response = await axios.get(
+        "https://task-devel.cleevio-vercel.vercel.app/api/country",
+        config
+      );
+      setCountry(response.data);
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (

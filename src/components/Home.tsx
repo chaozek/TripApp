@@ -1,36 +1,36 @@
 import { CleevioContext } from "../context/CleevioState_";
+import { SingleTrip } from "./SingleTrip";
 import { useContext, useEffect } from "react";
 import FadeIn from "react-fade-in";
 import Loading from "../imgs/Loading.gif";
-import SingleTrip from "./SingleTrip";
 import styled from "styled-components";
 
-const Home = () => {
-  const { trips, getTrips, getCountries, loading, error } =
-    useContext(CleevioContext);
+export const Home = () => {
+  const context = useContext(CleevioContext);
   useEffect(() => {
-    getCountries();
+    context.getCountries();
   }, []);
   return (
     <WrapperDiv>
       <PageName>Your trips</PageName>
 
-      {loading ? (
+      {context.loading ? (
         <LoadingDiv src={Loading} alt="" />
       ) : (
-        trips.map((trip) => (
+        context.trips.map((trip) => (
           <FadeIn key={trip.id}>
             <SingleTrip {...trip} />
           </FadeIn>
         ))
       )}
 
-      {!loading && trips.length === 0 ? "No data, add something" : null}
+      {!context.loading && context.trips.length === 0
+        ? "No data, add something"
+        : null}
     </WrapperDiv>
   );
 };
 
-export default Home;
 type ContainerType = {
   padding?: string;
 };

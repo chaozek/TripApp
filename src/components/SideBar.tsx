@@ -1,9 +1,8 @@
-import "./Sidebar.css";
 import logo from "../imgs/logo.png";
-const SideBar = () => {
+export const SideBar = () => {
   return (
-    <div className="container">
-      <div className="leftSidebar">
+    <div>
+      <div>
         <img src={logo} alt="logo" />
       </div>
       <main>
@@ -21,7 +20,7 @@ const SideBar = () => {
         leaders in their field and have innovative, creative ideas. They are
         attracted to projects which utilize new technologies.
       </main>
-      <div className="rightSidebar">
+      <div>
         <div>
           <p>
             Company was established back in the year 2007 by 3 friends who were
@@ -56,5 +55,3 @@ const SideBar = () => {
     </div>
   );
 };
-
-export default SideBar;

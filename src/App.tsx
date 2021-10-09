@@ -1,15 +1,14 @@
-import "./App.css";
 import { GlobalStyles } from "./GlobalStyles";
+import { Home } from "./components/Home";
 import {
   HomeLayout,
   RegularRoute,
 } from "./components/routesLayout/RegularRoute";
+import { NewTrip } from "./components/NewTrip";
+import { NotFound } from "./components/NotFound";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { TripDetail } from "./components/TripDetail";
 import CleevioContext from "./context/CleevioState_";
-import Home from "./components/Home";
-import NewTrip from "./components/NewTrip";
-import NotFound from "./components/NotFound";
-import TripDetail from "./components/TripDetail";
 export default function App() {
   return (
     <>

@@ -1,4 +1,4 @@
-import "./style.css";
+import "./flagStyle.css";
 import { AiOutlineCheck } from "react-icons/ai";
 import { ButtonIcon } from "../GlobalStyles";
 import { CleevioContext } from "../context/CleevioState_";
@@ -11,22 +11,8 @@ import ReactFlagsSelect from "react-flags-select";
 import buttonLoading from "../imgs/buttonLoading.gif";
 import styled from "styled-components";
 
-export default function NewTrip() {
-  const {
-    handleChange,
-    countries,
-    newTrip,
-    formHandleSubmit,
-    loading,
-    getCountries,
-    setNewTrip,
-    inputError,
-    flagStatus,
-    setFlagStatus,
-    setInputError,
-    redirect,
-    getTrips,
-  } = useContext(CleevioContext);
+export const NewTrip = () => {
+  const context = useContext(CleevioContext);
   const [selected, setSelected] = useState("");
   const countriesPlug = [
     "NL",
@@ -42,36 +28,35 @@ export default function NewTrip() {
     "GB",
   ];
   let history = useHistory();
-
-  if (redirect === "redirect") {
+  if (context.redirect === "redirect") {
     history.push(`/`);
-    getTrips();
+    context.getTrips();
   }
   const onSelect = (code) => {
     setSelected(code);
-    setInputError({ name: "", error: "" });
+    context.setInputError({ name: "", error: "" });
 
-    setFlagStatus(code);
-    findCountry(countries, code);
+    context.setFlagStatus(code);
+    findCountry(context.countries, code);
   };
-  if (countries.length === 0) {
-    getCountries();
+  if (context.countries.length === 0) {
+    context.getCountries();
   }
   const findCountry = (countries, code) => {
     if (code === "NL") {
       code = "AW";
     }
     if (countries && countries !== undefined) {
-      let foundCountry = countries.filter(
+      let foundCountry: { value: string; label: string }[] = countries.filter(
         (c) => c.value.toLowerCase() === code.toLowerCase()
       );
       if (foundCountry[0] === undefined && code === "GB") {
-        setNewTrip((p) => ({
+        context.setNewTrip((p) => ({
           ...p,
           address: { ...p.address, country: "United Kingdom" },
         }));
       } else {
-        setNewTrip((p) => ({
+        context.setNewTrip((p) => ({
           ...p,
           address: { ...p.address, country: foundCountry[0].label },
         }));
@@ -84,13 +69,13 @@ export default function NewTrip() {
       <div>
         <PageName>New Trip</PageName>
         <NewTripDiv>
-          <Form onSubmit={formHandleSubmit}>
+          <Form onSubmit={context.formHandleSubmit}>
             <Section>
               <label htmlFor="country">Where do you want to go</label>
-              {flagStatus.length <= 0 ? (
+              {context.flagStatus.length <= 0 ? (
                 <div>
                   <p style={{ color: "red", margin: "20px 0px 0px 0px" }}>
-                    {inputError.error}
+                    {context.inputError.error}
                   </p>
                 </div>
               ) : undefined}
@@ -98,7 +83,7 @@ export default function NewTrip() {
                 className={`selectFlag ${
                   selected === "" ? "date-input--has-value" : ""
                 }
-                 ${inputError.name === "flag" ? "error" : ""}`}
+                 ${context.inputError.name === "flag" ? "error" : ""}`}
                 selectButtonClassName="menu-flags-button"
                 selected={selected}
                 onSelect={onSelect}
@@ -108,53 +93,47 @@ export default function NewTrip() {
             <Section>
               <label htmlFor="start_date">Start date</label>
               <br />
-              {inputError.name === "start_date" ? (
+              {context.inputError.name === "start_date" ? (
                 <div>
-                  <p style={{ margin: "0", color: "red" }}>
-                    {inputError.error}
-                  </p>
+                  <ErrorTag>{context.inputError.error}</ErrorTag>
                 </div>
-              ) : undefined}
-              <input
+              ) : (
+                ""
+              )}
+              <Input
                 type="date"
                 name="start_date"
                 min="2020-01-01"
                 max="2022-12-31"
-                className={newTrip.start_date ? "date-input--has-value" : ""}
-                value={newTrip.start_date}
-                style={
-                  inputError.name === "start_date"
-                    ? { border: "1px solid red" }
-                    : undefined
+                black={context.newTrip.start_date ? "black" : ""}
+                value={context.newTrip.start_date}
+                border={
+                  context.inputError.name === "start_date" ? "border" : ""
                 }
                 onChange={(e) => {
-                  handleChange(e);
+                  context.handleChange(e);
                 }}
               />{" "}
               <br />
               <label htmlFor="end_date">End date</label>
               <br />
-              {inputError.name === "end_date" ? (
+              {context.inputError.name === "end_date" ? (
                 <div>
-                  <p style={{ margin: "0", color: "red" }}>
-                    {inputError.error}
-                  </p>
+                  <div>
+                    <ErrorTag>{context.inputError.error}</ErrorTag>
+                  </div>
                 </div>
               ) : undefined}
-              <input
+              <Input
                 type="date"
                 name="end_date"
-                value={newTrip.end_date}
-                min={newTrip.start_date}
-                className={newTrip.end_date ? "date-input--has-value" : ""}
+                value={context.newTrip.end_date}
+                min={context.newTrip.start_date}
+                black={context.newTrip.end_date ? "black" : ""}
                 max="2022-12-31"
-                style={
-                  inputError.name === "end_date"
-                    ? { border: "1px solid red" }
-                    : undefined
-                }
+                border={context.inputError.name === "end_date" ? "border" : ""}
                 onChange={(e) => {
-                  handleChange(e);
+                  context.handleChange(e);
                 }}
               />{" "}
             </Section>
@@ -163,126 +142,104 @@ export default function NewTrip() {
                 Company name
               </label>
               <br />
-              {inputError.name === "company_name" ? (
+              {context.inputError.name === "company_name" ? (
                 <div>
-                  <p style={{ margin: "0", color: "red" }}>
-                    {inputError.error}
-                  </p>
+                  <div>
+                    <ErrorTag>{context.inputError.error}</ErrorTag>
+                  </div>
                 </div>
               ) : undefined}
 
-              <input
+              <Input
                 type="text"
                 onChange={(e) => {
-                  handleChange(e);
+                  context.handleChange(e);
                 }}
                 placeholder="Type here..."
                 name="company_name"
-                style={
-                  inputError.name === "company_name"
-                    ? { border: "1px solid red" }
-                    : undefined
+                border={
+                  context.inputError.name === "company_name" ? "border" : ""
                 }
-                value={newTrip.company_name}
+                value={context.newTrip.company_name}
               />
               <br />
 
               <label htmlFor="city">City</label>
               <br />
-              {inputError.name === "city" ? (
+              {context.inputError.name === "city" ? (
                 <div>
-                  <p style={{ margin: "0", color: "red" }}>
-                    {inputError.error}
-                  </p>
+                  <ErrorTag>{context.inputError.error}</ErrorTag>
                 </div>
               ) : undefined}
-              <input
+              <Input
                 type="text"
-                style={
-                  inputError.name === "city"
-                    ? { border: "1px solid red" }
-                    : undefined
-                }
                 onChange={(e) => {
-                  handleChange(e);
+                  context.handleChange(e);
                 }}
                 placeholder="Type here..."
                 name="city"
-                value={newTrip.address.city}
+                value={context.newTrip.address.city}
+                border={context.inputError.name === "city" ? "border" : ""}
               />
               <br />
               <label htmlFor="street_num">Street Number</label>
               <br />
-              {inputError.name === "street_num" ? (
+              {context.inputError.name === "street_num" ? (
                 <div>
                   <p style={{ margin: "0", color: "red" }}>
-                    {inputError.error}
+                    {context.inputError.error}
                   </p>
                 </div>
               ) : undefined}
-              <input
-                value={newTrip.address.street_num}
+              <Input
+                value={context.newTrip.address.street_num}
                 type="number"
                 onChange={(e) => {
-                  handleChange(e);
+                  context.handleChange(e);
                 }}
                 placeholder="Type here..."
                 name="street_num"
                 min="0"
-                style={
-                  inputError.name === "street_num"
-                    ? { border: "1px solid red" }
-                    : undefined
+                border={
+                  context.inputError.name === "street_num" ? "border" : ""
                 }
               />
               <br />
               <label htmlFor="street">Street</label>
               <br />
-              {inputError.name === "street" ? (
+              {context.inputError.name === "street" ? (
                 <div>
-                  <p style={{ margin: "0", color: "red" }}>
-                    {inputError.error}
-                  </p>
+                  <ErrorTag>{context.inputError.error}</ErrorTag>
                 </div>
               ) : undefined}
-              <input
-                value={newTrip.address.street}
+              <Input
+                value={context.newTrip.address.street}
                 type="text"
                 onChange={(e) => {
-                  handleChange(e);
+                  context.handleChange(e);
                 }}
                 placeholder="Type here..."
                 name="street"
-                style={
-                  inputError.name === "street"
-                    ? { border: "1px solid red" }
-                    : undefined
-                }
+                border={context.inputError.name === "street" ? "border" : ""}
               />
               <br />
 
               <label htmlFor="zip">Zip code</label>
               <br />
-              {inputError.name === "zip" ? (
+              {context.inputError.name === "zip" ? (
                 <div>
-                  <p style={{ margin: "0", color: "red" }}>
-                    {inputError.error}
-                  </p>
+                  <ErrorTag>{context.inputError.error}</ErrorTag>
                 </div>
               ) : undefined}
-              <input
+              <Input
                 type="text"
                 onChange={(e) => {
-                  handleChange(e);
+                  context.handleChange(e);
                 }}
                 placeholder="Type here..."
                 name="zip"
-                style={
-                  inputError.name === "zip"
-                    ? { border: "1px solid red" }
-                    : undefined
-                }
-                value={newTrip.address.zip}
+                border={context.inputError.name === "zip" ? "border" : ""}
+                value={context.newTrip.address.zip}
               />
             </Section>
             <Section>
@@ -294,7 +251,7 @@ export default function NewTrip() {
                 <RadioInput
                   type="radio"
                   onChange={(e) => {
-                    handleChange(e);
+                    context.handleChange(e);
                   }}
                   name="covid"
                   value="true"
@@ -306,7 +263,7 @@ export default function NewTrip() {
                 <RadioInput
                   type="radio"
                   onChange={(e) => {
-                    handleChange(e);
+                    context.handleChange(e);
                   }}
                   name="covid"
                   defaultChecked
@@ -314,7 +271,7 @@ export default function NewTrip() {
                 />
                 No
               </Item>
-              {newTrip.covid === true ? (
+              {context.newTrip.covid === true ? (
                 <FadeIn>
                   <Hr />
 
@@ -322,19 +279,26 @@ export default function NewTrip() {
                     Date of receiving test results
                   </label>
                   <br />
-                  <input
+                  {context.newTrip.covid === true &&
+                  context.inputError.name === "covidDate" ? (
+                    <div>
+                      <ErrorTag>{context.inputError.error}</ErrorTag>
+                    </div>
+                  ) : undefined}
+                  <Input
                     type="date"
                     onChange={(e) => {
-                      handleChange(e);
+                      context.handleChange(e);
                     }}
                     id="start"
                     name="covid_test_date"
-                    value={newTrip.covid_test_date}
-                    className={
-                      newTrip.covid_test_date ? "date-input--has-value" : ""
-                    }
+                    value={context.newTrip.covid_test_date}
+                    black={context.newTrip.covid_test_date ? "black" : ""}
                     min="2020-01-01"
                     max="2022-12-31"
+                    border={
+                      context.inputError.name === "covidDate" ? "border" : ""
+                    }
                   />
                 </FadeIn>
               ) : null}
@@ -345,13 +309,13 @@ export default function NewTrip() {
               <Hr />
               <AlignButton>
                 <YellowButton
-                  disabled={loading ? true : false}
+                  disabled={context.loading ? true : false}
                   type="submit"
                   width="300px"
                 >
                   <p>Save</p>
                   <ButtonIcon>
-                    {loading ? (
+                    {context.loading ? (
                       <ButtonLoading src={buttonLoading} alt="loading" />
                     ) : (
                       <AiOutlineCheck />
@@ -365,7 +329,7 @@ export default function NewTrip() {
       </div>
     </WrapperDiv>
   );
-}
+};
 const Form = styled.form`
   @media (min-width: 1200px) {
     width: 50%;
@@ -419,9 +383,10 @@ const AlignButton = styled.div`
 const ButtonLoading = styled.img`
   width: 20px;
 `;
+
 const ErrorTag = styled.p`
-  margin: "1rem 0rem 0rem 0rem";
-  color: "red";
+  color: red;
+  margin: 0rem;
 `;
 const Item = styled.div`
   background-color: #f1f1f2;
@@ -429,6 +394,18 @@ const Item = styled.div`
   padding: 0.6rem 1rem;
   margin: 0rem 0.5rem 0rem 0rem;
   border-radius: 10px;
+`;
+const Input = styled.input<{ black?: string; border?: string }>`
+  color: ${(props) => props.black} !important;
+  border: ${(props) =>
+    props.border === "" ? "none" : "1px solid red"} !important;
+
+  ::-webkit-datetime-edit-text,
+  ::-webkit-datetime-edit-month-field,
+  ::-webkit-datetime-edit-day-field,
+  ::-webkit-datetime-edit-year-field {
+    color: ${(props) => props.black}!important;
+  }
 `;
 const Hr = styled.hr`
   display: block;

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export default function NotFound() {
+export const NotFound = () => {
   return (
     <NoutFoundDiv>
       <H1>NOT FOUND</H1>
     </NoutFoundDiv>
   );
-}
+};
 const H1 = styled.h1`
   text-align: center;
   position: absolute;

@@ -1,23 +1,22 @@
 import { CleevioContext } from "../context/CleevioState_";
+import { SingleTrip } from "./SingleTrip";
 import { useContext, useEffect } from "react";
-import Loading from "../imgs/Loading.gif";
-
 import FadeIn from "react-fade-in";
-import SingleTrip from "./SingleTrip";
+import Loading from "../imgs/Loading.gif";
 import styled from "styled-components";
 
-const RightSideBar = (props) => {
-  const { getTrips, trips } = useContext(CleevioContext);
+export const RightSideBar = (props) => {
+  const context = useContext(CleevioContext);
 
   useEffect(() => {
-    getTrips();
+    context.getTrips();
   }, []);
   return (
     <RightSideBarDiv>
       {props.location.pathname === "/trip" ? <h2>Your Trips</h2> : null}
       {props.location.pathname === "/trip" ? (
-        trips ? (
-          trips.map((trip) => (
+        context.trips ? (
+          context.trips.map((trip) => (
             <FadeIn key={trip.id}>
               <SingleTrip layout="rightSideBar" {...trip} />
             </FadeIn>
@@ -62,8 +61,6 @@ const RightSideBar = (props) => {
     </RightSideBarDiv>
   );
 };
-
-export default RightSideBar;
 
 const RightSideBarDiv = styled.div`
   border-left: 2px solid #e5e5e5;

@@ -12,7 +12,10 @@ export const GlobalStyles = createGlobalStyle`
 color: #63666A;
 
   }
+a{
+  text-decoration: none !important;
 
+}
   ul{
   list-style: none; 
   display: flex;
@@ -28,6 +31,8 @@ input{
   box-sizing: border-box; 
   -webkit-appearance: none;
   padding: 0rem 1rem;
+  font-family: 'Open Sans', sans-serif;
+letter-spacing: .0rem;
 
   
 }

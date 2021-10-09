@@ -10,8 +10,8 @@ import clock_gray from "../imgs/clock_gray.png";
 import logo from "../imgs/logo.png";
 import styled from "styled-components";
 
-function LeftSideBar() {
-  const { width } = useContext(CleevioContext);
+export const LeftSideBar = () => {
+  const context = useContext(CleevioContext);
   const [isMobile, setIsMobile] = useState(false);
   const handleClick = () => {
     setIsMobile(!isMobile);
@@ -21,18 +21,18 @@ function LeftSideBar() {
   return (
     <LeftSideBarDiv>
       <Link to="/">
-        <LogoDiv src={logo} alt="" />
+        <LogoDiv src={logo} alt="logo" />
       </Link>
       <MobileMenu onClick={handleClick}>
         <IconContext.Provider value={{ style: { verticalAlign: "middle" } }}>
           <GiHamburgerMenu />
         </IconContext.Provider>
       </MobileMenu>
-      {isMobile && width < 550 ? (
+      {isMobile && context.width < 550 ? (
         <PhoneMenuLinks>
           <MobileDiv>
             <Link to="/" onClick={handleClick}>
-              <LogoDiv src={logo} alt="" />
+              <LogoDiv src={logo} alt="logo" />
             </Link>
           </MobileDiv>
           <MobileMenu onClick={handleClick}>X</MobileMenu>
@@ -76,11 +76,10 @@ function LeftSideBar() {
       )}
     </LeftSideBarDiv>
   );
-}
+};
 type ContainerType = {
   white?: string;
 };
-export default LeftSideBar;
 const LeftSideBarDiv = styled.div`
   background-color: #f9f9fa;
   grid-area: leftSidebar;
@@ -136,9 +135,11 @@ const MobileDiv = styled.div`
   margin-right: auto;
 `;
 const Clock = styled.img`
+  flex-wrap: nowrap;
   margin-right: 0.5rem;
 `;
 const ClockButton = styled.button<ContainerType>`
+  display: flex;
   margin-top: 2rem;
   border: none;
   background-color: ${(props: ContainerType) =>
@@ -146,6 +147,7 @@ const ClockButton = styled.button<ContainerType>`
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
+  text-decoration: none !important;
 `;
 
 const PhoneMenuLinks = styled.div`
