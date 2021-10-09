@@ -3,15 +3,17 @@
   background-color: white;
   border: none;
   border-radius: 10px;
-  margin: 5rem 5rem;
   width: 100%;
   height: 48px;
   font-size: 11px !important;
+  margin: 0;
+  margin-top: 1rem;
+  padding: 0 !important;
+  color: blue !important;
 }
 .date-input--has-value {
   margin: 0 !important;
 }
-
 .ReactFlagsSelect-module_selectOption__3pcgW {
   font-size: 11px;
   padding: 0.5rem 0rem 0.5rem 1rem !important;
@@ -29,14 +31,10 @@
   font-size: 13px !important;
 }
 
-.selectFlag {
-  margin: 0;
-  margin-top: 1rem;
-  padding: 0 !important;
-}
 .error {
   border: 1px red solid;
 }
 .ReactFlagsSelect-module_selectValue__152eS {
   color: #d0d0ce;
+  color: black;
 }

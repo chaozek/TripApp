@@ -35,7 +35,6 @@ export const NewTrip = () => {
   const onSelect = (code) => {
     setSelected(code);
     context.setInputError({ name: "", error: "" });
-
     context.setFlagStatus(code);
     findCountry(context.countries, code);
   };
@@ -81,7 +80,7 @@ export const NewTrip = () => {
               ) : undefined}
               <ReactFlagsSelect
                 className={`selectFlag ${
-                  selected === "" ? "date-input--has-value" : ""
+                  selected === "" ? "date-input--has-value color" : ""
                 }
                  ${context.inputError.name === "flag" ? "error" : ""}`}
                 selectButtonClassName="menu-flags-button"
