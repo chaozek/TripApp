@@ -12,7 +12,7 @@ export const Home = () => {
     context.getCountries();
     context.getTrips();
   }, []);
-  console.log(trips);
+
   return (
     <WrapperDiv>
       <PageName>Your trips</PageName>
