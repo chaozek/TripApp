@@ -251,7 +251,7 @@ const CleevioState = (props: PropsType) => {
   const getTrips = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_URL}/trip`,
+        `$https://task-devel.cleevio-vercel.vercel.app/api/trip`,
         config
       );
       setTrips(response.data);
