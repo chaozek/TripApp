@@ -10,6 +10,7 @@ export const Home = () => {
   const { trips } = useContext(CleevioContext);
   useEffect(() => {
     context.getCountries();
+    context.getTrips();
   }, []);
   console.log(trips);
   return (
