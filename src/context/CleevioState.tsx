@@ -1,6 +1,21 @@
 import { config } from "./config";
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
+export type newTripProps = {
+  start_date?: string;
+  end_date?: string;
+  company_name?: string;
+  address?: {
+    street?: string;
+    street_num?: any;
+    city?: string;
+    country?: string;
+    zip?: string;
+  };
+  covid?: boolean;
+  covid_test_date?: string;
+};
+type PropsType = { children: {}[] };
 type CleevioContextState = {
   newTrip: {
     start_date: string;
@@ -8,7 +23,7 @@ type CleevioContextState = {
     company_name: string;
     address: {
       street: string;
-      street_num: any;
+      street_num: string;
       city: string;
       country: string;
       zip: string;
@@ -23,7 +38,7 @@ type CleevioContextState = {
     company_name: string;
     address: {
       street: string;
-      street_num: any;
+      street_num: string;
       city: string;
       country: string;
       zip: string;
@@ -44,19 +59,20 @@ type CleevioContextState = {
   redirect: string;
   formHandleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setLoading: (e) => void;
-  setCountry: (e) => void;
+  setLoading: (e: boolean) => void;
+  setCountry: (e: []) => void;
   getTrips: () => void;
-  setError: (e) => void;
-  setNewTrip: (e) => void;
+  setError: (e: string) => void;
+  setNewTrip: (e: any) => void;
   getCountries: () => void;
-  setIsEditing: (e) => void;
-  handleDelete: (getId: string, props: string) => void;
-  setWidth: (e) => void;
-  setInputError: (e) => void;
-  setRedirect: (e) => void;
-  setFlagStatus: (e) => void;
+  setIsEditing: (e: boolean) => void;
+  handleDelete: (getId: string) => void;
+  setWidth: (e: number) => void;
+  setInputError: (e: { name: string; error: string }) => void;
+  setRedirect: (e: string) => void;
+  setFlagStatus: (e: string) => void;
 };
+
 const contextDefaultValues: CleevioContextState = {
   newTrip: {
     start_date: "",
@@ -124,7 +140,8 @@ const contextDefaultValues: CleevioContextState = {
 
 export const CleevioContext =
   createContext<CleevioContextState>(contextDefaultValues);
-const CleevioState = (props) => {
+
+const CleevioState = (props: PropsType) => {
   const [trips, setTrips] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [newTrip, setNewTrip] = useState(contextDefaultValues.newTrip);
@@ -135,7 +152,7 @@ const CleevioState = (props) => {
   const [flagStatus, setFlagStatus] = useState("");
   const [inputError, setInputError] = useState(contextDefaultValues.inputError);
   const [width, setWidth] = React.useState(window.innerWidth);
-  const formHandleSubmit = async (e) => {
+  const formHandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     if (newTrip.address.country.length === 0 && flagStatus.length === 0) {
@@ -167,15 +184,12 @@ const CleevioState = (props) => {
       setLoading(false);
     } else {
       try {
-        await axios.post(
-          "https://task-devel.cleevio-vercel.vercel.app/api/trip",
-          newTrip,
-          config
-        );
+        await axios.post(`${process.env.REACT_APP_URL}/trip`, newTrip, config);
         setRedirect("redirect");
       } catch (error) {
         setError(error.message);
       } finally {
+        getTrips();
         setRedirect("");
         setLoading(false);
       }
@@ -190,23 +204,21 @@ const CleevioState = (props) => {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  const handleDelete = async (getId, props) => {
+  const handleDelete = async (getId: string) => {
     try {
       setLoading(true);
-      await axios.delete(
-        `https://task-devel.cleevio-vercel.vercel.app/api/trip/${getId}`,
-        config
-      );
+      await axios.delete(`${process.env.REACT_APP_URL}/trip/${getId}`, config);
       setRedirect("redirect");
     } catch (error) {
       setError(error.message);
     } finally {
+      getTrips();
       setRedirect("");
       setLoading(false);
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = e.target;
     setInputError({ name: "", error: "" });
     if (name === "covid") {
@@ -219,7 +231,7 @@ const CleevioState = (props) => {
       name === "zip" ||
       name === "street_num"
     ) {
-      setNewTrip((p) => ({
+      setNewTrip((p: any) => ({
         ...p,
         address:
           name === "street_num"
@@ -239,7 +251,7 @@ const CleevioState = (props) => {
   const getTrips = async () => {
     try {
       const response = await axios.get(
-        "https://task-devel.cleevio-vercel.vercel.app/api/trip",
+        `${process.env.REACT_APP_URL}/trip`,
         config
       );
       setTrips(response.data);
@@ -253,7 +265,7 @@ const CleevioState = (props) => {
   const getCountries = async () => {
     try {
       const response = await axios.get(
-        "https://task-devel.cleevio-vercel.vercel.app/api/country",
+        `${process.env.REACT_APP_URL}/country`,
         config
       );
       setCountry(response.data);

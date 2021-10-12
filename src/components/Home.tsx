@@ -1,15 +1,16 @@
-import { CleevioContext } from "../context/CleevioState_";
+import { CleevioContext } from "../context/CleevioState";
 import { SingleTrip } from "./SingleTrip";
+import { theme } from "../GlobalStyles";
 import { useContext, useEffect } from "react";
 import FadeIn from "react-fade-in";
 import Loading from "../imgs/Loading.gif";
 import styled from "styled-components";
-
 export const Home = () => {
   const context = useContext(CleevioContext);
   useEffect(() => {
     context.getCountries();
   }, []);
+
   return (
     <WrapperDiv>
       <PageName>Your trips</PageName>
@@ -24,9 +25,7 @@ export const Home = () => {
         ))
       )}
 
-      {!context.loading && context.trips.length === 0
-        ? "No data, add something"
-        : null}
+      {!context.loading && context.trips.length === 0 ? context.error : null}
     </WrapperDiv>
   );
 };
@@ -37,7 +36,7 @@ type ContainerType = {
 export const PageName = styled.h2<ContainerType>`
   padding: ${(props) => (props.padding ? "1rem 2rem" : "none")};
   padding-bottom: 2.3rem;
-  border-bottom: 1px solid #f1f1f2;
+  border-bottom: 1px solid ${theme.white};
   text-align: left !important;
   align-items: flex-start;
 `;

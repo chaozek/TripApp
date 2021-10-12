@@ -1,23 +1,23 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import { ButtonIcon, YellowButtonLink } from "../GlobalStyles";
-import { CleevioContext } from "../context/CleevioState_";
+import { CleevioContext } from "../context/CleevioState";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { theme } from "../GlobalStyles";
 import { useContext, useState } from "react";
 import clock_black from "../imgs/clock_black.png";
 import clock_gray from "../imgs/clock_gray.png";
 import logo from "../imgs/logo.png";
 import styled from "styled-components";
-
 export const LeftSideBar = () => {
   const context = useContext(CleevioContext);
   const [isMobile, setIsMobile] = useState(false);
   const handleClick = () => {
     setIsMobile(!isMobile);
   };
-
-  const getLocation = window.location.pathname;
+  let location = useLocation();
+  const getLocation = location.pathname;
   return (
     <LeftSideBarDiv>
       <Link to="/">
@@ -81,22 +81,22 @@ type ContainerType = {
   white?: string;
 };
 const LeftSideBarDiv = styled.div`
-  background-color: #f9f9fa;
+  background-color: ${theme.gray};
   grid-area: leftSidebar;
   padding: 1rem 2rem;
   z-index: 2;
   @media (max-width: 550px) {
     display: flex;
     height: 30px;
-    background-color: white;
+    background-color: ${theme.white};
   }
 `;
 const MobileMenu = styled.button`
   vertical-align: bottom;
-  background-color: #f1f1f2;
+  background-color: ${theme.white};
   font-weight: bold;
   font-size: 1.33rem;
-  color: #76787b;
+  color: ${theme.darkGray};
   display: none;
 
   @media (max-width: 550px) {
@@ -143,7 +143,7 @@ const ClockButton = styled.button<ContainerType>`
   margin-top: 2rem;
   border: none;
   background-color: ${(props: ContainerType) =>
-    props.white === "white" ? "white" : "#f9f9fa"};
+    props.white === "white" ? "white" : `${theme.gray}`};
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
@@ -160,7 +160,7 @@ const PhoneMenuLinks = styled.div`
     padding-top: 1rem;
     right: 0;
     list-style: none;
-    background-color: white;
+    background-color: ${theme.white};
     left: 0;
     top: 0;
     transition: all 0.5 ease-out;

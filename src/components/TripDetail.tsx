@@ -1,8 +1,8 @@
-import { CleevioContext } from "../context/CleevioState_";
+import { CleevioContext } from "../context/CleevioState";
 import { PageName } from "./Home";
+import { Redirect } from "react-router-dom";
 import { config } from "../context/config";
 import { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import Loading from "../imgs/Loading.gif";
 import axios from "axios";
 import styled from "styled-components";
@@ -21,15 +21,11 @@ type Provider = {
   covid: boolean;
   covid_test_date: string;
 };
-export const TripDetail = (props) => {
+export const TripDetail = (props: { match: { params: { id: string } } }) => {
   const [localData, setLocalData] = useState<Provider>();
   const context = useContext(CleevioContext);
   const getId = props.match.params.id;
-  let history = useHistory();
-  if (context.redirect === "redirect") {
-    history.push(`/`);
-    context.getTrips();
-  }
+
   const fetchData = async () => {
     try {
       context.setLoading(true);
@@ -49,6 +45,11 @@ export const TripDetail = (props) => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  if (context.redirect === "redirect") {
+    return <Redirect push to="/" />;
+  }
+
   return (
     <TripDiv>
       <PageName>Trip Detail</PageName>
@@ -79,7 +80,7 @@ export const TripDetail = (props) => {
           <p>COVID: {String(localData.covid)}</p>
           <p>{localData.covid_test_date}</p>
           <button
-            onClick={() => context.handleDelete(getId, props)}
+            onClick={() => context.handleDelete(getId)}
             disabled={context.loading ? true : false}
             style={{
               width: "100px",

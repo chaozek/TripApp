@@ -1,11 +1,11 @@
-import { CleevioContext } from "../context/CleevioState_";
+import { CleevioContext } from "../context/CleevioState";
 import { SingleTrip } from "./SingleTrip";
+import { theme } from "../GlobalStyles";
 import { useContext, useEffect } from "react";
 import FadeIn from "react-fade-in";
 import Loading from "../imgs/Loading.gif";
 import styled from "styled-components";
-
-export const RightSideBar = (props) => {
+export const RightSideBar = (props: any) => {
   const context = useContext(CleevioContext);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export const RightSideBar = (props) => {
 };
 
 const RightSideBarDiv = styled.div`
-  border-left: 2px solid #e5e5e5;
+  border-left: 2px solid ${theme.gray};
   grid-area: rightSidebar;
   padding: 1rem 2rem;
 

@@ -1,12 +1,14 @@
 import { LeftSideBar } from "../LeftSideBar";
 import { RightSideBar } from "../RightSideBar";
 import { Route } from "react-router-dom";
+
 import styled from "styled-components";
+
 export const RegularRoute = ({
   component: Component,
   layout: Container,
   ...rest
-}) => (
+}: any) => (
   <Route
     {...rest}
     render={(props) => (
@@ -26,7 +28,6 @@ export const HomeLayout = styled.div`
 
   @media (max-width: 1200px) {
     grid-template-columns: 1fr 2fr 0fr;
-
     grid-template-areas:
       "leftSidebar main"
       "leftSidebar main";
@@ -39,7 +40,6 @@ export const HomeLayout = styled.div`
   @media (max-width: 550px) {
     grid-template-columns: 1fr;
     height: auto;
-
     grid-template-areas:
       "leftSidebar"
       "main"

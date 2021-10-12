@@ -1,16 +1,15 @@
-import "./flagStyle.css";
 import { AiOutlineCheck } from "react-icons/ai";
 import { ButtonIcon } from "../GlobalStyles";
-import { CleevioContext } from "../context/CleevioState_";
+import { CleevioContext } from "../context/CleevioState";
 import { PageName, WrapperDiv } from "./Home";
+import { Redirect } from "react-router-dom";
 import { YellowButton } from "../GlobalStyles";
-import { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { theme } from "../GlobalStyles";
+import { useContext, useState } from "react";
 import FadeIn from "react-fade-in";
 import ReactFlagsSelect from "react-flags-select";
 import buttonLoading from "../imgs/buttonLoading.gif";
 import styled from "styled-components";
-
 export const NewTrip = () => {
   const context = useContext(CleevioContext);
   const [selected, setSelected] = useState("");
@@ -27,12 +26,11 @@ export const NewTrip = () => {
     "AT",
     "GB",
   ];
-  let history = useHistory();
+
   if (context.redirect === "redirect") {
-    history.push(`/`);
-    context.getTrips();
+    return <Redirect push to="/" />;
   }
-  const onSelect = (code) => {
+  const onSelect = (code: string) => {
     setSelected(code);
     context.setInputError({ name: "", error: "" });
     context.setFlagStatus(code);
@@ -41,7 +39,13 @@ export const NewTrip = () => {
   if (context.countries.length === 0) {
     context.getCountries();
   }
-  const findCountry = (countries, code) => {
+  const findCountry = (
+    countries: {
+      value: string;
+      label: string;
+    }[],
+    code: string
+  ) => {
     if (code === "NL") {
       code = "AW";
     }
@@ -50,12 +54,12 @@ export const NewTrip = () => {
         (c) => c.value.toLowerCase() === code.toLowerCase()
       );
       if (foundCountry[0] === undefined && code === "GB") {
-        context.setNewTrip((p) => ({
+        context.setNewTrip((p: { address: {} }) => ({
           ...p,
           address: { ...p.address, country: "United Kingdom" },
         }));
       } else {
-        context.setNewTrip((p) => ({
+        context.setNewTrip((p: { address: {} }) => ({
           ...p,
           address: { ...p.address, country: foundCountry[0].label },
         }));
@@ -68,7 +72,11 @@ export const NewTrip = () => {
       <div>
         <PageName>New Trip</PageName>
         <NewTripDiv>
-          <Form onSubmit={context.formHandleSubmit}>
+          <Form
+            onSubmit={(e) => {
+              context.formHandleSubmit(e);
+            }}
+          >
             <Section>
               <label htmlFor="country">Where do you want to go</label>
               {context.flagStatus.length <= 0 ? (
@@ -78,7 +86,7 @@ export const NewTrip = () => {
                   </p>
                 </div>
               ) : undefined}
-              <ReactFlagsSelect
+              <FlagSelect
                 className={`selectFlag ${
                   selected === "" ? "date-input--has-value color" : ""
                 }
@@ -87,6 +95,7 @@ export const NewTrip = () => {
                 selected={selected}
                 onSelect={onSelect}
                 countries={countriesPlug}
+                border={context.inputError.name === "flag" ? "border" : ""}
               />
             </Section>
             <Section>
@@ -109,9 +118,7 @@ export const NewTrip = () => {
                 border={
                   context.inputError.name === "start_date" ? "border" : ""
                 }
-                onChange={(e) => {
-                  context.handleChange(e);
-                }}
+                onChange={context.handleChange}
               />{" "}
               <br />
               <label htmlFor="end_date">End date</label>
@@ -131,9 +138,7 @@ export const NewTrip = () => {
                 black={context.newTrip.end_date ? "black" : ""}
                 max="2022-12-31"
                 border={context.inputError.name === "end_date" ? "border" : ""}
-                onChange={(e) => {
-                  context.handleChange(e);
-                }}
+                onChange={context.handleChange}
               />{" "}
             </Section>
             <Section>
@@ -151,9 +156,7 @@ export const NewTrip = () => {
 
               <Input
                 type="text"
-                onChange={(e) => {
-                  context.handleChange(e);
-                }}
+                onChange={context.handleChange}
                 placeholder="Type here..."
                 name="company_name"
                 border={
@@ -172,9 +175,7 @@ export const NewTrip = () => {
               ) : undefined}
               <Input
                 type="text"
-                onChange={(e) => {
-                  context.handleChange(e);
-                }}
+                onChange={context.handleChange}
                 placeholder="Type here..."
                 name="city"
                 value={context.newTrip.address.city}
@@ -193,9 +194,7 @@ export const NewTrip = () => {
               <Input
                 value={context.newTrip.address.street_num}
                 type="number"
-                onChange={(e) => {
-                  context.handleChange(e);
-                }}
+                onChange={context.handleChange}
                 placeholder="Type here..."
                 name="street_num"
                 min="0"
@@ -214,9 +213,7 @@ export const NewTrip = () => {
               <Input
                 value={context.newTrip.address.street}
                 type="text"
-                onChange={(e) => {
-                  context.handleChange(e);
-                }}
+                onChange={context.handleChange}
                 placeholder="Type here..."
                 name="street"
                 border={context.inputError.name === "street" ? "border" : ""}
@@ -232,9 +229,7 @@ export const NewTrip = () => {
               ) : undefined}
               <Input
                 type="text"
-                onChange={(e) => {
-                  context.handleChange(e);
-                }}
+                onChange={context.handleChange}
                 placeholder="Type here..."
                 name="zip"
                 border={context.inputError.name === "zip" ? "border" : ""}
@@ -249,9 +244,7 @@ export const NewTrip = () => {
               <Item>
                 <RadioInput
                   type="radio"
-                  onChange={(e) => {
-                    context.handleChange(e);
-                  }}
+                  onChange={context.handleChange}
                   name="covid"
                   value="true"
                 />
@@ -261,9 +254,7 @@ export const NewTrip = () => {
               <Item>
                 <RadioInput
                   type="radio"
-                  onChange={(e) => {
-                    context.handleChange(e);
-                  }}
+                  onChange={context.handleChange}
                   name="covid"
                   defaultChecked
                   value="false"
@@ -286,9 +277,7 @@ export const NewTrip = () => {
                   ) : undefined}
                   <Input
                     type="date"
-                    onChange={(e) => {
-                      context.handleChange(e);
-                    }}
+                    onChange={context.handleChange}
                     id="start"
                     name="covid_test_date"
                     value={context.newTrip.covid_test_date}
@@ -356,8 +345,8 @@ const Section = styled.div`
   font-size: 14px;
   padding: 16px 1.5rem;
   margin-top: 1rem;
-  background-color: #f9f9fa;
-  color: black;
+  background-color: ${theme.gray};
+  color: ${theme.black};
   label {
   }
   @media (max-width: 900px) {
@@ -368,7 +357,7 @@ const Section = styled.div`
   }
 `;
 const RadioInput = styled.input`
-  color: #76787b;
+  color: ${theme.darkGray};
   font-weight: 600;
   font-size: 3rem;
   -webkit-appearance: none;
@@ -384,11 +373,49 @@ const ButtonLoading = styled.img`
 `;
 
 const ErrorTag = styled.p`
-  color: red;
+  color: ${theme.red};
   margin: 0rem;
 `;
+const FlagSelect = styled(ReactFlagsSelect)<{
+  border?: string;
+}>`
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+  height: 48px;
+  font-size: 11px !important;
+  margin: 0;
+  margin-top: 1rem;
+  padding: 0 !important;
+  border: ${(props) =>
+    props.border === "" ? "none" : "1px solid red"} !important;
+  & .ReactFlagsSelect-module_selectOption__3pcgW {
+    font-size: 11px;
+    padding: 0.5rem 0rem 0.5rem 1rem !important;
+    margin: 0 !important;
+  }
+  & .ReactFlagsSelect-module_fullWidthOptions__1XeR6 {
+    margin: 0 !important;
+    padding: 0rem 0rem 0rem 0rem !important;
+  }
+  & #rfs-btn {
+    border: none;
+    width: 100%;
+    height: 45px;
+    margin: 0;
+    font-size: 13px !important;
+  }
+  & .error {
+    border: 1px red solid;
+  }
+  & .ReactFlagsSelect-module_selectValue__152eS {
+    color: ${theme.gray};
+    color: ${theme.black};
+  }
+`;
 const Item = styled.div`
-  background-color: #f1f1f2;
+  background-color: #${theme.white};
   display: inline-block;
   padding: 0.6rem 1rem;
   margin: 0rem 0.5rem 0rem 0rem;
@@ -410,7 +437,7 @@ const Hr = styled.hr`
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid ${theme.gray};
   padding: 0;
   margin-bottom: 1rem;
   margin-top: 1rem;

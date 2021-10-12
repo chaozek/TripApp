@@ -1,6 +1,15 @@
 import { Link } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
+export const theme = {
+  white: "#f1f1f2",
+  gray: "#f9f9fa",
+  darkGray: "#76787b",
+  black: "#000000",
+  red: "#ff0000",
+  yellow: "#f8d964",
+};
+
 export const GlobalStyles = createGlobalStyle`
   body {
     margin: 0;
@@ -53,7 +62,7 @@ button{
 appearance: none;
 }
 input[type="text"],input[type="number"],input[type="date"], select{
-  border: 1px solid #F1F1F2;
+  border: 1px solid ${theme.gray};
   border-radius: 10px;
   width: 100%;
   height: 48px;
@@ -62,13 +71,13 @@ input[type="date"]::-webkit-datetime-edit-text,
 input[type="date"]::-webkit-datetime-edit-month-field,
 input[type="date"]::-webkit-datetime-edit-day-field,
 input[type="date"]::-webkit-datetime-edit-year-field {
-  color: #D0D0CE;
+  color: #${theme.gray};
 }
 input[type="date"].date-input--has-value::-webkit-datetime-edit-text,
 input[type="date"].date-input--has-value::-webkit-datetime-edit-month-field,
 input[type="date"].date-input--has-value::-webkit-datetime-edit-day-field,
 input[type="date"].date-input--has-value::-webkit-datetime-edit-year-field {
-  color: black;
+  color: ${theme.black};
 }
 input[type=checkbox] {
   -webkit-appearance: none;
@@ -83,11 +92,11 @@ input[type="radio"]{
 
 ::placeholder,
   ::-webkit-input-placeholder {
-    color: #D0D0CE
+    color: ${theme.gray}
 
   }
   :-ms-input-placeholder {
-     color: #D0D0CE
+     color: ${theme.gray}
 
   }
 label{
@@ -97,13 +106,15 @@ label{
 
 }
 `;
-const theme = {
-  fg: "palevioletred",
-  bg: "#F9F9FA",
+
+type ContainerType = {
+  size?: string;
+  width?: string;
 };
-export const YellowButtonLink = styled(Link)`
+
+export const YellowButtonLink = styled(Link)<ContainerType>`
   margin-top: ${(props) => props.size};
-  background-color: #f8d964;
+  background-color: ${theme.yellow};
   display: flex;
   cursor: pointer;
   border: none;
@@ -118,10 +129,10 @@ export const YellowButtonLink = styled(Link)`
 
   width: ${(props) => (props.width ? props.width : "auto")};
 `;
-export const YellowButton = styled.button`
+export const YellowButton = styled.button<ContainerType>`
   margin-top: ${(props) => props.size};
   margin-top: 1rem;
-  background-color: #f8d964;
+  background-color: ${theme.yellow};
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -130,7 +141,7 @@ export const YellowButton = styled.button`
   border-radius: 10px;
   padding: 0rem 0.1rem;
   text-decoration: none;
-  color: black;
+  color: ${theme.black};
   text-align: left;
   font-weight: 600;
   padding: 0rem 1rem;
@@ -139,6 +150,7 @@ export const YellowButton = styled.button`
     opacity: 50%;
   }
 `;
+
 export const ButtonIcon = styled.div`
   display: flex;
   align-items: center;

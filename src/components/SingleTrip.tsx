@@ -1,9 +1,27 @@
-import { CleevioContext } from "../context/CleevioState_";
+import { CleevioContext } from "../context/CleevioState";
 import { Link } from "react-router-dom";
+import { theme } from "../GlobalStyles";
 import { useContext } from "react";
 import Empty from "../imgs/Flags/empty.png";
 import styled from "styled-components";
-export const SingleTrip = (props) => {
+export type singleTripType = {
+  id?: string;
+  start_date: string;
+  end_date: string;
+  company_name: string;
+  address: {
+    street: string;
+    street_num: any;
+    city: string;
+    country: string;
+    zip: string;
+  };
+  covid: boolean;
+  covid_test_date: string;
+  layout?: string;
+};
+
+export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
   let renderCountry = "";
   const context = useContext(CleevioContext);
 
@@ -50,7 +68,7 @@ export const SingleTrip = (props) => {
               <Header>Company</Header>
               <h3>{company_name}</h3>
               <p>
-                {street} {street_num}, {props.address.street.zip} {city}
+                {street} {street_num}, {props.address.zip} {city}
               </p>
               <Header>Date </Header>
               <p>
@@ -81,7 +99,7 @@ export const SingleTrip = (props) => {
               <Align>
                 <h3>{company_name}</h3> <Spacer>|</Spacer>
                 <p style={{ fontSize: "14px" }}>
-                  {street} {street_num}, {props.address.street.zip} {city}
+                  {street} {street_num}, {props.address.zip} {city}
                 </p>
               </Align>
             </Right>
@@ -95,7 +113,7 @@ type ContainerType = {
   flex?: string;
 };
 const SingleTripDiv = styled.div<ContainerType>`
-  background-color: #f9f9fa;
+  background-color: ${theme.gray};
   display: ${(props: ContainerType) =>
     props.flex === "flex" ? "flex" : "block"};
   align-items: center;
@@ -104,7 +122,7 @@ const SingleTripDiv = styled.div<ContainerType>`
   margin-top: 1rem;
 
   p {
-    color: #97999b;
+    color: ${theme.darkGray};
   }
   p,
   h3 {
@@ -134,7 +152,7 @@ const Align = styled.div`
   margin: 0.3rem 0rem;
 `;
 const Header = styled.h4`
-  color: #97999b;
+  color: ${theme.darkGray};
   font-size: 12px;
   font-weight: normal;
   margin: 0;
@@ -142,7 +160,7 @@ const Header = styled.h4`
 `;
 const Spacer = styled.div`
   margin: 0rem 1rem;
-  color: #97999b;
+  color: ${theme.darkGray};
 `;
 const Country = styled.div`
   display: flex;
