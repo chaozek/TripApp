@@ -7,6 +7,7 @@ import Loading from "../imgs/Loading.gif";
 import styled from "styled-components";
 export const Home = () => {
   const context = useContext(CleevioContext);
+  const { trips } = useContext(CleevioContext);
   useEffect(() => {
     context.getCountries();
   }, []);
@@ -18,14 +19,14 @@ export const Home = () => {
       {context.loading ? (
         <LoadingDiv src={Loading} alt="" />
       ) : (
-        context.trips.map((trip) => (
+        trips.map((trip) => (
           <FadeIn key={trip.id}>
             <SingleTrip {...trip} />
           </FadeIn>
         ))
       )}
 
-      {!context.loading && context.trips.length === 0 ? context.error : null}
+      {!context.loading && trips.length === 0 ? context.error : null}
     </WrapperDiv>
   );
 };
