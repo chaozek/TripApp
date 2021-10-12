@@ -1,5 +1,7 @@
 # Save trips APP
 
+[DEMO]https://cleevio.vercel.app/
+
 ### Description
 
 This fully responsive app is connected with backend via Bearer token generated [here]https://task-devel.cleevio-vercel.vercel.app/. If you want to use your database, generate new token & include it in .env file as described in .env.sample file.
@@ -14,7 +16,6 @@ Some JS functions had to be make to fix wrong data coming from backend such as:
 
 - United kingdom coutry code "UK" (should be "GB")
 - Wrong backend model - `street_num` is not `string` even `number` | Postman was used to get this info.
-
 
 #### Tested in windows env:
 
