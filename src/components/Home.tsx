@@ -11,7 +11,7 @@ export const Home = () => {
   useEffect(() => {
     context.getCountries();
   }, []);
-
+  console.log(trips);
   return (
     <WrapperDiv>
       <PageName>Your trips</PageName>
