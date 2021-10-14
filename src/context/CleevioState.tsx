@@ -212,7 +212,7 @@ const CleevioState = (props: PropsType) => {
     try {
       setLoading(true);
       await axios.delete(
-        `${process.env.REACT_APP_URL}${tripUrl}${getId}`,
+        `${process.env.REACT_APP_URL}${tripUrl}/${getId}`,
         config
       );
       setRedirect("redirect");
