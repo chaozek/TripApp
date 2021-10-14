@@ -1,3 +1,4 @@
+import { AW, GB, NL } from "../context/config";
 import { AiOutlineCheck } from "react-icons/ai";
 import { ButtonIcon } from "../GlobalStyles";
 import { CleevioContext } from "../context/CleevioState";
@@ -10,6 +11,16 @@ import FadeIn from "react-fade-in";
 import ReactFlagsSelect from "react-flags-select";
 import buttonLoading from "../imgs/buttonLoading.gif";
 import styled from "styled-components";
+
+type Iprops = {
+  address: {
+    street: string;
+    street_num: any;
+    city: string;
+    country: string;
+    zip: string;
+  };
+};
 export const NewTrip = () => {
   const context = useContext(CleevioContext);
   const [selected, setSelected] = useState("");
@@ -46,20 +57,20 @@ export const NewTrip = () => {
     }[],
     code: string
   ) => {
-    if (code === "NL") {
-      code = "AW";
+    if (code === `${NL}`) {
+      code = `${AW}`;
     }
     if (countries && countries !== undefined) {
       let foundCountry: { value: string; label: string }[] = countries.filter(
         (c) => c.value.toLowerCase() === code.toLowerCase()
       );
-      if (foundCountry[0] === undefined && code === "GB") {
-        context.setNewTrip((p: { address: {} }) => ({
+      if (foundCountry[0] === undefined && code === `${GB}`) {
+        context.setNewTrip((p: Iprops) => ({
           ...p,
           address: { ...p.address, country: "United Kingdom" },
         }));
       } else {
-        context.setNewTrip((p: { address: {} }) => ({
+        context.setNewTrip((p: Iprops) => ({
           ...p,
           address: { ...p.address, country: foundCountry[0].label },
         }));
@@ -87,10 +98,6 @@ export const NewTrip = () => {
                 </div>
               ) : undefined}
               <FlagSelect
-                className={`selectFlag ${
-                  selected === "" ? "date-input--has-value color" : ""
-                }
-                 ${context.inputError.name === "flag" ? "error" : ""}`}
                 selectButtonClassName="menu-flags-button"
                 selected={selected}
                 onSelect={onSelect}
@@ -319,14 +326,14 @@ export const NewTrip = () => {
   );
 };
 const Form = styled.form`
-  @media (min-width: 1200px) {
+  @media (min-width: ${theme.sizes.desktop}px) {
     width: 50%;
   }
-  @media (max-width: 1200px) {
+  @media (max-width: ${theme.sizes.desktop}px) {
     width: 80%;
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: ${theme.sizes.mobile}px) {
     width: 100%;
   }
 `;
@@ -345,19 +352,19 @@ const Section = styled.div`
   font-size: 14px;
   padding: 16px 1.5rem;
   margin-top: 1rem;
-  background-color: ${theme.gray};
-  color: ${theme.black};
+  background-color: ${theme.color.gray};
+  color: ${theme.color.black};
   label {
   }
   @media (max-width: 900px) {
-    width: 90%;
+    width: 100%;
   }
-  @media (max-width: 500px) {
-    width: 86%;
+  @media (max-width: ${theme.sizes.mobile}px) {
+    width: 90%;
   }
 `;
 const RadioInput = styled.input`
-  color: ${theme.darkGray};
+  color: ${theme.color.darkGray};
   font-weight: 600;
   font-size: 3rem;
   -webkit-appearance: none;
@@ -373,7 +380,7 @@ const ButtonLoading = styled.img`
 `;
 
 const ErrorTag = styled.p`
-  color: ${theme.red};
+  color: ${theme.color.red};
   margin: 0rem;
 `;
 const FlagSelect = styled(ReactFlagsSelect)<{
@@ -410,12 +417,12 @@ const FlagSelect = styled(ReactFlagsSelect)<{
     border: 1px red solid;
   }
   & .ReactFlagsSelect-module_selectValue__152eS {
-    color: ${theme.gray};
-    color: ${theme.black};
+    color: ${theme.color.gray};
+    color: ${theme.color.black};
   }
 `;
 const Item = styled.div`
-  background-color: #${theme.white};
+  background-color: #${theme.color.white};
   display: inline-block;
   padding: 0.6rem 1rem;
   margin: 0rem 0.5rem 0rem 0rem;
@@ -437,7 +444,7 @@ const Hr = styled.hr`
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px solid ${theme.gray};
+  border-top: 1px solid ${theme.color.gray};
   padding: 0;
   margin-bottom: 1rem;
   margin-top: 1rem;

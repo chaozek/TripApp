@@ -63,12 +63,12 @@ export const RightSideBar = (props: any) => {
 };
 
 const RightSideBarDiv = styled.div`
-  border-left: 2px solid ${theme.gray};
+  border-left: 2px solid ${theme.color.gray};
   grid-area: rightSidebar;
   padding: 1rem 2rem;
 
   overflow-x: hidden;
-  @media (max-width: 1200px) {
+  @media (max-width: ${theme.sizes.desktop}px) {
     border-left: none;
     display: none;
   }

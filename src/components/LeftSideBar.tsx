@@ -5,6 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
 import { Link, useLocation } from "react-router-dom";
 import { theme } from "../GlobalStyles";
+import { tripUrl } from "../context/config";
 import { useContext, useState } from "react";
 import clock_black from "../imgs/clock_black.png";
 import clock_gray from "../imgs/clock_gray.png";
@@ -28,7 +29,7 @@ export const LeftSideBar = () => {
           <GiHamburgerMenu />
         </IconContext.Provider>
       </MobileMenu>
-      {isMobile && context.width < 550 ? (
+      {isMobile && context.width < theme.sizes.mobile ? (
         <PhoneMenuLinks>
           <MobileDiv>
             <Link to="/" onClick={handleClick}>
@@ -36,16 +37,16 @@ export const LeftSideBar = () => {
             </Link>
           </MobileDiv>
           <MobileMenu onClick={handleClick}>X</MobileMenu>
-          <YellowButtonLink size="5rem" to="/trip" onClick={handleClick}>
+          <YellowButtonLink size="5rem" to={`${tripUrl}`} onClick={handleClick}>
             <p>New Trip</p>
             <p>+</p>
           </YellowButtonLink>
           <ClockButton
             white="white"
-            disabled={getLocation === "/trip" ? false : true}
+            disabled={getLocation === `${tripUrl}` ? false : true}
             onClick={handleClick}
           >
-            {getLocation === "/trip" ? (
+            {getLocation === `${tripUrl}` ? (
               <Clock src={clock_black} alt="clock" />
             ) : (
               <Clock src={clock_gray} alt="clock" />
@@ -63,8 +64,8 @@ export const LeftSideBar = () => {
           </YellowButtonLink>
           <Link to="/">
             {" "}
-            <ClockButton disabled={getLocation === "/trip" ? false : true}>
-              {getLocation === "/trip" ? (
+            <ClockButton disabled={getLocation === `${tripUrl}` ? false : true}>
+              {getLocation === `${tripUrl}` ? (
                 <Clock src={clock_black} alt="clock" />
               ) : (
                 <Clock src={clock_gray} alt="clock" />
@@ -81,25 +82,25 @@ type ContainerType = {
   white?: string;
 };
 const LeftSideBarDiv = styled.div`
-  background-color: ${theme.gray};
+  background-color: ${theme.color.gray};
   grid-area: leftSidebar;
   padding: 1rem 2rem;
   z-index: 2;
-  @media (max-width: 550px) {
+  @media (max-width: ${theme.sizes.mobile}px) {
     display: flex;
     height: 30px;
-    background-color: ${theme.white};
+    background-color: ${theme.color.white};
   }
 `;
 const MobileMenu = styled.button`
   vertical-align: bottom;
-  background-color: ${theme.white};
+  background-color: ${theme.color.white};
   font-weight: bold;
   font-size: 1.33rem;
-  color: ${theme.darkGray};
+  color: ${theme.color.darkGray};
   display: none;
 
-  @media (max-width: 550px) {
+  @media (max-width: ${theme.sizes.mobile}px) {
     border-radius: 10px;
     border: none;
     display: inline;
@@ -114,7 +115,7 @@ const LogoDiv = styled.img`
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 3rem;
-  @media (max-width: 550px) {
+  @media (max-width: ${theme.sizes.mobile}px) {
     position: absolute;
     left: 0;
     right: 0;
@@ -124,7 +125,7 @@ const LogoDiv = styled.img`
 `;
 const MenuLinks = styled.div`
   flex-direction: column;
-  @media (max-width: 550px) {
+  @media (max-width: ${theme.sizes.mobile}px) {
     display: none;
     height: 30px;
   }
@@ -143,7 +144,7 @@ const ClockButton = styled.button<ContainerType>`
   margin-top: 2rem;
   border: none;
   background-color: ${(props: ContainerType) =>
-    props.white === "white" ? "white" : `${theme.gray}`};
+    props.white === "white" ? `${theme.color.white}` : `${theme.color.gray}`};
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
@@ -151,7 +152,7 @@ const ClockButton = styled.button<ContainerType>`
 `;
 
 const PhoneMenuLinks = styled.div`
-  @media (max-width: 550px) {
+  @media (max-width: ${theme.sizes.mobile}px) {
     display: relative;
     position: absolute;
     padding-left: inherit;
@@ -160,7 +161,7 @@ const PhoneMenuLinks = styled.div`
     padding-top: 1rem;
     right: 0;
     list-style: none;
-    background-color: ${theme.white};
+    background-color: ${theme.color.white};
     left: 0;
     top: 0;
     transition: all 0.5 ease-out;

@@ -1,3 +1,12 @@
+import {
+  AW,
+  GB,
+  NL,
+  UK,
+  changeViewNumber,
+  flagConfig,
+  tripUrl,
+} from "../context/config";
 import { CleevioContext } from "../context/CleevioState";
 import { Link } from "react-router-dom";
 import { theme } from "../GlobalStyles";
@@ -24,20 +33,16 @@ export type singleTripType = {
 export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
   let renderCountry = "";
   const context = useContext(CleevioContext);
-
-  const { id, end_date, start_date, company_name } = props;
-  const { street, city, street_num, country } = props.address;
-
   const getCountry = (country: string) => {
     try {
       if (context.countries !== undefined) {
         let foundCountry = context.countries.filter((c) => c.label === country);
         let specificCountry = foundCountry[0];
-        if (specificCountry.value === "uk") {
-          specificCountry.value = "gb";
+        if (specificCountry.value === `${UK}`.toLowerCase()) {
+          specificCountry.value = `${GB}`.toLowerCase();
           renderCountry = specificCountry.value;
-        } else if (specificCountry.value === "aw") {
-          specificCountry.value = "NL";
+        } else if (specificCountry.value === `${AW}`.toLowerCase()) {
+          specificCountry.value = `${NL}`;
           renderCountry = specificCountry.value;
         } else if (specificCountry) renderCountry = specificCountry.value;
       }
@@ -45,34 +50,36 @@ export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
       context.setError(error.message);
     }
   };
-  getCountry(country);
+  getCountry(props.address.country);
   return (
     <>
-      <LinkDiv to={`/trip/${id}`}>
-        {(context.width > 930 && window.location.pathname === "/trip") ||
-        context.width < 930 ? (
+      <LinkDiv to={`${tripUrl}/${props.id}`}>
+        {(context.width > changeViewNumber &&
+          window.location.pathname === `${tripUrl}`) ||
+        context.width < changeViewNumber ? (
           <SingleTripDiv>
             <Country>
               {renderCountry.length > 0 ? (
                 <ImgFlag
-                  src={`https://www.countryflags.io/${renderCountry}/flat/64.png`}
+                  src={`${process.env.REACT_APP_FLAG_URL}${renderCountry}${flagConfig}`}
                   alt=""
                 />
               ) : (
                 <ImgFlag src={Empty} alt="" />
               )}
 
-              <h3>{country}</h3>
+              <h3>{props.address.country}</h3>
             </Country>
             <Content>
               <Header>Company</Header>
-              <h3>{company_name}</h3>
+              <h3>{props.company_name}</h3>
               <p>
-                {street} {street_num}, {props.address.zip} {city}
+                {props.address.street} {props.address.street_num},{" "}
+                {props.address.zip} {props.address.city}
               </p>
               <Header>Date </Header>
               <p>
-                {start_date} –⁠ {end_date}
+                {props.start_date} –⁠ {props.end_date}
               </p>
             </Content>
           </SingleTripDiv>
@@ -81,25 +88,26 @@ export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
             <Left>
               {renderCountry.length > 0 ? (
                 <ImgFlag
-                  src={`https://www.countryflags.io/${renderCountry}/flat/64.png`}
+                  src={`${process.env.REACT_APP_FLAG_URL}${renderCountry}${flagConfig}`}
                   alt=""
                 />
               ) : (
-                <ImgFlag src={Empty} alt="" />
+                <ImgFlag src={Empty} alt="emptyflag" />
               )}
             </Left>
             <Right>
               <Align>
-                <h3>{country}</h3>
+                <h3>{props.address.country}</h3>
                 <Spacer>|</Spacer>
                 <p>
-                  {start_date} –⁠ {end_date}
+                  {props.start_date} –⁠ {props.end_date}
                 </p>
               </Align>
               <Align>
-                <h3>{company_name}</h3> <Spacer>|</Spacer>
-                <p style={{ fontSize: "14px" }}>
-                  {street} {street_num}, {props.address.zip} {city}
+                <h3>{props.company_name}</h3> <Spacer>|</Spacer>
+                <p>
+                  {props.address.street} {props.address.street_num},{" "}
+                  {props.address.zip} {props.address.city}
                 </p>
               </Align>
             </Right>
@@ -113,7 +121,7 @@ type ContainerType = {
   flex?: string;
 };
 const SingleTripDiv = styled.div<ContainerType>`
-  background-color: ${theme.gray};
+  background-color: ${theme.color.gray};
   display: ${(props: ContainerType) =>
     props.flex === "flex" ? "flex" : "block"};
   align-items: center;
@@ -122,7 +130,7 @@ const SingleTripDiv = styled.div<ContainerType>`
   margin-top: 1rem;
 
   p {
-    color: ${theme.darkGray};
+    color: ${theme.color.darkGray};
   }
   p,
   h3 {
@@ -152,7 +160,7 @@ const Align = styled.div`
   margin: 0.3rem 0rem;
 `;
 const Header = styled.h4`
-  color: ${theme.darkGray};
+  color: ${theme.color.darkGray};
   font-size: 12px;
   font-weight: normal;
   margin: 0;
@@ -160,7 +168,7 @@ const Header = styled.h4`
 `;
 const Spacer = styled.div`
   margin: 0rem 1rem;
-  color: ${theme.darkGray};
+  color: ${theme.color.darkGray};
 `;
 const Country = styled.div`
   display: flex;

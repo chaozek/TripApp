@@ -1,7 +1,7 @@
 import { CleevioContext } from "../context/CleevioState";
 import { PageName } from "./Home";
 import { Redirect } from "react-router-dom";
-import { config } from "../context/config";
+import { config, countryUrl, tripUrl } from "../context/config";
 import { useContext, useEffect, useState } from "react";
 import Loading from "../imgs/Loading.gif";
 import axios from "axios";
@@ -30,7 +30,7 @@ export const TripDetail = (props: { match: { params: { id: string } } }) => {
     try {
       context.setLoading(true);
       const response = await axios.get(
-        `https://task-devel.cleevio-vercel.vercel.app/api/trip/${getId}`,
+        `${process.env.REACT_APP_URL}${tripUrl}/${getId}`,
         config
       );
       await setLocalData(response.data);
@@ -55,16 +55,7 @@ export const TripDetail = (props: { match: { params: { id: string } } }) => {
       <PageName>Trip Detail</PageName>
 
       {!localData ? (
-        <img
-          src={Loading}
-          style={{
-            width: "20px",
-            display: "block",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-          alt="loading"
-        />
+        <Img src={Loading} alt="loading" />
       ) : (
         <div>
           <p>CITY: {localData.address.city}</p>
@@ -79,34 +70,16 @@ export const TripDetail = (props: { match: { params: { id: string } } }) => {
           <br />
           <p>COVID: {String(localData.covid)}</p>
           <p>{localData.covid_test_date}</p>
-          <button
+          <Button
             onClick={() => context.handleDelete(getId)}
             disabled={context.loading ? true : false}
-            style={{
-              width: "100px",
-              flexDirection: "column",
-              position: "relative",
-              display: "flex",
-              textAlign: "center",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
           >
             {context.loading ? (
-              <img
-                src={Loading}
-                style={{
-                  width: "20px",
-                  display: "block",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                }}
-                alt="loading"
-              />
+              <Img src={Loading} alt="loading" />
             ) : (
-              <p style={{}}>Delete</p>
+              <p>Delete</p>
             )}
-          </button>
+          </Button>
         </div>
       )}
       {!context.loading && context.error.length > 0 ? context.error : null}
@@ -116,4 +89,19 @@ export const TripDetail = (props: { match: { params: { id: string } } }) => {
 
 const TripDiv = styled.div`
   padding: 1rem 2rem;
+`;
+const Img = styled.img`
+  width: "20px";
+  display: "block";
+  margin-left: "auto";
+  margin-right: "auto";
+`;
+const Button = styled.button`
+  width: "100px";
+  flex-direction: "column";
+  position: "relative";
+  display: "flex";
+  text-align: "center";
+  align-items: "center";
+  justify-content: "center";
 `;

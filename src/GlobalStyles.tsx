@@ -2,12 +2,19 @@ import { Link } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 export const theme = {
-  white: "#f1f1f2",
-  gray: "#f9f9fa",
-  darkGray: "#76787b",
-  black: "#000000",
-  red: "#ff0000",
-  yellow: "#f8d964",
+  color: {
+    white: "#f1f1f2",
+    gray: "#f9f9fa",
+    darkGray: "#76787b",
+    black: "#000000",
+    red: "#ff0000",
+    yellow: "#f8d964",
+  },
+  sizes: {
+    desktop: 1200,
+    tablet: 850,
+    mobile: 550,
+  },
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -62,7 +69,7 @@ button{
 appearance: none;
 }
 input[type="text"],input[type="number"],input[type="date"], select{
-  border: 1px solid ${theme.gray};
+  border: 1px solid ${theme.color.gray};
   border-radius: 10px;
   width: 100%;
   height: 48px;
@@ -71,13 +78,13 @@ input[type="date"]::-webkit-datetime-edit-text,
 input[type="date"]::-webkit-datetime-edit-month-field,
 input[type="date"]::-webkit-datetime-edit-day-field,
 input[type="date"]::-webkit-datetime-edit-year-field {
-  color: #${theme.gray};
+  color: #${theme.color.gray};
 }
 input[type="date"].date-input--has-value::-webkit-datetime-edit-text,
 input[type="date"].date-input--has-value::-webkit-datetime-edit-month-field,
 input[type="date"].date-input--has-value::-webkit-datetime-edit-day-field,
 input[type="date"].date-input--has-value::-webkit-datetime-edit-year-field {
-  color: ${theme.black};
+  color: ${theme.color.black};
 }
 input[type=checkbox] {
   -webkit-appearance: none;
@@ -92,11 +99,11 @@ input[type="radio"]{
 
 ::placeholder,
   ::-webkit-input-placeholder {
-    color: ${theme.gray}
+    color: ${theme.color.gray}
 
   }
   :-ms-input-placeholder {
-     color: ${theme.gray}
+     color: ${theme.color.gray}
 
   }
 label{
@@ -114,7 +121,7 @@ type ContainerType = {
 
 export const YellowButtonLink = styled(Link)<ContainerType>`
   margin-top: ${(props) => props.size};
-  background-color: ${theme.yellow};
+  background-color: ${theme.color.yellow};
   display: flex;
   cursor: pointer;
   border: none;
@@ -132,7 +139,7 @@ export const YellowButtonLink = styled(Link)<ContainerType>`
 export const YellowButton = styled.button<ContainerType>`
   margin-top: ${(props) => props.size};
   margin-top: 1rem;
-  background-color: ${theme.yellow};
+  background-color: ${theme.color.yellow};
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -141,7 +148,7 @@ export const YellowButton = styled.button<ContainerType>`
   border-radius: 10px;
   padding: 0rem 0.1rem;
   text-decoration: none;
-  color: ${theme.black};
+  color: ${theme.color.black};
   text-align: left;
   font-weight: 600;
   padding: 0rem 1rem;

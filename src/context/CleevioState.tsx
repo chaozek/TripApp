@@ -1,4 +1,4 @@
-import { config } from "./config";
+import { config, countryUrl, tripUrl } from "./config";
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 export type newTripProps = {
@@ -184,7 +184,11 @@ const CleevioState = (props: PropsType) => {
       setLoading(false);
     } else {
       try {
-        await axios.post(`${process.env.REACT_APP_URL}/trip`, newTrip, config);
+        await axios.post(
+          `${process.env.REACT_APP_URL}${tripUrl}`,
+          newTrip,
+          config
+        );
         setRedirect("redirect");
       } catch (error) {
         setError(error.message);
@@ -207,7 +211,10 @@ const CleevioState = (props: PropsType) => {
   const handleDelete = async (getId: string) => {
     try {
       setLoading(true);
-      await axios.delete(`${process.env.REACT_APP_URL}/trip/${getId}`, config);
+      await axios.delete(
+        `${process.env.REACT_APP_URL}${tripUrl}${getId}`,
+        config
+      );
       setRedirect("redirect");
     } catch (error) {
       setError(error.message);
@@ -251,7 +258,7 @@ const CleevioState = (props: PropsType) => {
   const getTrips = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_URL}/trip`,
+        `${process.env.REACT_APP_URL}${tripUrl}`,
         config
       );
       setTrips(response.data);
@@ -265,7 +272,7 @@ const CleevioState = (props: PropsType) => {
   const getCountries = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_URL}/country`,
+        `${process.env.REACT_APP_URL}${countryUrl}`,
         config
       );
       setCountry(response.data);

@@ -38,7 +38,7 @@ type ContainerType = {
 export const PageName = styled.h2<ContainerType>`
   padding: ${(props) => (props.padding ? "1rem 2rem" : "none")};
   padding-bottom: 2.3rem;
-  border-bottom: 1px solid ${theme.white};
+  border-bottom: 1px solid ${theme.color.white};
   text-align: left !important;
   align-items: flex-start;
 `;
