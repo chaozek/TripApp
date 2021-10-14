@@ -20,7 +20,7 @@ Some JS functions had to be make to fix wrong data coming from backend such as:
 #### Tested in windows env:
 
 - Microsoft Edge
-- Firefox
+- Firefox 
 - Google Chrome
 
 **This app wasn't tested on ios devices**
