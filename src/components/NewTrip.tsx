@@ -1,7 +1,7 @@
-import { AW, GB, NL } from "../context/config";
+import { AW, GB, NL } from "./config";
 import { AiOutlineCheck } from "react-icons/ai";
 import { ButtonIcon } from "../GlobalStyles";
-import { CleevioContext } from "../context/CleevioState";
+import { CleevioContext } from "./CleevioState";
 import { PageName, WrapperDiv } from "./Home";
 import { Redirect } from "react-router-dom";
 import { YellowButton } from "../GlobalStyles";
@@ -12,7 +12,7 @@ import ReactFlagsSelect from "react-flags-select";
 import buttonLoading from "../imgs/buttonLoading.gif";
 import styled from "styled-components";
 
-type Iprops = {
+export type Iprops = {
   address: {
     street: string;
     street_num: any;
@@ -38,9 +38,6 @@ export const NewTrip = () => {
     "GB",
   ];
 
-  if (context.redirect === "redirect") {
-    return <Redirect push to="/" />;
-  }
   const onSelect = (code: string) => {
     setSelected(code);
     context.setInputError({ name: "", error: "" });
@@ -61,33 +58,31 @@ export const NewTrip = () => {
       code = `${AW}`;
     }
     if (countries && countries !== undefined) {
-      let foundCountry: { value: string; label: string }[] = countries.filter(
+      let foundCountry = countries.filter(
         (c) => c.value.toLowerCase() === code.toLowerCase()
       );
       if (foundCountry[0] === undefined && code === `${GB}`) {
-        context.setNewTrip((p: Iprops) => ({
+        context.setNewTrip((p) => ({
           ...p,
           address: { ...p.address, country: "United Kingdom" },
         }));
       } else {
-        context.setNewTrip((p: Iprops) => ({
+        context.setNewTrip((p) => ({
           ...p,
           address: { ...p.address, country: foundCountry[0].label },
         }));
       }
     }
   };
-
+  if (context.redirect === "redirect") {
+    return <Redirect push to="/" />;
+  }
   return (
     <WrapperDiv>
       <div>
         <PageName>New Trip</PageName>
         <NewTripDiv>
-          <Form
-            onSubmit={(e) => {
-              context.formHandleSubmit(e);
-            }}
-          >
+          <Form onSubmit={context.formHandleSubmit}>
             <Section>
               <label htmlFor="country">Where do you want to go</label>
               {context.flagStatus.length <= 0 ? (

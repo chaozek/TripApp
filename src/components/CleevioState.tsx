@@ -1,36 +1,44 @@
 import { config, countryUrl, tripUrl } from "./config";
-import React, { createContext, useEffect, useState } from "react";
+import React, {
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
 import axios from "axios";
-export type newTripProps = {
-  start_date?: string;
-  end_date?: string;
-  company_name?: string;
-  address?: {
-    street?: string;
-    street_num?: any;
-    city?: string;
-    country?: string;
-    zip?: string;
+type Iprops = {
+  start_date: string;
+  end_date: string;
+  company_name: string;
+  address: {
+    street: string;
+    city: string;
+    street_num: any;
+    country: string;
+    zip: string;
   };
-  covid?: boolean;
-  covid_test_date?: string;
+  covid: boolean;
+  covid_test_date: string;
 };
-type PropsType = { children: {}[] };
-type CleevioContextState = {
-  newTrip: {
+type newTripType = React.Dispatch<
+  React.SetStateAction<{
     start_date: string;
     end_date: string;
     company_name: string;
     address: {
       street: string;
-      street_num: string;
+      street_num: any;
       city: string;
       country: string;
       zip: string;
     };
     covid: boolean;
     covid_test_date: string;
-  };
+  }>
+>;
+type PropsType = { children: {}[] };
+type CleevioContextState = {
+  newTrip: Iprops;
   trips: {
     id: string;
     start_date: string;
@@ -38,7 +46,7 @@ type CleevioContextState = {
     company_name: string;
     address: {
       street: string;
-      street_num: string;
+      street_num: any;
       city: string;
       country: string;
       zip: string;
@@ -63,7 +71,7 @@ type CleevioContextState = {
   setCountry: (e: []) => void;
   getTrips: () => void;
   setError: (e: string) => void;
-  setNewTrip: (e: any) => void;
+  setNewTrip: (e: SetStateAction<Iprops>) => void;
   getCountries: () => void;
   setIsEditing: (e: boolean) => void;
   handleDelete: (getId: string) => void;
@@ -170,7 +178,7 @@ const CleevioState = (props: PropsType) => {
     } else if (newTrip.address.city.length === 0) {
       setInputError({ name: "city", error: "must be filled" });
       setLoading(false);
-    } else if (newTrip.address.street_num.length === 0) {
+    } else if (newTrip.address.street_num.toString().length === 0) {
       setInputError({ name: "street_num", error: "must be filled" });
       setLoading(false);
     } else if (newTrip.address.street.length === 0) {
@@ -238,12 +246,12 @@ const CleevioState = (props: PropsType) => {
       name === "zip" ||
       name === "street_num"
     ) {
-      setNewTrip((p: any) => ({
+      setNewTrip((p) => ({
         ...p,
         address:
           name === "street_num"
             ? { ...p.address, [name]: parseInt(value) }
-            : { ...p.address, [name]: value },
+            : { ...p.address, [name]: value.toString() },
       }));
     } else {
       setNewTrip((p) => {

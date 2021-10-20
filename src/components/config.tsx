@@ -7,5 +7,5 @@ export const GB = "GB";
 export const UK = "UK";
 export const NL = "NL";
 export const AW = "AW";
-export const changeViewNumber = 930;
+export const UIBreakPoint = 930;
 export const flagConfig = "/flat/64.png";

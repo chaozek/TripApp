@@ -1,7 +1,8 @@
-import { LeftSideBar } from "../LeftSideBar";
-import { RightSideBar } from "../RightSideBar";
+import { LeftSideBar } from "./LeftSideBar";
+import { RightSideBar } from "./RightSideBar";
 import { Route } from "react-router-dom";
 
+import { theme } from "../GlobalStyles";
 import styled from "styled-components";
 
 export const RegularRoute = ({
@@ -26,18 +27,18 @@ export const HomeLayout = styled.div`
   grid-template-columns: 1fr 4fr 1.5fr;
   grid-template-areas: "leftSidebar main rightSidebar";
 
-  @media (max-width: 1200px) {
+  @media (max-width: ${theme.sizes.desktop}px) {
     grid-template-columns: 1fr 2fr 0fr;
     grid-template-areas:
       "leftSidebar main"
       "leftSidebar main";
   }
-  @media (max-width: 850px) {
+  @media (max-width: ${theme.sizes.tablet}px) {
     grid-template-areas:
       "leftSidebar  main main"
       "leftSidebar rightSidebar rightSidebar";
   }
-  @media (max-width: 550px) {
+  @media (max-width: ${theme.sizes.mobile}px) {
     grid-template-columns: 1fr;
     height: auto;
     grid-template-areas:

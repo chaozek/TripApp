@@ -1,13 +1,5 @@
-import {
-  AW,
-  GB,
-  NL,
-  UK,
-  changeViewNumber,
-  flagConfig,
-  tripUrl,
-} from "../context/config";
-import { CleevioContext } from "../context/CleevioState";
+import { AW, GB, NL, UIBreakPoint, UK, flagConfig, tripUrl } from "./config";
+import { CleevioContext } from "./CleevioState";
 import { Link } from "react-router-dom";
 import { theme } from "../GlobalStyles";
 import { useContext } from "react";
@@ -54,9 +46,9 @@ export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
   return (
     <>
       <LinkDiv to={`${tripUrl}/${props.id}`}>
-        {(context.width > changeViewNumber &&
+        {(context.width > UIBreakPoint &&
           window.location.pathname === `${tripUrl}`) ||
-        context.width < changeViewNumber ? (
+        context.width < UIBreakPoint ? (
           <SingleTripDiv>
             <Country>
               {renderCountry.length > 0 ? (

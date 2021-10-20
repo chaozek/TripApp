@@ -1,7 +1,7 @@
-import { CleevioContext } from "../context/CleevioState";
+import { CleevioContext } from "./CleevioState";
 import { PageName } from "./Home";
 import { Redirect } from "react-router-dom";
-import { config, countryUrl, tripUrl } from "../context/config";
+import { config, countryUrl, tripUrl } from "./config";
 import { useContext, useEffect, useState } from "react";
 import Loading from "../imgs/Loading.gif";
 import axios from "axios";
