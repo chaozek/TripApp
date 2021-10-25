@@ -1,4 +1,4 @@
-import { CleevioContext } from "./CleevioState";
+import { CleevioContext } from "../CleevioState";
 import { SingleTrip } from "./SingleTrip";
 import { theme } from "../GlobalStyles";
 import { useContext, useEffect } from "react";

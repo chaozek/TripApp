@@ -1,5 +1,5 @@
-import { CleevioContext } from "./CleevioState";
-import { SingleTrip } from "./SingleTrip";
+import { CleevioContext } from "../CleevioState";
+import { SingleTrip } from "../components/SingleTrip";
 import { theme } from "../GlobalStyles";
 import { useContext, useEffect } from "react";
 import FadeIn from "react-fade-in";

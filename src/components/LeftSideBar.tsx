@@ -1,11 +1,11 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import { ButtonIcon, YellowButtonLink } from "../GlobalStyles";
-import { CleevioContext } from "./CleevioState";
+import { CleevioContext } from "../CleevioState";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
 import { Link, useLocation } from "react-router-dom";
 import { theme } from "../GlobalStyles";
-import { tripUrl } from "./config";
+import { tripUrl } from "../config";
 import { useContext, useState } from "react";
 import clock_black from "../imgs/clock_black.png";
 import clock_gray from "../imgs/clock_gray.png";

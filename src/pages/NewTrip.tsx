@@ -1,7 +1,7 @@
-import { AW, GB, NL } from "./config";
+import { AW, GB, NL } from "../config";
 import { AiOutlineCheck } from "react-icons/ai";
 import { ButtonIcon } from "../GlobalStyles";
-import { CleevioContext } from "./CleevioState";
+import { CleevioContext } from "../CleevioState";
 import { PageName, WrapperDiv } from "./Home";
 import { Redirect } from "react-router-dom";
 import { YellowButton } from "../GlobalStyles";

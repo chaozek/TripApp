@@ -1,5 +1,5 @@
-import { AW, GB, NL, UIBreakPoint, UK, flagConfig, tripUrl } from "./config";
-import { CleevioContext } from "./CleevioState";
+import { AW, GB, NL, UIBreakPoint, UK, flagConfig, tripUrl } from "../config";
+import { CleevioContext } from "../CleevioState";
 import { Link } from "react-router-dom";
 import { theme } from "../GlobalStyles";
 import { useContext } from "react";
