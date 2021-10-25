@@ -4,7 +4,7 @@
 
 ### Description
 
-This fully responsive app is connected with backend via Bearer token generated [here]https://task-devel.cleevio-vercel.vercel.app/. If you want to use your database, generate new token & include it in .env file as described in .env.sample file.
+This fully responsive app is connected with backend via Bearer token generated [here](https://task-devel.cleevio-vercel.vercel.app/). If you want to use your database, generate new token & include it in .env file as described in .env.sample file.
 
 App is using must have NPM packages, the main focus was to use as least as possible packages.
 
@@ -20,7 +20,7 @@ Some JS functions had to be make to fix wrong data coming from backend such as:
 #### Tested in windows env:
 
 - Microsoft Edge
-- Firefox 
+- Firefox
 - Google Chrome
 
 **This app wasn't tested on ios devices**
