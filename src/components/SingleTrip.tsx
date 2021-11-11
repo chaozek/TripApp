@@ -31,12 +31,13 @@ export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
         let foundCountry = context.countries.filter((c) => c.label === country);
         let specificCountry = foundCountry[0];
         if (specificCountry.value === `${UK}`.toLowerCase()) {
-          specificCountry.value = `${GB}`.toLowerCase();
+          specificCountry.value = `${GB}`;
           renderCountry = specificCountry.value;
         } else if (specificCountry.value === `${AW}`.toLowerCase()) {
           specificCountry.value = `${NL}`;
           renderCountry = specificCountry.value;
-        } else if (specificCountry) renderCountry = specificCountry.value;
+        } else if (specificCountry)
+          renderCountry = specificCountry.value.toUpperCase();
       }
     } catch (error) {
       context.setError(error.message);
@@ -55,6 +56,7 @@ export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
                 <ImgFlag
                   src={`${process.env.REACT_APP_FLAG_URL}${renderCountry}${flagConfig}`}
                   alt=""
+                  width="20%"
                 />
               ) : (
                 <ImgFlag src={Empty} alt="" />
@@ -82,6 +84,7 @@ export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
                 <ImgFlag
                   src={`${process.env.REACT_APP_FLAG_URL}${renderCountry}${flagConfig}`}
                   alt=""
+                  width="70%"
                 />
               ) : (
                 <ImgFlag src={Empty} alt="emptyflag" />
@@ -112,6 +115,9 @@ export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
 type ContainerType = {
   flex?: string;
 };
+type ImgType = {
+  width?: string;
+};
 const SingleTripDiv = styled.div<ContainerType>`
   background-color: ${theme.color.gray};
   display: ${(props: ContainerType) =>
@@ -131,15 +137,15 @@ const SingleTripDiv = styled.div<ContainerType>`
     font-size: 14px;
   }
 `;
-const ImgFlag = styled.img`
-  width: 48px;
-  padding: 1rem;
-  height: 48px;
+const ImgFlag = styled.img<ImgType>`
+  width: ${(props) => props.width};
+  margin: 1rem;
 `;
 const Right = styled.div`
   display: flex;
   flex-direction: column;
   flex: 11;
+  margin-left: 1rem;
 `;
 const Left = styled.div`
   flex: 1;
