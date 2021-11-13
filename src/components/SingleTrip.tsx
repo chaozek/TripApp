@@ -1,5 +1,5 @@
-import { AW, GB, NL, UIBreakPoint, UK, flagConfig, tripUrl } from "../config";
 import { CleevioContext } from "../CleevioState";
+import { GB, UIBreakPoint, UK, flagConfig, tripUrl } from "../config";
 import { Link } from "react-router-dom";
 import { theme } from "../GlobalStyles";
 import { useContext } from "react";
@@ -33,11 +33,7 @@ export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
         if (specificCountry.value === `${UK}`.toLowerCase()) {
           specificCountry.value = `${GB}`;
           renderCountry = specificCountry.value;
-        } else if (specificCountry.value === `${AW}`.toLowerCase()) {
-          specificCountry.value = `${NL}`;
-          renderCountry = specificCountry.value;
-        } else if (specificCountry)
-          renderCountry = specificCountry.value.toUpperCase();
+        } else if (specificCountry) renderCountry = specificCountry.value;
       }
     } catch (error) {
       context.setError(error.message);
@@ -56,7 +52,7 @@ export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
                 <ImgFlag
                   src={`${process.env.REACT_APP_FLAG_URL}${renderCountry}${flagConfig}`}
                   alt=""
-                  width="20%"
+                  width="20px"
                 />
               ) : (
                 <ImgFlag src={Empty} alt="" />
@@ -84,7 +80,7 @@ export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
                 <ImgFlag
                   src={`${process.env.REACT_APP_FLAG_URL}${renderCountry}${flagConfig}`}
                   alt=""
-                  width="70%"
+                  width="30px"
                 />
               ) : (
                 <ImgFlag src={Empty} alt="emptyflag" />
@@ -139,13 +135,12 @@ const SingleTripDiv = styled.div<ContainerType>`
 `;
 const ImgFlag = styled.img<ImgType>`
   width: ${(props) => props.width};
-  margin: 1rem;
+  margin: 10px;
 `;
 const Right = styled.div`
   display: flex;
   flex-direction: column;
   flex: 11;
-  margin-left: 1rem;
 `;
 const Left = styled.div`
   flex: 1;

@@ -3,7 +3,7 @@ export const config = {
 };
 export const tripUrl = "/trip";
 export const countryUrl = "/country";
-export const GB = "GB";
+export const GB = "gb";
 export const UK = "UK";
 export const NL = "NL";
 export const AW = "AW";
