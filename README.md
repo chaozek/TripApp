@@ -1,6 +1,6 @@
 # Save trips APP
 
-[DEMO]https://cleevio.vercel.app/
+[DEMO]https://trippk.vercel.app/
 
 ### Description
 
