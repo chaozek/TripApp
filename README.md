@@ -4,7 +4,7 @@
 
 ### Description
 
-This fully responsive app is connected with backend via Bearer token generated [here](https://task-devel.cleevio-vercel.vercel.app/). If you want to use your database, generate new token & include it in .env file as described in .env.sample file.
+This fully responsive app is connected with backend via Bearer token.
 
 App is using must have NPM packages, the main focus was to use as least as possible packages.
 
