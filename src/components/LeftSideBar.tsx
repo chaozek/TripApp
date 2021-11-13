@@ -22,7 +22,7 @@ export const LeftSideBar = () => {
   return (
     <LeftSideBarDiv>
       <Link to="/">
-        <LogoDiv src={logo} alt="logo" />
+        <H1>[PK]</H1>
       </Link>
       <MobileMenu onClick={handleClick}>
         <IconContext.Provider value={{ style: { verticalAlign: "middle" } }}>
@@ -134,6 +134,12 @@ const MobileDiv = styled.div`
   display: block;
   margin-left: auto;
   margin-right: auto;
+`;
+const H1 = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
 `;
 const Clock = styled.img`
   flex-wrap: nowrap;
