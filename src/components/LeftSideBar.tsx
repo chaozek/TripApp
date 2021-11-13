@@ -21,9 +21,9 @@ export const LeftSideBar = () => {
   const getLocation = location.pathname;
   return (
     <LeftSideBarDiv>
-      <Link to="/">
-        <H1>[PK]</H1>
-      </Link>
+      <HeaderLink to="/">
+        <H2>[PK]</H2>
+      </HeaderLink>
       <MobileMenu onClick={handleClick}>
         <IconContext.Provider value={{ style: { verticalAlign: "middle" } }}>
           <GiHamburgerMenu />
@@ -33,7 +33,7 @@ export const LeftSideBar = () => {
         <PhoneMenuLinks>
           <MobileDiv>
             <Link to="/" onClick={handleClick}>
-              <LogoDiv src={logo} alt="logo" />
+              <H2>[PK]</H2>
             </Link>
           </MobileDiv>
           <MobileMenu onClick={handleClick}>X</MobileMenu>
@@ -93,7 +93,9 @@ const LeftSideBarDiv = styled.div`
   }
 `;
 const MobileMenu = styled.button`
-  vertical-align: bottom;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: ${theme.color.white};
   font-weight: bold;
   font-size: 1.33rem;
@@ -101,13 +103,12 @@ const MobileMenu = styled.button`
   display: none;
 
   @media (max-width: ${theme.sizes.mobile}px) {
-    border-radius: 10px;
     border: none;
-    display: inline;
-    height: 40px;
-    width: 40px;
+    display: block;
+    height: 30px;
     cursor: pointer;
-    padding: 0;
+    padding: 3px;
+    z-index: 10;
   }
 `;
 const LogoDiv = styled.img`
@@ -135,11 +136,24 @@ const MobileDiv = styled.div`
   margin-left: auto;
   margin-right: auto;
 `;
-const H1 = styled.h1`
+const HeaderLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3rem;
+`;
+export const H2 = styled.h2`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+  @media (max-width: ${theme.sizes.mobile}px) {
+    margin: 0px !important;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 const Clock = styled.img`
   flex-wrap: nowrap;
