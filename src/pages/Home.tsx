@@ -1,13 +1,13 @@
-import { CleevioContext } from "../CleevioState";
 import { SingleTrip } from "../components/SingleTrip";
+import { TripAppContext } from "../Context";
 import { theme } from "../GlobalStyles";
 import { useContext, useEffect } from "react";
 import FadeIn from "react-fade-in";
 import Loading from "../imgs/Loading.gif";
 import styled from "styled-components";
 export const Home = () => {
-  const context = useContext(CleevioContext);
-  const { trips } = useContext(CleevioContext);
+  const context = useContext(TripAppContext);
+  const { trips } = useContext(TripAppContext);
   useEffect(() => {
     context.getCountries();
     context.getTrips();

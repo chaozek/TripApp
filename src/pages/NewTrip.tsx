@@ -1,9 +1,9 @@
 import { AW, GB, NL } from "../config";
 import { AiOutlineCheck } from "react-icons/ai";
 import { ButtonIcon } from "../GlobalStyles";
-import { CleevioContext } from "../CleevioState";
 import { PageName, WrapperDiv } from "./Home";
 import { Redirect } from "react-router-dom";
+import { TripAppContext } from "../Context";
 import { YellowButton } from "../GlobalStyles";
 import { theme } from "../GlobalStyles";
 import { useContext, useState } from "react";
@@ -22,7 +22,7 @@ export type Iprops = {
   };
 };
 export const NewTrip = () => {
-  const context = useContext(CleevioContext);
+  const context = useContext(TripAppContext);
   const [selected, setSelected] = useState("");
   const countriesPlug = [
     "NL",

@@ -37,7 +37,7 @@ type newTripType = React.Dispatch<
   }>
 >;
 type PropsType = { children: {}[] };
-type CleevioContextState = {
+type ContextState = {
   newTrip: Iprops;
   trips: {
     id: string;
@@ -81,7 +81,7 @@ type CleevioContextState = {
   setFlagStatus: (e: string) => void;
 };
 
-const contextDefaultValues: CleevioContextState = {
+const contextDefaultValues: ContextState = {
   newTrip: {
     start_date: "",
     end_date: "",
@@ -146,10 +146,9 @@ const contextDefaultValues: CleevioContextState = {
   setRedirect: () => {},
 };
 
-export const CleevioContext =
-  createContext<CleevioContextState>(contextDefaultValues);
+export const TripAppContext = createContext<ContextState>(contextDefaultValues);
 
-const CleevioState = (props: PropsType) => {
+const TripAppState = (props: PropsType) => {
   const [trips, setTrips] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [newTrip, setNewTrip] = useState(contextDefaultValues.newTrip);
@@ -290,7 +289,7 @@ const CleevioState = (props: PropsType) => {
   };
 
   return (
-    <CleevioContext.Provider
+    <TripAppContext.Provider
       value={{
         trips,
         error,
@@ -319,8 +318,8 @@ const CleevioState = (props: PropsType) => {
       }}
     >
       {props.children}
-    </CleevioContext.Provider>
+    </TripAppContext.Provider>
   );
 };
 
-export default CleevioState;
+export default TripAppState;

@@ -1,6 +1,6 @@
-import { CleevioContext } from "../CleevioState";
 import { GB, UIBreakPoint, UK, flagConfig, tripUrl } from "../config";
 import { Link } from "react-router-dom";
+import { TripAppContext } from "../Context";
 import { theme } from "../GlobalStyles";
 import { useContext } from "react";
 import Empty from "../imgs/Flags/empty.png";
@@ -24,7 +24,7 @@ export type singleTripType = {
 
 export const SingleTrip: React.FC<singleTripType> = (props: singleTripType) => {
   let renderCountry = "";
-  const context = useContext(CleevioContext);
+  const context = useContext(TripAppContext);
   const getCountry = (country: string) => {
     try {
       if (context.countries !== undefined) {

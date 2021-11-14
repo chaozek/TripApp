@@ -1,9 +1,9 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import { ButtonIcon, YellowButtonLink } from "../GlobalStyles";
-import { CleevioContext } from "../CleevioState";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
 import { Link, useLocation } from "react-router-dom";
+import { TripAppContext } from "../Context";
 import { theme } from "../GlobalStyles";
 import { tripUrl } from "../config";
 import { useContext, useState } from "react";
@@ -12,7 +12,7 @@ import clock_gray from "../imgs/clock_gray.png";
 import logo from "../imgs/logo.png";
 import styled from "styled-components";
 export const LeftSideBar = () => {
-  const context = useContext(CleevioContext);
+  const context = useContext(TripAppContext);
   const [isMobile, setIsMobile] = useState(false);
   const handleClick = () => {
     setIsMobile(!isMobile);

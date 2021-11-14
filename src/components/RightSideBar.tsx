@@ -1,12 +1,12 @@
-import { CleevioContext } from "../CleevioState";
 import { SingleTrip } from "./SingleTrip";
+import { TripAppContext } from "../Context";
 import { theme } from "../GlobalStyles";
 import { useContext, useEffect } from "react";
 import FadeIn from "react-fade-in";
 import Loading from "../imgs/Loading.gif";
 import styled from "styled-components";
 export const RightSideBar = (props: any) => {
-  const context = useContext(CleevioContext);
+  const context = useContext(TripAppContext);
 
   useEffect(() => {
     context.getTrips();

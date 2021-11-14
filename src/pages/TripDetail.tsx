@@ -1,6 +1,6 @@
-import { CleevioContext } from "../CleevioState";
 import { PageName } from "./Home";
 import { Redirect } from "react-router-dom";
+import { TripAppContext } from "../Context";
 import { config, countryUrl, tripUrl } from "../config";
 import { useContext, useEffect, useState } from "react";
 import Loading from "../imgs/Loading.gif";
@@ -23,7 +23,7 @@ type Provider = {
 };
 export const TripDetail = (props: { match: { params: { id: string } } }) => {
   const [localData, setLocalData] = useState<Provider>();
-  const context = useContext(CleevioContext);
+  const context = useContext(TripAppContext);
   const getId = props.match.params.id;
 
   const fetchData = async () => {

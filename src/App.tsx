@@ -5,11 +5,11 @@ import { NewTrip } from "./pages/NewTrip";
 import { NotFound } from "./pages/NotFound";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { TripDetail } from "./pages/TripDetail";
-import CleevioContext from "./CleevioState";
+import TripAppContext from "./Context";
 export default function App() {
   return (
     <>
-      <CleevioContext>
+      <TripAppContext>
         <GlobalStyles />
         <Router>
           <Switch>
@@ -34,7 +34,7 @@ export default function App() {
             />
           </Switch>
         </Router>
-      </CleevioContext>
+      </TripAppContext>
     </>
   );
 }
