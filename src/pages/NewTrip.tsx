@@ -39,14 +39,19 @@ export const NewTrip = () => {
   ];
 
   const onSelect = (code: string) => {
+    if (code === "GB") {
+      code = "UK";
+    }
     setSelected(code);
     context.setInputError({ name: "", error: "" });
     context.setFlagStatus(code);
     findCountry(context.countries, code);
   };
+
   if (context.countries.length === 0) {
     context.getCountries();
   }
+
   const findCountry = (
     countries: {
       value: string;
@@ -57,21 +62,16 @@ export const NewTrip = () => {
     if (code === `${NL}`) {
       code = `${AW}`;
     }
+
     if (countries && countries !== undefined) {
       let foundCountry = countries.filter(
         (c) => c.value.toLowerCase() === code.toLowerCase()
       );
-      if (foundCountry[0] === undefined && code === `${GB}`) {
-        context.setNewTrip((p) => ({
-          ...p,
-          address: { ...p.address, country: "United Kingdom" },
-        }));
-      } else {
-        context.setNewTrip((p) => ({
-          ...p,
-          address: { ...p.address, country: foundCountry[0].label },
-        }));
-      }
+
+      context.setNewTrip((p) => ({
+        ...p,
+        address: { ...p.address, country: foundCountry[0].label },
+      }));
     }
   };
   if (context.redirect === "redirect") {
